@@ -40,9 +40,24 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doLogin")
+	@ResponseBody
 	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session) {
-		String loginStatus = memberService.login(param, session);
-		return loginStatus;
+		String loginId = (String) param.get("loginId");
+		String loginPw = (String) param.get("loginPw");
+		Member member = memberService.login(param, session);
 
+		if (member == null) {
+			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+		}
+
+		if (member.getLoginPw().equals(loginPw) == false) {
+			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+		}
+
+		if (member.getLoginPw().equals(loginPw)) {
+			session.setAttribute("loginedMemberId", member.getId());
+		}
+		return String.format("<script>alert('%s has been logged in.'); location.replace('../home/main');</script>",
+				member.getLoginId());
 	}
 }

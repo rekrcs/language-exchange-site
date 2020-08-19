@@ -20,7 +20,7 @@
 		#{practiceLang}
 	</insert>
 
-	<select id="login" resultType="Member">
+	<select id="login" resultType="String">
 		SELECT *
 		FROM member
 		WHERE loginId =

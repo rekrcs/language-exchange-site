@@ -19,16 +19,8 @@ public class MemberService {
 		return memberDao.join(param);
 	}
 
-	public String login(Map<String, Object> param, HttpSession session) {
-		String loginPw = (String) param.get("loginPw");
-
-		Member member = memberDao.login(param);
-		if (member.getLoginPw().equals(loginPw)) {
-			session.setAttribute("loginedMemberId", member.getId());
-			return String.format("<script>alert('%s has been logged in.'); location.replace('../home/main');</script>",
-					member.getLoginId());
-		} else {
-			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
-		}
+	public Member login(Map<String, Object> param, HttpSession session) {
+		return memberDao.login(param);
 	}
+
 }
