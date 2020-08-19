@@ -13,7 +13,7 @@ public class Member {
 	private String updateDate;
 	private String delDate;
 	private boolean authStatus;
-	private boolean delStatus;	
+	private boolean delStatus;
 	private String loginId;
 	private String loginPw;
 	private String name;
@@ -21,5 +21,4 @@ public class Member {
 	private String email;
 	private String nativeLang;
 	private String praticeLang;
-
 }

@@ -4,9 +4,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.byk.le.dto.Member;
+
 @Mapper
 public interface MemberDao {
 
-	void join(Map<String, Object> parm);
+	int join(Map<String, Object> param);
+
+	Member login(Map<String, Object> param);
 
 }

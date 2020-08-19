@@ -19,4 +19,11 @@
 		practiceLang =
 		#{practiceLang}
 	</insert>
+
+	<select id="login" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE loginId =
+		#{loginId}
+	</select>
 </mapper>
