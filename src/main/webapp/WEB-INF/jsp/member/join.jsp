@@ -61,7 +61,7 @@
 			<tr>
 				<th>Native language</th>
 				<td><div>
-						<select name="native">
+						<select name="nativeLang">
 							<option value="">::choose::</option>
 							<option value="english">English</option>
 							<option value="korean">Korean</option>
@@ -72,10 +72,10 @@
 				<th>Practice language</th>
 				<td>
 					<div>
-						<select name="practice">
+						<select name="practiceLang">
 							<option value="">::choose::</option>
-							<option value="">English</option>
-							<option value="">Korean</option>
+							<option value="english">English</option>
+							<option value="korean">Korean</option>
 						</select>
 					</div>
 				</td>

@@ -1,0 +1,21 @@
+# create DB
+DROP DATABASE IF EXISTS `le`;
+CREATE DATABASE `le`;
+USE `le`;
+
+# create member table
+ CREATE TABLE `member` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
+    authStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    loginId CHAR(20) NOT NULL UNIQUE,
+    loginPw CHAR(100) NOT NULL,
+    `name` CHAR(20) NOT NULL,
+    `nickname` CHAR(20) NOT NULL UNIQUE,
+    email CHAR(100) NOT NULL,
+    native CHAR(20) NOT NULL,
+    practice CHAR(20) NOT NULL
+ );
