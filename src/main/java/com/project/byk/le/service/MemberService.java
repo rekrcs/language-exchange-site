@@ -16,10 +16,11 @@ public class MemberService {
 	private MemberDao memberDao;
 
 	public int join(Map<String, Object> param) {
+		
 		return memberDao.join(param);
 	}
 
-	public Member login(Map<String, Object> param, HttpSession session) {
+	public Member login(Map<String, Object> param) {
 		return memberDao.login(param);
 	}
 

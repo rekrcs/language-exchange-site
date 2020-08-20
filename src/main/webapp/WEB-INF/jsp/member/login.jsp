@@ -9,7 +9,8 @@
 				<th>ID</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" placeholder="Please enter your ID" />
+						<input type="text" name="loginId"
+							placeholder="Please enter your ID" />
 					</div>
 				</td>
 			</tr>
@@ -17,7 +18,8 @@
 				<th>Password</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" placeholder="Plesase enter your password" />
+						<input type="password" name="loginPw"
+							placeholder="Plesase enter your password" />
 					</div>
 				</td>
 			</tr>
