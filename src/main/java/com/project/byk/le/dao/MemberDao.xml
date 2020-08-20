@@ -38,4 +38,17 @@
 		WHERE
 		id = #{id}
 	</select>
+	<update id="update">
+		UPDATE member
+		SET name = #{name},
+		updateDate = NOW(),
+		nickname =
+		#{nickname},
+		email = #{email},
+		nativeLang = #{nativeLang},
+		practiceLang =
+		#{practiceLang},
+		loginPw = #{loginPw}
+		WHERE id = #{id}
+	</update>
 </mapper>

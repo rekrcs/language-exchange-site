@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,5 +87,17 @@ public class MemberController {
 		Member member = memberService.getMemberById(loginedMemberId);
 		model.addAttribute(member);
 		return "member/modifyProfile";
+	}
+
+	@RequestMapping("usr/member/doModifyProfile")
+	@ResponseBody
+	public String doModifyProfile(@RequestParam Map<String, Object> param, HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		param.put("id", loginedMemberId);
+		Member member = memberService.getMemberById(loginedMemberId);
+		int updateMember = memberService.update(param);
+		return String.format(
+				"<script>alert(\"%s's profile has been modified\" ); location.replace('../member/login');</script>",
+				member.getNickname());
 	}
 }

@@ -17,4 +17,6 @@ public interface MemberDao {
 	Member getLoginIdByEmail(Map<String, Object> param);
 
 	Member getMemberById(@Param("id") int id);
+
+	int update(Map<String, Object> param);
 }

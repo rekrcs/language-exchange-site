@@ -73,4 +73,8 @@ public class MemberService {
 		return memberDao.getMemberById(id);
 	}
 
+	public int update(Map<String, Object> param) {
+		return memberDao.update(param);
+	}
+
 }
