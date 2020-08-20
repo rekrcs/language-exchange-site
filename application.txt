@@ -23,9 +23,3 @@ spring:
     password: sbs123414
 mybatis:
   type-aliases-package: com.project.byk.le.dto
-custom:
-  siteName: LESiteName
-  siteMainUri: https://languageExchange.com/
-  logoText: LEText
-  emailFrom: no-reply@languageExchange.com
-  emailFromName: LEEmailFromName
