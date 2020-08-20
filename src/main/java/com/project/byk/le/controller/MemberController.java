@@ -59,4 +59,16 @@ public class MemberController {
 		return String.format("<script>alert('%s has been logged in.'); location.replace('../home/main');</script>",
 				member.getLoginId());
 	}
+
+	@RequestMapping("usr/member/forgotId")
+	public String showForgotId() {
+		return "member/forgotId";
+	}
+
+	@RequestMapping("usr/member/doForgotId")
+	@ResponseBody
+	public String doForgotId(@RequestParam Map<String, Object> param) {
+		String findId = memberService.getLoginIdByEmail(param);
+		return findId;
+	}
 }

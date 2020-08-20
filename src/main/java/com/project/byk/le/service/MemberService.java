@@ -26,17 +26,47 @@ public class MemberService {
 	}
 
 	private void sendJoinCompleteMail(String email) {
-		String mailTitle = String.format("[%s] 가입이 완료되었습니다.", siteName);
+		String mailTitle = String.format("[%s] Your membership has been completed.", siteName);
 
 		StringBuilder mailBodySb = new StringBuilder();
-		mailBodySb.append("<h1>가입이 완료되었습니다.</h1>");
-		mailBodySb.append(String.format("<p><a href=\"%s\" target=\"_blank\">%s</a>로 이동</p>", siteMainUri, siteName));
+		mailBodySb.append("<h1>Your membership has been completed.</h1>");
+		mailBodySb
+				.append(String.format("<p>Move to <a href=\"%s\" target=\"_blank\">%s</a></p>", siteMainUri, siteName));
 
 		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
 	public Member login(Map<String, Object> param) {
 		return memberDao.login(param);
+	}
+
+	public String getLoginIdByEmail(Map<String, Object> param) {
+		String name = (String) param.get("name");
+		Member member = memberDao.getLoginIdByEmail(param);
+
+		if (member == null) {
+			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+		}
+
+		if (member.getName().equals(name) == false) {
+			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+		}
+		if (member.getName().equals(name)) {
+			sendforgotID((String) param.get("email"), member.getLoginId());
+		}
+		return String.format("<script>alert('I sent your ID to %s.'); location.replace('../member/login');</script>",
+				member.getEmail());
+
+	}
+
+	private void sendforgotID(String email, String loginId) {
+		String mailTitle = String.format("[%s] It is email for Your ID", siteName);
+
+		StringBuilder mailBodySb = new StringBuilder();
+		mailBodySb.append("<h1>It is email for Your ID.</h1>");
+		mailBodySb.append(String.format("ID : %s", loginId));
+
+		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
 }

@@ -12,4 +12,6 @@ public interface MemberDao {
 	int join(Map<String, Object> param);
 
 	Member login(Map<String, Object> param);
+
+	Member getLoginIdByEmail(Map<String, Object> param);
 }
