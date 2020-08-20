@@ -71,4 +71,20 @@ public class MemberController {
 		String findId = memberService.getLoginIdByEmail(param);
 		return findId;
 	}
+
+	@RequestMapping("usr/member/myPage")
+	public String showMyPage(Model model, HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		Member member = memberService.getMemberById(loginedMemberId);
+		model.addAttribute(member);
+		return "member/myPage";
+	}
+
+	@RequestMapping("usr/member/modifyProfile")
+	public String showModifyProfile(Model model, HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		Member member = memberService.getMemberById(loginedMemberId);
+		model.addAttribute(member);
+		return "member/modifyProfile";
+	}
 }

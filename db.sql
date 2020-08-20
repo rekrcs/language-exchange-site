@@ -16,6 +16,6 @@ USE `le`;
     `name` CHAR(20) NOT NULL,
     `nickname` CHAR(20) NOT NULL UNIQUE,
     email CHAR(100) NOT NULL,
-    native CHAR(20) NOT NULL,
-    practice CHAR(20) NOT NULL
+    nativeLang CHAR(20) NOT NULL,
+    practiceLang CHAR(20) NOT NULL
  );

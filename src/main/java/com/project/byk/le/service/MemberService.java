@@ -69,4 +69,8 @@ public class MemberService {
 		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
+	public Member getMemberById(int id) {
+		return memberDao.getMemberById(id);
+	}
+
 }

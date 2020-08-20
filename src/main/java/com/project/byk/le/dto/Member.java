@@ -20,5 +20,5 @@ public class Member {
 	private String nickname;
 	private String email;
 	private String nativeLang;
-	private String praticeLang;
+	private String practiceLang;
 }

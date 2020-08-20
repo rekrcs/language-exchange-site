@@ -3,6 +3,7 @@ package com.project.byk.le.dao;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.project.byk.le.dto.Member;
 
@@ -14,4 +15,6 @@ public interface MemberDao {
 	Member login(Map<String, Object> param);
 
 	Member getLoginIdByEmail(Map<String, Object> param);
+
+	Member getMemberById(@Param("id") int id);
 }
