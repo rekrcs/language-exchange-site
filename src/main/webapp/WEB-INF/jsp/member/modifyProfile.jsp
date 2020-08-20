@@ -71,7 +71,4 @@
 		</tbody>
 	</table>
 </form>
-<ul>
-	<li><a href="modifyProfile">Edit profile</a></li>
-</ul>
 <%@ include file="../part/foot.jspf"%>

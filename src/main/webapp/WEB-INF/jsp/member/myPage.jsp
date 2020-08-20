@@ -39,6 +39,7 @@
 	</tbody>
 </table>
 <ul>
-	<li><a href="modifyProfile">Edit profile</a></li>
+	<!-- 	<li><a href="modifyProfile">Edit profile</a></li> -->
+	<li><a href="checkPw">Edit profile</a></li>
 </ul>
 <%@ include file="../part/foot.jspf"%>

@@ -100,4 +100,23 @@ public class MemberController {
 				"<script>alert(\"%s's profile has been modified\" ); location.replace('../member/login');</script>",
 				member.getNickname());
 	}
+
+	@RequestMapping("usr/member/checkPw")
+	public String showCheckPw() {
+		return "member/checkPw";
+	}
+
+	@RequestMapping("usr/member/doCheckPw")
+	@ResponseBody
+	public String doCheckPw(@RequestParam Map<String, Object> param, HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		Member member = memberService.getMemberById(loginedMemberId);
+		String loginPw = (String) param.get("loginPw");
+
+		if (member.getLoginPw().equals(loginPw)) {
+			return "<script>location.replace('../member/modifyProfile');</script>";
+		}
+		return String.format("<script>alert('Please check your Password'); history.back();</script>");
+	}
+
 }
