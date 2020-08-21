@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class Article {
 	private int id;
-	private int boardId;
 	private int memberId;
+	private String boardCode;
 	private String regDate;
 	private String updateDate;
 	private String delDate;

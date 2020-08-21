@@ -77,7 +77,7 @@ public class MemberController {
 	public String showMyPage(Model model, HttpSession session) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
-		model.addAttribute(member);
+		model.addAttribute("member", member);
 		return "member/myPage";
 	}
 
@@ -85,7 +85,7 @@ public class MemberController {
 	public String showModifyProfile(Model model, HttpSession session) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
-		model.addAttribute(member);
+		model.addAttribute("member", member);
 		return "member/modifyProfile";
 	}
 

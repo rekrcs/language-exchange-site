@@ -35,8 +35,8 @@ USE `le`;
  # create article table
  CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    boardId INT(10) UNSIGNED NOT NULL,
     memberId INT(10) UNSIGNED NOT NULL,
+    boardCode CHAR(20) NOT NULL,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -78,3 +78,42 @@ FROM `board`;
 
 SELECT *
 FROM `member`;
+
+SELECT *
+FROM article;
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티', '노티'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티1', '노티1'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티2', '노티2'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티3', '노티3'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리', '프리'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리1', '프리1'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리2', '프리2'); 
+
+INSERT INTO `le`.`article` 
+(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
+VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리3', '프리3'); 
+
+		SELECT *
+		FROM article
+		WHERE boardCode = 'free';
