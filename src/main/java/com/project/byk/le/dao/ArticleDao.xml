@@ -7,5 +7,19 @@
 		SELECT *
 		FROM article
 		WHERE boardCode = #{code}
+		ORDER BY id DESC
 	</select>
+
+	<insert id="write" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO article
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		displayStatus = 1,
+		title = #{title},
+		body = #{body},
+		boardCode = #{code},
+		<!-- 로그인후 글쓰기가능 설정수 수정필요 -->
+		memberId = 1
+	</insert>
 </mapper>

@@ -10,9 +10,9 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th>번호</th>
-				<th>날짜</th>
-				<th>제목</th>
+				<th>No.</th>
+				<th>Date</th>
+				<th>Title</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,4 +26,5 @@
 		</tbody>
 	</table>
 </div>
+<a href="${boardCoade}-write">write</a>
 <%@ include file="../part/foot.jspf"%>

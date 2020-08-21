@@ -1,12 +1,15 @@
 package com.project.byk.le.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.service.ArticleService;
@@ -22,5 +25,21 @@ public class ArticleController {
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardCoade", boardCoade);
 		return "article/list";
+	}
+
+	@RequestMapping("usr/article/{boardCode}-write")
+	public String showWrite(Model model, @PathVariable("boardCode") String boardCoade) {
+		model.addAttribute("boardCoade", boardCoade);
+		return "article/write";
+	}
+
+	@RequestMapping("usr/article/doWrite")
+	@ResponseBody
+	public String doWrite(@RequestParam Map<String, Object> param) {
+		int newArticleWrite = articleService.write(param);
+		String boardCoade = (String) param.get("code");
+		System.out.println("boardCoade : " + boardCoade);
+		return String.format("<script>alert('A new article has been written.'); location.replace('%s-list')</script>",
+				boardCoade);
 	}
 }
