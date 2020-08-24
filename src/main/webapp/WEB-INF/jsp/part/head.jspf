@@ -4,32 +4,102 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
+<!-- 유용한 링크 -->
+<!-- cdnsj : https://cdnjs.com/ -->
+<!-- 폰트어썸 아이콘 리스트 : https://fontawesome.com/icons?d=gallery&m=free -->
+
+<!-- tvn폰트 불러오기 -->
+
+<!-- 구글 폰트 불러오기 -->
+<!-- rotobo(400/700/900), notosanskr(400/600/900) -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+	rel="stylesheet">
+
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+<!-- 제이쿼리 불러오기 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+<!-- 공통 CSS -->
+<link rel="stylesheet" href="/resource/common.css" />
+<!-- 공통 JS -->
+<script src="/resource/common.js"></script>
 <title>Insert title here</title>
-<style>
-ul {
-	display: flex;
-}
-
-ul li {
-	list-style: none;
-}
-
-li {
-	margin-left: 15px;
-}
-</style>
 </head>
 <body>
-	<ul>
-		<li><a href="../home/main">Home</a></li>
-		<li><a href="../member/join">Sign up</a></li>
-		<li><a href="../member/login">Login</a></li>
-		<li><a href="../member/myPage">My page</a></li>
-		<li><a href="">Board</a>
+	<!--탑바-->
+	<div class="top-bar visible-on-md-up">
+		<div class="con height-100p flex flex-jc-sb">
+			<a href="../home/main" class="logo flex flex-ai-c"> Learn-KR흏 </a>
+
+			<nav class="menu-box-1">
+				<ul class="flex height-100p">
+					<li><a href="../home/main" class="height-100p flex flex-ai-c">Home</a></li>
+					<li><a href="" class="height-100p flex flex-ai-c">Board</a>
+						<ul>
+							<c:forEach items="${boards}" var="board">
+								<li><a href="../article/${board.code}-list" class="block">${board.code}</a></li>
+							</c:forEach>
+						</ul></li>
+					<c:if test="${isLogined == false}">
+						<li><a href="../member/login"
+							class="height-100p flex flex-ai-c">Login</a></li>
+						<li><a href="../member/join"
+							class="height-100p flex flex-ai-c">Sign up</a></li>
+					</c:if>
+					<c:if test="${isLogined}">
+						<li><a href="" class="height-100p flex flex-ai-c">[${loginedMember.nickname}]</a>
+							<ul>
+								<li><a href="../member/myPage"
+									class="block">My page</a></li>
+								<li><a
+									onclick="if ( confirm('Would you like to log out?') == false ) return false;"
+									href="../member/doLogout" class="block">Logout</a></li>
+							</ul></li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!--모바일 탑바-->
+	<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
+		<a href="#" class="btn-toggle-mobile-side-bar">
+			<div></div>
+			<div></div>
+			<div></div>
+		</a> <a href="#"
+			class="logo flex flex-ai-c absolute-center absolute-middle">
+			Learn-KR흏 </a>
+	</div>
+	<div class="mobile-side-bar visible-on-sm-down flex flex-ai-c">
+		<nav class="menu-box-1 flex-grow-1">
 			<ul>
-				<c:forEach items="${boards}" var="board">
-					<li><a href="../article/${board.code}-list">${board.code}</a></li>
-				</c:forEach>
-			</ul></li>
-	</ul>
+
+				<li><a href="../home/main" class="block">Home</a></li>
+				<li><a href="#" class="block">Board</a>
+					<ul>
+						<c:forEach items="${boards}" var="board">
+							<li><a href="../article/${board.code}-list" class="block">${board.code}</a></li>
+						</c:forEach>
+					</ul></li>
+				<c:if test="${isLogined == false}">
+					<li><a href="../member/login" class="block">Login</a></li>
+					<li><a href="../member/join" class="block">Sign up</a></li>
+				</c:if>
+				<c:if test="${isLogined}">
+					<li><a
+						onclick="if ( confirm('Would you like to log out?') == false ) return false;"
+						href="../member/doLogout" class="block">Logout</a></li>
+				</c:if>
+			</ul>
+		</nav>
+	</div>

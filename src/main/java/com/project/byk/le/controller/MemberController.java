@@ -141,11 +141,20 @@ public class MemberController {
 		if (member == null) {
 			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
 		}
-		if (member.getName().equals(name) && member.getLoginId().equals(loginId)== false) {
+		if (member.getName().equals(name) && member.getLoginId().equals(loginId) == false) {
 			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
 		}
-		return String.format("<script>alert('I sent your Password code to %s.'); location.replace('../member/login');</script>",
+		return String.format(
+				"<script>alert('I sent your Password code to %s.'); location.replace('../member/login');</script>",
 				member.getEmail());
+	}
+
+	@RequestMapping("usr/member/doLogout")
+	@ResponseBody
+	public String doLogout(HttpSession session) {
+		session.removeAttribute("loginedMemberId");
+		return String
+				.format("<script> alert('You have been logged out.'); location.replace('../home/main'); </script>");
 	}
 
 }
