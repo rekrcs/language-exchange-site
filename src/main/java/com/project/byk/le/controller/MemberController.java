@@ -81,12 +81,12 @@ public class MemberController {
 				member.getEmail());
 	}
 
-	@RequestMapping("usr/member/myPage")
-	public String showMyPage(Model model, HttpSession session) {
+	@RequestMapping("usr/member/profile")
+	public String showProfile(Model model, HttpSession session) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
 		model.addAttribute("member", member);
-		return "member/myPage";
+		return "member/profile";
 	}
 
 	@RequestMapping("usr/member/modifyProfile")
