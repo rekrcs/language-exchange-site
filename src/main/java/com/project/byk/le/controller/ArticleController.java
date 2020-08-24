@@ -37,9 +37,8 @@ public class ArticleController {
 	@ResponseBody
 	public String doWrite(@RequestParam Map<String, Object> param) {
 		int newArticleWrite = articleService.write(param);
-		String boardCoade = (String) param.get("code");
-		System.out.println("boardCoade : " + boardCoade);
+		String boardCode = (String) param.get("code");
 		return String.format("<script>alert('A new article has been written.'); location.replace('%s-list')</script>",
-				boardCoade);
+				boardCode);
 	}
 }

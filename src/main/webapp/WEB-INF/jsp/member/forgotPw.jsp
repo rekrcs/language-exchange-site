@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="../part/head.jspf"%>
-<form method="POST" action="doLogin">
+<h1>Forgot Pw</h1>
+<form method="POST" action="doForgotPw">
 	<table>
 		<tbody>
 			<tr>
@@ -10,32 +10,35 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="loginId"
-							placeholder="Please enter your ID" />
+							placeholder="Please enter your Id" />
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<th>Password</th>
+				<th>Name</th>
 				<td>
 					<div class="form-control-box">
-						<input type="password" name="loginPw"
-							placeholder="Plesase enter your password" />
+						<input type="text" name="name"
+							placeholder="Please enter your name" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>
+					<div class="form-control-box">
+						<input type="email" name="email"
+							placeholder="Please enter your email" />
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div>
-						<button type="submit" class="btn btn-primary">Log in</button>
-					</div>
+					<button type="submit" class="btn btn-primary">Send code
+						email</button>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </form>
-<ul>
-	<li><a href="forgotId">Forgot ID</a></li>
-	<li><a href="forgotPw">Forgot Pw</a></li>
-</ul>
-
 <%@ include file="../part/foot.jspf"%>

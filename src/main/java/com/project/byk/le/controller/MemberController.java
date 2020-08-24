@@ -69,8 +69,16 @@ public class MemberController {
 	@RequestMapping("usr/member/doForgotId")
 	@ResponseBody
 	public String doForgotId(@RequestParam Map<String, Object> param) {
-		String findId = memberService.getLoginIdByEmail(param);
-		return findId;
+		String name = (String) param.get("name");
+		Member member = memberService.getLoginIdByEmail(param);
+		if (member == null) {
+			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+		}
+		if (member.getName().equals(name) == false) {
+			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+		}
+		return String.format("<script>alert('I sent your ID to %s.'); location.replace('../member/login');</script>",
+				member.getEmail());
 	}
 
 	@RequestMapping("usr/member/myPage")
@@ -117,6 +125,27 @@ public class MemberController {
 			return "<script>location.replace('../member/modifyProfile');</script>";
 		}
 		return String.format("<script>alert('Please check your Password'); history.back();</script>");
+	}
+
+	@RequestMapping("usr/member/forgotPw")
+	public String showForgotPw() {
+		return "member/forgotPw";
+	}
+
+	@RequestMapping("usr/member/doForgotPw")
+	@ResponseBody
+	public String doForgotPw(@RequestParam Map<String, Object> param) {
+		String name = (String) param.get("name");
+		String loginId = (String) param.get("loginId");
+		Member member = memberService.getLoginIdByEmail(param);
+		if (member == null) {
+			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
+		}
+		if (member.getName().equals(name) && member.getLoginId().equals(loginId)== false) {
+			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
+		}
+		return String.format("<script>alert('I sent your Password code to %s.'); location.replace('../member/login');</script>",
+				member.getEmail());
 	}
 
 }

@@ -40,23 +40,28 @@ public class MemberService {
 		return memberDao.login(param);
 	}
 
-	public String getLoginIdByEmail(Map<String, Object> param) {
+	public Member getLoginIdByEmail(Map<String, Object> param) {
 		String name = (String) param.get("name");
+		String id = (String) param.get("loginId");
 		Member member = memberDao.getLoginIdByEmail(param);
 
-		if (member == null) {
-			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
-		}
-
-		if (member.getName().equals(name) == false) {
-			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
-		}
-		if (member.getName().equals(name)) {
+		if (member.getName().equals(name) && member.getLoginId().equals(id)) {
+			sendforgotPw((String) param.get("email"), member.getLoginPw());
+		} else if (member.getName().equals(name)) {
 			sendforgotID((String) param.get("email"), member.getLoginId());
 		}
-		return String.format("<script>alert('I sent your ID to %s.'); location.replace('../member/login');</script>",
-				member.getEmail());
+		return member;
 
+	}
+
+	private void sendforgotPw(String email, String loginPw) {
+		String mailTitle = String.format("[%s] It is email for Your password", siteName);
+
+		StringBuilder mailBodySb = new StringBuilder();
+		mailBodySb.append("<h1>It is email for Your password.</h1>");
+		mailBodySb.append(String.format("Password : %s", loginPw));
+
+		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
 	private void sendforgotID(String email, String loginId) {

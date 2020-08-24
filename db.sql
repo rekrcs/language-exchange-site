@@ -15,7 +15,7 @@ USE `le`;
     loginPw CHAR(100) NOT NULL,
     `name` CHAR(20) NOT NULL,
     `nickname` CHAR(20) NOT NULL UNIQUE,
-    email CHAR(100) NOT NULL,
+    email CHAR(100) NOT NULL UNIQUE,
     nativeLang CHAR(20) NOT NULL,
     practiceLang CHAR(20) NOT NULL
  );
@@ -117,3 +117,13 @@ VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리3
 		SELECT *
 		FROM article
 		WHERE boardCode = 'free';
+		
+		INSERT
+		INTO article
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		displayStatus = '1',
+		title = '1',
+		BODY = '1',
+		boardCode = 'free',
+		memberId = 1
