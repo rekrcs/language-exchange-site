@@ -45,11 +45,11 @@ public class MemberService {
 		String id = (String) param.get("loginId");
 		Member member = memberDao.getLoginIdByEmail(param);
 
-		if (member.getName().equals(name) && member.getLoginId().equals(id)) {
-			sendforgotPw((String) param.get("email"), member.getLoginPw());
-		} else if (member.getName().equals(name)) {
-			sendforgotID((String) param.get("email"), member.getLoginId());
-		}
+//		if (member.getName().equals(name) && member.getLoginId().equals(id)) {
+//			sendforgotPw((String) param.get("email"), member.getLoginPw());
+//		} else if (member.getName().equals(name)) {
+//			sendforgotID((String) param.get("email"), member.getLoginId());
+//		}
 		return member;
 
 	}

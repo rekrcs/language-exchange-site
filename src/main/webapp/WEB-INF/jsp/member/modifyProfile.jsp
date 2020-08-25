@@ -1,13 +1,119 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script>
 	if(${loginPw == null}) {
 		alert('Please check your Password');
 		history.back();
 		}
+
+	var MemberModifyForm__submitDone = false;
+	function MemberModifyForm__submit(form) {
+		if (MemberModifyForm__submitDone) {
+			alert("It's being done right now.");
+			return;
+		}
+		
+		form.loginPw.value = form.loginPw.value.trim();
+
+		if (form.loginPw.value.length == 0) {
+			form.loginPw.focus();
+			alert('Please enter your Password.');
+
+			return;
+		}
+
+		if (form.loginPw.value.length < 5) {
+			form.loginPw.focus();
+			alert('Please enter at least 5 characters of Password.');
+
+			return;
+		}
+
+		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+
+		if (form.loginPwConfirm.value.length == 0) {
+			form.loginPwConfirm.focus();
+			alert('Please enter your Confirm Password.');
+
+			return;
+		}
+
+		if (form.loginPw.value != form.loginPwConfirm.value) {
+			form.loginPwConfirm.focus();
+			alert("Your password and Cnfirm password don't match.");
+
+			return;
+		}
+
+		form.name.value = form.name.value.trim();
+
+		if (form.name.value.length == 0) {
+			form.name.focus();
+			alert('Please enter your name.');
+
+			return;
+		}
+
+		if (form.name.value.length < 2) {
+			form.name.focus();
+			alert('Sorry your name is too short.');
+
+			return;
+		}
+
+		form.nickname.value = form.nickname.value.trim();
+
+		if (form.nickname.value.length == 0) {
+			form.nickname.focus();
+			alert('Please enter your nickname.');
+
+			return;
+		}
+
+		if (form.nickname.value.length < 2) {
+			form.nickname.focus();
+			alert('Sorry your nickname is too short.');
+
+			return;
+		}
+
+		if (form.email.value.length == 0) {
+			form.email.focus();
+			alert('Please enter your email');
+
+			return;
+		}
+
+		form.nativeLang.value = form.nativeLang.value.trim();
+		if (form.nativeLang.value.length == 0) {
+			form.nativeLang.focus();
+			alert('Please choose your Native Language');
+
+			return;
+		}
+
+		form.practiceLang.value = form.practiceLang.value.trim();
+		if (form.practiceLang.value.length == 0) {
+			form.practiceLang.focus();
+			alert('Please choose your Practice Language');
+
+			return;
+		}
+
+		form.loginPwReal.value = sha256(form.loginPw.value);
+		form.loginPw.value = '';
+		form.loginPwConfirm.value = '';
+
+		form.submit();
+		MemberModifyForm__submitDone = true;
+	}
 </script>
-<form class="form1" method="POST" action="doModifyProfile">
+<form class="form1" method="POST" action="doModifyProfile"
+	onsubmit="MemberModifyForm__submit(this); return false;">
+	<input type="hidden" name="loginPwReal">
 	<div class="table-box small-con">
 		<table>
 			<thead>
