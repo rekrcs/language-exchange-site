@@ -1,21 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
-<h1>Board : ${boardCoade}</h1>
 <div class="table-box con">
 	<table>
-		<colgroup>
-			<col width="100" />
-			<col width="200" />
-		</colgroup>
+<!-- 		<colgroup> -->
+<!-- 			<col width="100" /> -->
+<!-- 			<col width="200" /> -->
+<!-- 		</colgroup> -->
 		<thead>
+			<tr>
+				<th colspan="3"><h1>Board : ${boardCoade}</h1></th>
+			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<th>No.</th>
 				<th>Date</th>
 				<th>Title</th>
 			</tr>
-		</thead>
-		<tbody>
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>

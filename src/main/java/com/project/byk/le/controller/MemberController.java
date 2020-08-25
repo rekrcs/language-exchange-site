@@ -22,7 +22,7 @@ public class MemberController {
 
 	@RequestMapping("usr/member/join")
 	public String showJoin() {
-		return "member/join";
+		return "member/join2";
 	}
 
 	@RequestMapping("usr/member/doJoin")
