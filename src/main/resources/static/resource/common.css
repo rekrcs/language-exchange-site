@@ -430,7 +430,7 @@ input, button {
 	resize: none;
 }
 
-/* 리스트 안 write 버튼*/
+/* 페이지 밑에있는 버튼*/
 .option-btn {
 	padding: 30px 30px 0;
 	font-weight: bold;
@@ -440,7 +440,7 @@ input, button {
 	justify-content: flex-end;
 }
 
-.option-btn:hover {
+.option-btn>ul>li:hover>a {
 	color: #84a6cb;
 }
 

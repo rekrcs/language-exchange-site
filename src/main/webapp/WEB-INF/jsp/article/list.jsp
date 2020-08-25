@@ -25,7 +25,9 @@
 	</table>
 </div>
 <div class="option-btn small-con">
-	<a href="${boardCoade}-write">write</a>
+	<ul>
+		<li><a href="${boardCoade}-write">write</a></li>
+	</ul>
 </div>
 
 <%@ include file="../part/foot.jspf"%>

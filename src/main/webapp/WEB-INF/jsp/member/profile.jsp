@@ -45,6 +45,8 @@
 	</table>
 </div>
 <div class="option-btn small-con">
-	<a href="checkPw">Edit profile</a>
+	<ul>
+		<li><a href="checkPw">Edit profile</a></li>
+	</ul>
 </div>
 <%@ include file="../part/foot.jspf"%>
