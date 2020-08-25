@@ -44,14 +44,13 @@ public class MemberController {
 	@ResponseBody
 	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session) {
 		Member member = memberService.login(param);
-		String loginPw = (String) param.get("loginPw");
-
+		String loginPw = (String) param.get("loginPwReal");
 		if (member == null) {
-			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+			return String.format("<script>alert('Please check your ID or Password1'); history.back();</script>");
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+			return String.format("<script>alert('Please check your ID or Password2'); history.back();</script>");
 		}
 
 		if (member.getLoginPw().equals(loginPw)) {

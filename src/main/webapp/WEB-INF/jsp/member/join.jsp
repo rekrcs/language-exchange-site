@@ -14,16 +14,16 @@
 		var idReg = /^[A-za-z0-9]/g;
 		form.loginId.value = form.loginId.value.trim();
 
-		if (!idReg.test(form.loginId.value)) {
-			alert('Please enter only alphabets and numbers for your ID');
-			form.loginId.focus();
-			return;
-		}
-
 		if (form.loginId.value.length == 0) {
 			alert('Please enter your ID.');
 			form.loginId.focus();
 
+			return;
+		}
+
+		if (!idReg.test(form.loginId.value)) {
+			alert('Please enter only alphabets and numbers for your ID');
+			form.loginId.focus();
 			return;
 		}
 
@@ -200,8 +200,8 @@
 					<td><div class="form-control-box">
 							<select name="nativeLang" style="font-size: 15px;">
 								<option value="">::choose::</option>
-								<option value="english">English</option>
-								<option value="korean">Korean</option>
+								<option value="English">English</option>
+								<option value="Korean">Korean</option>
 							</select>
 						</div></td>
 				</tr>
