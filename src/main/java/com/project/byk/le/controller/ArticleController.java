@@ -41,4 +41,12 @@ public class ArticleController {
 		return String.format("<script>alert('A new article has been written.'); location.replace('%s-list')</script>",
 				boardCode);
 	}
+
+	@RequestMapping("usr/article/detail")
+	public String showDetail(Model model, @RequestParam Map<String, Object> param) {
+		int id = Integer.parseInt((String) param.get("id"));
+		Article article = articleService.getArticleById(id);
+		model.addAttribute("article", article);
+		return "article/detail";
+	}
 }

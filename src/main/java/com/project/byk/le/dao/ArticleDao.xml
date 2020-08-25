@@ -22,4 +22,10 @@
 		<!-- 로그인후 글쓰기가능 설정수 수정필요 -->
 		memberId = 1
 	</insert>
+
+	<select id="getArticleById" resultType="Article">
+		SELECT *
+		FROM article
+		WHERE id = #{id}
+	</select>
 </mapper>

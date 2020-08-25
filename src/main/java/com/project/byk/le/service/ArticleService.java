@@ -23,4 +23,8 @@ public class ArticleService {
 		return articleDao.write(param);
 	}
 
+	public Article getArticleById(int id) {
+		return articleDao.getArticleById(id);
+	}
+
 }
