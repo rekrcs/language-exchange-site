@@ -460,7 +460,8 @@ input, button {
 .top-bar .menu-box-1>ul>li>a {
 	font-weight: bold;
 	font-size: 1.2rem;
-	padding: 0 20px;
+/*  padding: 0 20px; */
+	justify-content: center;
 }
 
 .top-bar .menu-box-1>ul>li:hover>a {
@@ -470,6 +471,8 @@ input, button {
 
 .top-bar .menu-box-1>ul>li {
 	position: relative;
+	min-width: 113.69px;
+	
 }
 
 .top-bar .menu-box-1>ul ul {
