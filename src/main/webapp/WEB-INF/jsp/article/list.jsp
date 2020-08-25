@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
-<div class="table-box con">
+<div class="table-box small-con">
 	<table>
-<!-- 		<colgroup> -->
-<!-- 			<col width="100" /> -->
-<!-- 			<col width="200" /> -->
-<!-- 		</colgroup> -->
 		<thead>
 			<tr>
 				<th colspan="3"><h1>Board : ${boardCoade}</h1></th>
@@ -28,5 +24,8 @@
 		</tbody>
 	</table>
 </div>
-<a href="${boardCoade}-write">write</a>
+<div class="option-btn small-con">
+	<a href="${boardCoade}-write">write</a>
+</div>
+
 <%@ include file="../part/foot.jspf"%>

@@ -111,6 +111,11 @@ label[for] {
 	margin-right: auto;
 }
 
+.small-con {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .margin-0-auto {
 	margin-left: auto;
 	margin-right: auto;
@@ -344,6 +349,10 @@ label[for] {
 	max-width: 1356px;
 }
 
+.small-con {
+	max-width: 1000px;
+}
+
 @media ( min-width : 800px) {
 	.visible-on-sm-down {
 		display: none;
@@ -358,7 +367,7 @@ label[for] {
 
 /* 테이블 시작 */
 .table-box {
-	padding-top: 50px;
+	padding: 50px 30px 0;
 }
 
 /* 타이틀 가운데 정렬 */
@@ -392,6 +401,48 @@ label[for] {
 	}
 }
 /* 테이블 끝 */
+
+/* 폼관련 라이브러리 */
+input, button {
+	font-size: 15px;
+}
+
+.form1 .form-control-box>input, .form1 .form-control-box>textarea {
+	width: 100%;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.form1 .form-control-box>select {
+	padding: 0;
+	padding: 10px;
+}
+
+.form1 .form-control-box>select option {
+	font-size: 15px;
+}
+
+.form1
+	.form-control-box>textarea {
+	min-height: 300px;
+	resize: none;
+}
+
+/* 리스트 안 write 버튼*/
+.option-btn {
+	padding: 30px 30px 0;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: #ed6942;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.option-btn:hover {
+	color: #84a6cb;
+}
 
 /* 탑바 시작 */
 .top-bar {

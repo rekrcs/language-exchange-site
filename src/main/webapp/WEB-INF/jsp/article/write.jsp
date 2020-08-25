@@ -2,33 +2,40 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 
-<h1>this page is for writing article in ${boardCoade}</h1>
-<form method="POST" action="doWrite">
+<form class="form1" method="POST" action="doWrite">
 	<input type="hidden" name="code" value="${boardCoade}" />
-	<table>
-		<tbody>
-			<tr>
-				<th>Title</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="title" placeholder="Please enter title" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>Body</th>
-				<td>
-					<div class="form-control-box">
-						<textarea name="body" placeholder="Please enter body"></textarea>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<button type="submit">write</button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="table-box small-con">
+		<table>
+			<thead>
+				<tr>
+					<th colspan="3"><h1>Write in ${boardCoade} board</h1></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Title</th>
+					<td>
+						<div class="form-control-box">
+							<input type="text" name="title" placeholder="Please enter title" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>Body</th>
+					<td>
+						<div class="form-control-box">
+							<textarea name="body" placeholder="Please enter body" maxlength="2000"></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+				<th></th>
+					<td>
+						<button class="btn btn-primar" type="submit">write</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </form>
 <%@ include file="../part/foot.jspf"%>

@@ -105,7 +105,7 @@ public class MemberController {
 		Member member = memberService.getMemberById(loginedMemberId);
 		int updateMember = memberService.update(param);
 		return String.format(
-				"<script>alert(\"%s's profile has been modified\" ); location.replace('../member/login');</script>",
+				"<script>alert(\"%s's profile has been modified\" ); location.replace('../home/main');</script>",
 				member.getNickname());
 	}
 
@@ -120,7 +120,6 @@ public class MemberController {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
 		String loginPw = (String) param.get("loginPw");
-
 		if (member.getLoginPw().equals(loginPw)) {
 			return "<script>location.replace('../member/modifyProfile');</script>";
 		}
