@@ -114,15 +114,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doCheckPw")
-	@ResponseBody
-	public String doCheckPw(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doCheckPw(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
-		String loginPw = (String) param.get("loginPw");
+		String loginPw = (String) param.get("loginPwReal");
 		if (member.getLoginPw().equals(loginPw)) {
-			return "<script>location.replace('../member/modifyProfile');</script>";
+			model.addAttribute("member", member);
+			model.addAttribute("loginPw", loginPw);
 		}
-		return String.format("<script>alert('Please check your Password'); history.back();</script>");
+		return "member/modifyProfile";
 	}
 
 	@RequestMapping("usr/member/forgotPw")

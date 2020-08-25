@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<script>
+	if(${loginPw == null}) {
+		alert('Please check your Password');
+		history.back();
+		}
+</script>
 <form class="form1" method="POST" action="doModifyProfile">
 	<div class="table-box small-con">
 		<table>
