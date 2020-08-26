@@ -97,12 +97,14 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="option-btn small-con">
+			<ul class="flex">
+				<li style="margin-right: 20px;"><a href="forgotId">Forgot
+						ID</a></li>
+				<li><a href="forgotPw">Forgot Pw</a></li>
+			</ul>
+		</div>
 	</div>
 </form>
-<div class="option-btn small-con">
-	<ul class="flex">
-		<li style="margin-right: 20px;"><a href="forgotId">Forgot ID</a></li>
-		<li><a href="forgotPw">Forgot Pw</a></li>
-	</ul>
-</div>
+
 <%@ include file="../part/foot.jspf"%>
