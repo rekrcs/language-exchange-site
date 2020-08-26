@@ -16,6 +16,8 @@ public class MemberService {
 	private MemberDao memberDao;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private AttrService attrService;
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
 	@Value("${custom.siteMainUriForIdAndPw}")
@@ -45,15 +47,20 @@ public class MemberService {
 
 	public Member getLoginIdByEmail(Map<String, Object> param) {
 		String name = (String) param.get("name");
-		String id = (String) param.get("loginId");
+		String loginId = (String) param.get("loginId");
 		String temporaryPw = Util.getAuthCode();
 		String temporaryPwSHA256 = Util.getTemporaryPwSHA256(temporaryPw);
+
 		param.put("temporaryPwSHA256", temporaryPwSHA256);
 		Member member = memberDao.getLoginIdByEmail(param);
-		
-		if (member.getName().equals(name) && member.getLoginId().equals(id)) {		
-			memberDao.pwToTemporaryPw(param);		
+		int id = member.getId();
+		param.put("id", id);
+
+		if (member.getName().equals(name) && member.getLoginId().equals(loginId)) {
+			attrService.setValue(String.format("member__%d__extra__temporaryPw", id), temporaryPw, null);
+			memberDao.pwToTemporaryPw(param);
 			sendforgotPw((String) param.get("email"), temporaryPw);
+
 		} else if (member.getName().equals(name)) {
 			sendforgotID((String) param.get("email"), member.getLoginId());
 		}

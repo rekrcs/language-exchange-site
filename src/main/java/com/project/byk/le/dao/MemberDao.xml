@@ -83,6 +83,6 @@
 		UPDATE member
 		SET loginPw = #{temporaryPwSHA256},
 		updateDate = NOW()
-		WHERE loginId = #{loginId}
+		WHERE id = #{id}
 	</update>
 </mapper>

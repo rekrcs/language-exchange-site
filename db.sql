@@ -59,6 +59,9 @@ CREATE TABLE attr (
     `value` TEXT NOT NULL
 );
 
+# attr에 만료날짜 추가
+ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
+
 # attr 유니크 인덱스 걸기
 ## 중복변수 생성금지
 ## 변수찾는 속도 최적화

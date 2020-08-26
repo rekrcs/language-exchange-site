@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
+import com.project.byk.le.service.AttrService;
 import com.project.byk.le.service.MemberService;
 
 @Controller
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private AttrService attrService;
 
 	@RequestMapping("usr/member/join")
 	public String showJoin() {
@@ -83,6 +87,13 @@ public class MemberController {
 		if (member.getLoginPw().equals(loginPw)) {
 			session.setAttribute("loginedMemberId", member.getId());
 		}
+		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
+
+		if (attr != null) {
+			return String.format(
+					"<script>alert('%s has been logged in. you are using temporary password. you should change it'); location.replace('../home/main');</script>",
+					member.getLoginId());
+		}
 		return String.format("<script>alert('%s has been logged in.'); location.replace('../home/main');</script>",
 				member.getLoginId());
 	}
@@ -130,6 +141,13 @@ public class MemberController {
 		param.put("id", loginedMemberId);
 		Member member = memberService.getMemberById(loginedMemberId);
 		int updateMember = memberService.update(param);
+		
+		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
+		
+		if (attr != null) {
+			int delAttr = attrService.remove(String.format("member__%d__extra__temporaryPw", member.getId()));
+		}
+
 		return String.format(
 				"<script>alert(\"%s's profile has been modified\" ); location.replace('../home/main');</script>",
 				member.getNickname());
