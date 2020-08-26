@@ -6,21 +6,22 @@
 <script>
 	var onBeforeUnloadSetted = false;
 	var onBeforeUnload = function(e) {
-		return '떠나시겠습니까?'; // 요새 브라우저는 이 메시지가 아닌 자체의 메세지가 나옵니다.
+		return 'Are you sure you want to leaving your writing?';
 	};
 
 	function applyOnBeforeUnload() {
 		if (onBeforeUnloadSetted)
-		return;
-		$(window).bind('beforeunload', onBeforeUnload); // 떠날 때 실행되는 함수를 등록
+			return;
+		$(window).bind('beforeunload', onBeforeUnload);
 		onBeforeUnloadSetted = true;
 	}
 	function removeOnBeforeUnload() {
-		$(window).unbind('beforeunload', onBeforeUnload); // 떠날 때 실행되는 함수를 해제
+		$(window).unbind('beforeunload', onBeforeUnload);
 		onBeforeUnloadSetted = false;
 	}
 
 	var ArticleWriteForm__submitDone = false;
+
 	function ArticleWriteForm__submit(form) {
 		if (ArticleWriteForm__submitDone) {
 			alert("It's being done right now.");
@@ -49,14 +50,15 @@
 		ArticleWriteForm__submitDone = true;
 	}
 
-	function ArticleWriteForm__submit() {
-		// 폼의 특정 요소를 건드리(?)면, 그 이후 부터 외부로 이동하는 것에 참견하는 녀석을 작동시킨다.
+	function ArticleWriteForm__init() {
 		$('form.form1 input, form.form1 textarea').keyup(function() {
 			applyOnBeforeUnload();
 		});
 	}
 
-	ArticleWriteForm__submit();
+	$(function() {
+		ArticleWriteForm__init();
+	});
 </script>
 <form class="form1" method="POST" action="doWrite"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
