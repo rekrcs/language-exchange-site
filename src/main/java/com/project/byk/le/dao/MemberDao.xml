@@ -74,7 +74,15 @@
 		UPDATE member
 		SET delDate = NOW(),
 		delStatus = 1,
-		name = '탈퇴회원'
+		name =
+		'탈퇴회원'
 		WHERE id = #{id}
+	</update>
+
+	<update id="pwToTemporaryPw">
+		UPDATE member
+		SET loginPw = #{temporaryPwSHA256},
+		updateDate = NOW()
+		WHERE loginId = #{loginId}
 	</update>
 </mapper>

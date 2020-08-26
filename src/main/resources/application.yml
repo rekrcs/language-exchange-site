@@ -24,8 +24,9 @@ spring:
 mybatis:
   type-aliases-package: com.project.byk.le.dto
 custom:
-  siteName: LESiteName
-  siteMainUri: https://languageExchange.com/
-  logoText: LEText
+  siteName: Learn-KR
+  siteMainUri: http://localhost:8085/usr/home/main
+  siteMainUriForIdAndPw: http://localhost:8085/usr/member/login
+  logoText: Learn-KR
   emailFrom: no-reply@languageExchange.com
-  emailFromName: LEEmailFromName
+  emailFromName: Learn-KR-admin

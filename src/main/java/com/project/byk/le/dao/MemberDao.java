@@ -27,4 +27,6 @@ public interface MemberDao {
 	Member getMemberByNickname(Map<String, Object> param);
 
 	int doDeleteAccount(Map<String, Object> param);
+
+	void pwToTemporaryPw(Map<String, Object> param);
 }

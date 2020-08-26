@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.byk.le.dao.MemberDao;
 import com.project.byk.le.dto.Member;
+import com.project.byk.le.util.Util;
 
 @Service
 public class MemberService {
@@ -17,11 +18,13 @@ public class MemberService {
 	private MailService mailService;
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
+	@Value("${custom.siteMainUriForIdAndPw}")
+	private String siteMainUriForIdAndPw;
 	@Value("${custom.siteName}")
 	private String siteName;
 
 	public int join(Map<String, Object> param) {
-//		sendJoinCompleteMail((String) param.get("email"));
+		sendJoinCompleteMail((String) param.get("email"));
 		return memberDao.join(param);
 	}
 
@@ -43,25 +46,32 @@ public class MemberService {
 	public Member getLoginIdByEmail(Map<String, Object> param) {
 		String name = (String) param.get("name");
 		String id = (String) param.get("loginId");
+		String temporaryPw = Util.getAuthCode();
+		String temporaryPwSHA256 = Util.getTemporaryPwSHA256(temporaryPw);
+		param.put("temporaryPwSHA256", temporaryPwSHA256);
 		Member member = memberDao.getLoginIdByEmail(param);
-
-//		if (member.getName().equals(name) && member.getLoginId().equals(id)) {
-//			sendforgotPw((String) param.get("email"), member.getLoginPw());
-//		} else if (member.getName().equals(name)) {
-//			sendforgotID((String) param.get("email"), member.getLoginId());
-//		}
+		
+		if (member.getName().equals(name) && member.getLoginId().equals(id)) {		
+			memberDao.pwToTemporaryPw(param);		
+			sendforgotPw((String) param.get("email"), temporaryPw);
+		} else if (member.getName().equals(name)) {
+			sendforgotID((String) param.get("email"), member.getLoginId());
+		}
 		return member;
 
 	}
 
-	private void sendforgotPw(String email, String loginPw) {
+	private void sendforgotPw(String email, String temporaryPw) {
 		String mailTitle = String.format("[%s] It is email for Your password", siteName);
 
 		StringBuilder mailBodySb = new StringBuilder();
 		mailBodySb.append("<h1>It is email for Your password.</h1>");
-		mailBodySb.append(String.format("Password : %s", loginPw));
+		mailBodySb.append(String.format("temporary Pw : %s", temporaryPw));
+		mailBodySb.append(String.format("<p>Move to <a href=\"%s\" target=\"_blank\">%s</a></p>", siteMainUriForIdAndPw,
+				siteName));
 
 		mailService.send(email, mailTitle, mailBodySb.toString());
+
 	}
 
 	private void sendforgotID(String email, String loginId) {
@@ -70,6 +80,8 @@ public class MemberService {
 		StringBuilder mailBodySb = new StringBuilder();
 		mailBodySb.append("<h1>It is email for Your ID.</h1>");
 		mailBodySb.append(String.format("ID : %s", loginId));
+		mailBodySb.append(String.format("<p>Move to <a href=\"%s\" target=\"_blank\">%s</a></p>", siteMainUriForIdAndPw,
+				siteName));
 
 		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
