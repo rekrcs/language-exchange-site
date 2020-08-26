@@ -69,10 +69,13 @@ public class MemberController {
 	@ResponseBody
 	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session) {
 		Member member = memberService.login(param);
-		String loginPw = (String) param.get("loginPwReal");
 		if (member == null) {
 			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
 		}
+		if (member.isDelStatus()) {
+			return String.format("<script>alert('This ID has been withdrawn.'); history.back();</script>");
+		}
+		String loginPw = (String) param.get("loginPwReal");
 
 		if (member.getLoginPw().equals(loginPw) == false) {
 			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
@@ -191,6 +194,11 @@ public class MemberController {
 	@RequestMapping("usr/member/doDeleteAccount")
 	@ResponseBody
 	public String doDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session) {
+		String loginPw = (String) param.get("loginPwReal");
+		if (loginPw == null) {
+			return String.format("<script> alert(\"It's a wrong approach.\"); history.back(); </script>");
+		}
+
 		int delMember = memberService.doDeleteAccount(param);
 		session.removeAttribute("loginedMemberId");
 		return String.format(
