@@ -57,16 +57,24 @@
 		FROM member
 		WHERE loginId = #{loginId}
 	</select>
-	
+
 	<select id="getMemberByEmail" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE email = #{email}
 	</select>
-	
+
 	<select id="getMemberByNickname" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE nickname = #{nickname}
 	</select>
+
+	<update id="doDeleteAccount">
+		UPDATE member
+		SET delDate = NOW(),
+		delStatus = 1,
+		name = '탈퇴회원'
+		WHERE id = #{id}
+	</update>
 </mapper>

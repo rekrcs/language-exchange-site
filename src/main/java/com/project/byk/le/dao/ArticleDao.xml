@@ -7,6 +7,8 @@
 		SELECT *
 		FROM article
 		WHERE boardCode = #{code}
+		AND displayStatus = 1
+		AND delStatus = 0
 		ORDER BY id DESC
 	</select>
 

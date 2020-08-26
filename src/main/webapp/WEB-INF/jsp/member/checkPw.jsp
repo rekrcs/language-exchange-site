@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../part/head.jspf"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
@@ -33,36 +34,45 @@
 		MemberCheckPwForm__submitDone = true;
 	}
 </script>
-<form class="form1" method="POST" action="doCheckPw"
-	onsubmit="MemberCheckPwForm__submit(this); return false;">
-	<input type="hidden" name="loginPwReal">
-	<div class="table-box small-con">
-		<table>
-			<thead>
-				<tr>
-					<th colspan="3"><h1>Confirm password</h1></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th>Password</th>
-					<td>
-						<div class="form-control-box">
-							<input type="password" name="loginPw"
-								placeholder="Plesase enter your password" />
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th></th>
-					<td>
-						<div>
-							<button type="submit" class="btn btn-primary">Confirm</button>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+<c:if test="${param.work eq 'editProfile'}">
+	<form class="form1" method="POST" action="doCheckPwForEditProfile"
+		onsubmit="MemberCheckPwForm__submit(this); return false;">
+</c:if>
+
+<c:if test="${param.work eq 'deleteAccount'}">
+	<form class="form1" method="POST" action="doCheckPwForDeleteAccount"
+		onsubmit="MemberCheckPwForm__submit(this); return false;">
+</c:if>
+
+<input type="hidden" name="loginPwReal">
+<input type="hidden" name="work" value="${param.work}">
+<div class="table-box small-con">
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3"><h1>Confirm password</h1></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Password</th>
+				<td>
+					<div class="form-control-box">
+						<input type="password" name="loginPw"
+							placeholder="Plesase enter your password" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td>
+					<div>
+						<button type="submit" class="btn btn-primary">Confirm</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 </form>
 <%@ include file="../part/foot.jspf"%>

@@ -94,4 +94,8 @@ public class MemberService {
 		return memberDao.getMemberByNickname(param);
 	}
 
+	public int doDeleteAccount(Map<String, Object> param) {
+		return memberDao.doDeleteAccount(param);
+	}
+
 }

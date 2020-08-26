@@ -71,11 +71,11 @@ public class MemberController {
 		Member member = memberService.login(param);
 		String loginPw = (String) param.get("loginPwReal");
 		if (member == null) {
-			return String.format("<script>alert('Please check your ID or Password1'); history.back();</script>");
+			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return String.format("<script>alert('Please check your ID or Password2'); history.back();</script>");
+			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
 		}
 
 		if (member.getLoginPw().equals(loginPw)) {
@@ -138,8 +138,8 @@ public class MemberController {
 		return "member/checkPw";
 	}
 
-	@RequestMapping("usr/member/doCheckPw")
-	public String doCheckPw(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
+	@RequestMapping("usr/member/doCheckPwForEditProfile")
+	public String doCheckPwForEditProfile(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Member member = memberService.getMemberById(loginedMemberId);
 		String loginPw = (String) param.get("loginPwReal");
@@ -148,6 +148,14 @@ public class MemberController {
 			model.addAttribute("loginPw", loginPw);
 		}
 		return "member/modifyProfile";
+	}
+
+	@RequestMapping("usr/member/doCheckPwForDeleteAccount")
+	@ResponseBody
+	public String doCheckPwForDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		param.put("id", loginedMemberId);
+		return doDeleteAccount(param, session);
 	}
 
 	@RequestMapping("usr/member/forgotPw")
@@ -178,6 +186,15 @@ public class MemberController {
 		session.removeAttribute("loginedMemberId");
 		return String
 				.format("<script> alert('You have been logged out.'); location.replace('../home/main'); </script>");
+	}
+
+	@RequestMapping("usr/member/doDeleteAccount")
+	@ResponseBody
+	public String doDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session) {
+		int delMember = memberService.doDeleteAccount(param);
+		session.removeAttribute("loginedMemberId");
+		return String.format(
+				"<script> alert('Your account have been deleted.'); location.replace('../home/main'); </script>");
 	}
 
 }

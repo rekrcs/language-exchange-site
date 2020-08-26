@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+.option-btn2-container {
+	text-align: right;
+}
+
+.option-btn2 {
+	padding: 30px 0;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.5rem;
+	background-color: red;
+	color: white;
+	padding: 15px 20px;
+}
+
+.option-btn2>ul>li:hover>a {
+	color: #84a6cb;
+}
+</style>
 <div class="table-box small-con">
 	<table>
 		<thead>
@@ -43,10 +62,20 @@
 			</tr>
 		</tbody>
 	</table>
+	<div class="option-btn">
+		<ul>
+			<li><a href="checkPw?work=editProfile">Edit profile</a></li>
+		</ul>
+	</div>
+	<div class="option-btn2-container">
+		<div class="option-btn2">
+			<ul>
+				<li><a href="checkPw?work=deleteAccount">Delete account</a></li>
+			</ul>
+		</div>
+	</div>
 </div>
-<div class="option-btn small-con">
-	<ul>
-		<li><a href="checkPw">Edit profile</a></li>
-	</ul>
-</div>
+
+
+
 <%@ include file="../part/foot.jspf"%>

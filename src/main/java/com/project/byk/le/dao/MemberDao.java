@@ -25,4 +25,6 @@ public interface MemberDao {
 	Member getMemberByEmail(Map<String, Object> param);
 
 	Member getMemberByNickname(Map<String, Object> param);
+
+	int doDeleteAccount(Map<String, Object> param);
 }

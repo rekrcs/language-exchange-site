@@ -23,11 +23,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class="option-btn">
+		<ul>
+			<li><a href="${boardCoade}-write">write</a></li>
+		</ul>
+	</div>
 </div>
-<div class="option-btn small-con">
-	<ul>
-		<li><a href="${boardCoade}-write">write</a></li>
-	</ul>
-</div>
+
 
 <%@ include file="../part/foot.jspf"%>

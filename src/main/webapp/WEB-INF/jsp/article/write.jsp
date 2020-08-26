@@ -6,7 +6,7 @@
 <script>
 	var onBeforeUnloadSetted = false;
 	var onBeforeUnload = function(e) {
-		return 'Are you sure you want to leaving your writing?';
+		return 'Are you sure you want to leave your writing?';
 	};
 
 	function applyOnBeforeUnload() {
