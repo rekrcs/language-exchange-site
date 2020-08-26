@@ -19,4 +19,10 @@ public interface MemberDao {
 	Member getMemberById(@Param("id") int id);
 
 	int update(Map<String, Object> param);
+
+	Member getMemberByLoginId(Map<String, Object> param);
+
+	Member getMemberByEmail(Map<String, Object> param);
+
+	Member getMemberByNickname(Map<String, Object> param);
 }

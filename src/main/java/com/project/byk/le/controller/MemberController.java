@@ -28,8 +28,33 @@ public class MemberController {
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(@RequestParam Map<String, Object> param, Model model) {
-		int newMemberId = memberService.join(param);
 		String newMember = (String) param.get("loginId");
+		String newMemberEmail = (String) param.get("email");
+		String newMemberNickname = (String) param.get("nickname");
+
+		Member memberLoginId = memberService.getMemberByLoginId(param);
+		if (!(memberLoginId == null)) {
+			return String.format(
+					"<script>alert('[Id : %s] is already in use. Please use another Id'); history.back();</script>",
+					newMember);
+		}
+
+		Member memberEmail = memberService.getMemberByEmail(param);
+		if (!(memberEmail == null)) {
+			return String.format(
+					"<script>alert('[Email: %s] is already in use. Please use another Email'); history.back();</script>",
+					newMemberEmail);
+		}
+
+		Member memberNickname = memberService.getMemberByNickname(param);
+		if (!(memberNickname == null)) {
+			return String.format(
+					"<script>alert('[Nickname: %s] is already in use. Please use another Nickname'); history.back();</script>",
+					newMemberNickname);
+		}
+
+		int newMemberId = memberService.join(param);
+
 		return String.format(
 				"<script>alert('%s has been registered as a member.'); location.replace('../member/login');</script>",
 				newMember);

@@ -21,7 +21,7 @@ public class MemberService {
 	private String siteName;
 
 	public int join(Map<String, Object> param) {
-		sendJoinCompleteMail((String) param.get("email"));
+//		sendJoinCompleteMail((String) param.get("email"));
 		return memberDao.join(param);
 	}
 
@@ -80,6 +80,18 @@ public class MemberService {
 
 	public int update(Map<String, Object> param) {
 		return memberDao.update(param);
+	}
+
+	public Member getMemberByLoginId(Map<String, Object> param) {
+		return memberDao.getMemberByLoginId(param);
+	}
+
+	public Member getMemberByEmail(Map<String, Object> param) {
+		return memberDao.getMemberByEmail(param);
+	}
+
+	public Member getMemberByNickname(Map<String, Object> param) {
+		return memberDao.getMemberByNickname(param);
 	}
 
 }

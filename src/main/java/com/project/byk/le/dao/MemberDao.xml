@@ -51,4 +51,22 @@
 		loginPw = #{loginPwReal}
 		WHERE id = #{id}
 	</update>
+
+	<select id="getMemberByLoginId" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE loginId = #{loginId}
+	</select>
+	
+	<select id="getMemberByEmail" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE email = #{email}
+	</select>
+	
+	<select id="getMemberByNickname" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE nickname = #{nickname}
+	</select>
 </mapper>
