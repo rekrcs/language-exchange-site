@@ -37,6 +37,7 @@
 </script>
 <form class="form1" method="POST" action="doForgotId"
 	onsubmit="MemberForgotIdForm__submit(this); return false;">
+	<input type="hidden" name="redirectUri" value="/usr/member/login">
 	<div class="table-box small-con">
 		<table>
 			<thead>

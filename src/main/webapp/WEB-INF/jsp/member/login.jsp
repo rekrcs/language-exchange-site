@@ -60,6 +60,7 @@
 </script>
 <form class="form1" method="POST" action="doLogin"
 	onsubmit="MemberLoginForm__submit(this); return false;">
+	<input type="hidden" name="redirectUri" value="/usr/home/main">
 	<input type="hidden" name="loginPwReal">
 	<div class="table-box small-con">
 		<table>

@@ -58,7 +58,7 @@
 </script>
 <form class="form1" method="POST" action="doForgotPw"
 	onsubmit="MemberForgotPwForm__submit(this); return false;">
-
+	<input type="hidden" name="redirectUri" value="/usr/member/login">
 	<div class="table-box small-con">
 		<table>
 			<thead>

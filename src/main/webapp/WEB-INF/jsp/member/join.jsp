@@ -132,6 +132,7 @@
 
 <form class="form1" method="POST" action="doJoin"
 	onsubmit="MemberJoinForm__submit(this); return false;">
+	<input type="hidden" name="redirectUri" value="/usr/member/login">
 	<input type="hidden" name="loginPwReal">
 	<div class="table-box small-con">
 		<table>

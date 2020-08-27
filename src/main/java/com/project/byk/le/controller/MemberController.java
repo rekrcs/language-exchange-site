@@ -29,7 +29,6 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doJoin")
-	@ResponseBody
 	public String doJoin(@RequestParam Map<String, Object> param, Model model) {
 		String newMember = (String) param.get("loginId");
 		String newMemberEmail = (String) param.get("email");
@@ -37,30 +36,37 @@ public class MemberController {
 
 		Member memberLoginId = memberService.getMemberByLoginId(param);
 		if (!(memberLoginId == null)) {
-			return String.format(
-					"<script>alert('[Id : %s] is already in use. Please use another Id'); history.back();</script>",
-					newMember);
-		}
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg",
+					String.format("[Id : %s] is already in use. Please use another Id", newMember));
 
-		Member memberEmail = memberService.getMemberByEmail(param);
-		if (!(memberEmail == null)) {
-			return String.format(
-					"<script>alert('[Email: %s] is already in use. Please use another Email'); history.back();</script>",
-					newMemberEmail);
+			return "common/redirect";
 		}
 
 		Member memberNickname = memberService.getMemberByNickname(param);
 		if (!(memberNickname == null)) {
-			return String.format(
-					"<script>alert('[Nickname: %s] is already in use. Please use another Nickname'); history.back();</script>",
-					newMemberNickname);
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg",
+					String.format("[Nickname: %s] is already in use. Please use another Nickname", newMemberNickname));
+
+			return "common/redirect";
 		}
 
-		int newMemberId = memberService.join(param);
+		Member memberEmail = memberService.getMemberByEmail(param);
+		if (!(memberEmail == null)) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg",
+					String.format("[Email: %s] is already in use. Please use another Email", newMemberEmail));
 
-		return String.format(
-				"<script>alert('%s has been registered as a member.'); location.replace('../member/login');</script>",
-				newMember);
+			return "common/redirect";
+		}
+
+		memberService.join(param);
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri", redirectUri);
+		model.addAttribute("alertMsg", String.format("%s has been registered as a member.", newMember));
+
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/member/login")
@@ -69,19 +75,28 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doLogin")
-	@ResponseBody
-	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doLogin(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		Member member = memberService.login(param);
+		String redirectUri = (String) param.get("redirectUri");
 		if (member == null) {
-			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your ID or Password"));
+
+			return "common/redirect";
 		}
 		if (member.isDelStatus()) {
-			return String.format("<script>alert('This ID has been withdrawn.'); history.back();</script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("This ID has been withdrawn."));
+
+			return "common/redirect";
 		}
 		String loginPw = (String) param.get("loginPwReal");
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return String.format("<script>alert('Please check your ID or Password'); history.back();</script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your ID or Password"));
+
+			return "common/redirect";
 		}
 
 		if (member.getLoginPw().equals(loginPw)) {
@@ -90,12 +105,18 @@ public class MemberController {
 		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
 
 		if (attr != null) {
-			return String.format(
-					"<script>alert('%s has been logged in. you are using temporary password. you should change it'); location.replace('../home/main');</script>",
-					member.getLoginId());
+			model.addAttribute("alertMsg",
+					String.format("%s has been logged in. \\nyou are using temporary password. you should change it",
+							member.getLoginId()));
+			model.addAttribute("redirectUri", redirectUri);
+
+			return "common/redirect";
+
 		}
-		return String.format("<script>alert('%s has been logged in.'); location.replace('../home/main');</script>",
-				member.getLoginId());
+		model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
+		model.addAttribute("redirectUri", redirectUri);
+
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/member/forgotId")
@@ -104,18 +125,56 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doForgotId")
-	@ResponseBody
-	public String doForgotId(@RequestParam Map<String, Object> param) {
+	public String doForgotId(@RequestParam Map<String, Object> param, Model model) {
 		String name = (String) param.get("name");
+		String redirectUri = (String) param.get("redirectUri");
 		Member member = memberService.getLoginIdByEmail(param);
 		if (member == null) {
-			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your Name and Email"));
+
+			return "common/redirect";
 		}
 		if (member.getName().equals(name) == false) {
-			return String.format("<script>alert('Please check your Name and Email'); history.back();</script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your Name and Email"));
+
+			return "common/redirect";
 		}
-		return String.format("<script>alert('I sent your ID to %s.'); location.replace('../member/login');</script>",
-				member.getEmail());
+
+		model.addAttribute("alertMsg", String.format("I sent your ID to %s.", member.getEmail()));
+		model.addAttribute("redirectUri", redirectUri);
+
+		return "common/redirect";
+	}
+
+	@RequestMapping("usr/member/forgotPw")
+	public String showForgotPw() {
+		return "member/forgotPw";
+	}
+
+	@RequestMapping("usr/member/doForgotPw")
+	public String doForgotPw(@RequestParam Map<String, Object> param, Model model) {
+		String name = (String) param.get("name");
+		String loginId = (String) param.get("loginId");
+		String redirectUri = (String) param.get("redirectUri");
+		Member member = memberService.getLoginIdByEmail(param);
+		if (member == null) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your ID, Name and Email"));
+
+			return "common/redirect";
+		}
+		if (member.getName().equals(name) && member.getLoginId().equals(loginId) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("Please check your ID, Name and Email"));
+
+			return "common/redirect";
+		}
+		model.addAttribute("alertMsg", String.format("I sent your Password code to %s.", member.getEmail()));
+		model.addAttribute("redirectUri", redirectUri);
+
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/member/profile")
@@ -135,22 +194,42 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doModifyProfile")
-	@ResponseBody
-	public String doModifyProfile(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doModifyProfile(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
+		String nickname = (String) param.get("nickname");
+		String email = (String) param.get("email");
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		param.put("id", loginedMemberId);
 		Member member = memberService.getMemberById(loginedMemberId);
+
+		Member memberNickname = memberService.getMemberByNickname(param);
+		if (!(memberNickname == null) && !member.getNickname().equals(nickname)) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg",
+					String.format("[Nickname: %s] is already in use. Please use another Nickname", nickname));
+
+			return "common/redirect";
+		}
+
+		Member memberEmail = memberService.getMemberByEmail(param);
+		if (!(memberEmail == null) && !member.getEmail().equals(email)) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg",
+					String.format("[Email: %s] is already in use. Please use another Email", email));
+
+			return "common/redirect";
+		}
 		int updateMember = memberService.update(param);
-		
+
 		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
-		
+
 		if (attr != null) {
 			int delAttr = attrService.remove(String.format("member__%d__extra__temporaryPw", member.getId()));
 		}
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("alertMsg", String.format("%s\\'s profile has been modified", member.getNickname()));
+		model.addAttribute("redirectUri", redirectUri);
 
-		return String.format(
-				"<script>alert(\"%s's profile has been modified\" ); location.replace('../home/main');</script>",
-				member.getNickname());
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/member/checkPw")
@@ -171,55 +250,38 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/doCheckPwForDeleteAccount")
-	@ResponseBody
 	public String doCheckPwForDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		param.put("id", loginedMemberId);
-		return doDeleteAccount(param, session);
-	}
-
-	@RequestMapping("usr/member/forgotPw")
-	public String showForgotPw() {
-		return "member/forgotPw";
-	}
-
-	@RequestMapping("usr/member/doForgotPw")
-	@ResponseBody
-	public String doForgotPw(@RequestParam Map<String, Object> param) {
-		String name = (String) param.get("name");
-		String loginId = (String) param.get("loginId");
-		Member member = memberService.getLoginIdByEmail(param);
-		if (member == null) {
-			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
-		}
-		if (member.getName().equals(name) && member.getLoginId().equals(loginId) == false) {
-			return String.format("<script>alert('Please check your ID, Name and Email'); history.back();</script>");
-		}
-		return String.format(
-				"<script>alert('I sent your Password code to %s.'); location.replace('../member/login');</script>",
-				member.getEmail());
+		String deleMsg = doDeleteAccount(param, session, model);
+		return deleMsg;
 	}
 
 	@RequestMapping("usr/member/doLogout")
-	@ResponseBody
-	public String doLogout(HttpSession session) {
+	public String doLogout(HttpSession session, Model model) {
 		session.removeAttribute("loginedMemberId");
-		return String
-				.format("<script> alert('You have been logged out.'); location.replace('../home/main'); </script>");
+		model.addAttribute("redirectUri", "/usr/home/main");
+		model.addAttribute("alertMsg", String.format("You have been logged out."));
+
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/member/doDeleteAccount")
-	@ResponseBody
-	public String doDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doDeleteAccount(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		String loginPw = (String) param.get("loginPwReal");
 		if (loginPw == null) {
-			return String.format("<script> alert(\"It's a wrong approach.\"); history.back(); </script>");
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("It\\'s a wrong approach."));
+
+			return "common/redirect";
 		}
 
 		int delMember = memberService.doDeleteAccount(param);
 		session.removeAttribute("loginedMemberId");
-		return String.format(
-				"<script> alert('Your account have been deleted.'); location.replace('../home/main'); </script>");
+		model.addAttribute("redirectUri", "/usr/home/main");
+		model.addAttribute("alertMsg", String.format("Your account have been deleted."));
+
+		return "common/redirect";
 	}
 
 }
