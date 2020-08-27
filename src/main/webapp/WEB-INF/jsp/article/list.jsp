@@ -18,7 +18,7 @@
 				<tr>
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
-					<td><a href="detail?id=${article.id}">${article.title}</a></td>
+					<td><a href="${boardCoade}-detail?id=${article.id}">${article.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

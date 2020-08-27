@@ -42,8 +42,8 @@ public class ArticleController {
 				boardCode);
 	}
 
-	@RequestMapping("usr/article/detail")
-	public String showDetail(Model model, @RequestParam Map<String, Object> param) {
+	@RequestMapping("usr/article/{boardCode}-detail")
+	public String showDetail(Model model, @RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCoade) {
 		int id = Integer.parseInt((String) param.get("id"));
 		Article article = articleService.getArticleById(id);
 		model.addAttribute("article", article);
