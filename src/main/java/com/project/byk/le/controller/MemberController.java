@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
@@ -61,11 +60,12 @@ public class MemberController {
 			return "common/redirect";
 		}
 
-		memberService.join(param);
+		int id = memberService.join(param);
 		String redirectUri = (String) param.get("redirectUri");
 		model.addAttribute("redirectUri", redirectUri);
 		model.addAttribute("alertMsg", String.format("%s has been registered as a member.", newMember));
-
+		String expireDate = memberService.expireDate();
+		attrService.setValue(String.format("member__%d__extra__checkPw", id), "0", expireDate);
 		return "common/redirect";
 	}
 
@@ -102,16 +102,28 @@ public class MemberController {
 		if (member.getLoginPw().equals(loginPw)) {
 			session.setAttribute("loginedMemberId", member.getId());
 		}
-		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
+		
+		if (!member.getLoginId().equals("admin")) {
+			Attr attr = attrService.get(String.format("member__%d__extra__checkPw", member.getId()));
 
-		if (attr != null) {
-			model.addAttribute("alertMsg",
-					String.format("%s has been logged in. \\nyou are using temporary password. you should change it",
-							member.getLoginId()));
-			model.addAttribute("redirectUri", redirectUri);
+			if (attr == null) {
+				model.addAttribute("alertMsg", String.format(
+						"%s has been logged in. \\nyou are using your password longger than 3 months. you should change it",
+						member.getLoginId()));
+				model.addAttribute("redirectUri", redirectUri);
 
-			return "common/redirect";
+				return "common/redirect";
+			}
+			int temporaryPw = Integer.parseInt(attr.getValue());
+			if (temporaryPw > 0) {
+				model.addAttribute("alertMsg",
+						String.format(
+								"%s has been logged in. \\nyou are using temporary password. you should change it",
+								member.getLoginId()));
+				model.addAttribute("redirectUri", redirectUri);
 
+				return "common/redirect";
+			}
 		}
 		model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
 		model.addAttribute("redirectUri", redirectUri);
@@ -220,11 +232,9 @@ public class MemberController {
 		}
 		int updateMember = memberService.update(param);
 
-		Attr attr = attrService.get(String.format("member__%d__extra__temporaryPw", member.getId()));
+		String expireDate = memberService.expireDate();
+		attrService.setValue(String.format("member__%d__extra__checkPw", member.getId()), "0", expireDate);
 
-		if (attr != null) {
-			int delAttr = attrService.remove(String.format("member__%d__extra__temporaryPw", member.getId()));
-		}
 		String redirectUri = (String) param.get("redirectUri");
 		model.addAttribute("alertMsg", String.format("%s\\'s profile has been modified", member.getNickname()));
 		model.addAttribute("redirectUri", redirectUri);

@@ -1,5 +1,6 @@
 package com.project.byk.le.service;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ public class MemberService {
 	private String siteName;
 
 	public int join(Map<String, Object> param) {
+		memberDao.join(param);
+
 		sendJoinCompleteMail((String) param.get("email"));
-		return memberDao.join(param);
+		return ((BigInteger) param.get("id")).intValue();
 	}
 
 	private void sendJoinCompleteMail(String email) {
@@ -57,7 +60,8 @@ public class MemberService {
 		param.put("id", id);
 
 		if (member.getName().equals(name) && member.getLoginId().equals(loginId)) {
-			attrService.setValue(String.format("member__%d__extra__temporaryPw", id), temporaryPw, null);
+			String expireDate = expireDate();
+			attrService.setValue(String.format("member__%d__extra__checkPw", id), temporaryPw, expireDate);
 			memberDao.pwToTemporaryPw(param);
 			sendforgotPw((String) param.get("email"), temporaryPw);
 
@@ -115,6 +119,10 @@ public class MemberService {
 
 	public int doDeleteAccount(Map<String, Object> param) {
 		return memberDao.doDeleteAccount(param);
+	}
+
+	public String expireDate() {
+		return memberDao.expireDate();
 	}
 
 }

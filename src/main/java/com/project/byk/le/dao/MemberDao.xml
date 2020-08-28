@@ -85,4 +85,8 @@
 		updateDate = NOW()
 		WHERE id = #{id}
 	</update>
+
+	<select id="expireDate" resultType="String">
+		SELECT DATE_ADD(NOW(), INTERVAL 3 MONTH);
+	</select>
 </mapper>
