@@ -31,4 +31,6 @@ public interface MemberDao {
 	void pwToTemporaryPw(Map<String, Object> param);
 
 	String expireDate();
+
+	boolean isJoinableLoginId(@Param("loginId") String loginId);
 }

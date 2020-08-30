@@ -4,8 +4,11 @@
 <!-- 비번 암호화저장 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
 <script>
 	var MemberJoinForm__submitDone = false;
+	var JoinForm__validLoginId = '';
 	function MemberJoinForm__submit(form) {
 		if (MemberJoinForm__submitDone) {
 			alert("It's being done right now.");
@@ -21,7 +24,8 @@
 			return;
 		}
 
-		if (!idReg.test(form.loginId.value)) {
+		var idval = idReg.test(form.loginId.value)
+		if (!idval) {
 			alert('Please enter only alphabets and numbers for your ID');
 			form.loginId.focus();
 			return;
@@ -128,6 +132,45 @@
 		form.submit();
 		MemberJoinForm__submitDone = true;
 	}
+
+	function JoinForm__checkLoginIdDup(input) {
+		var form = input.form;
+		var idReg = /^[A-za-z0-9]/g;
+		var onlyAlphabetAndNumInId = idReg.test(form.loginId.value)
+		form.loginId.value = form.loginId.value.trim();
+
+		if (form.loginId.value.length == 0) {
+			return;
+		}
+
+		$.ajax({
+			url : 'getLoginIdDup',
+			data : {
+				loginId : form.loginId.value,
+				onlyAlphabetAndNumInId : onlyAlphabetAndNumInId
+			},
+			dataType : "json",
+			type : 'POST',
+			success : function(data) {
+						var $message = $('.message-msg');
+
+						if (data.isJoinableLoginId == 'true') {
+							$message.empty().append(
+									'<div style="color:green;">' + data.msg
+											+ '</div>');
+							JoinForm__validLoginId = data.loginId;
+
+						} else if (data.isJoinableLoginId == 'false') {
+							$message.empty().append(
+									'<div style="color:red;">' + data.msg
+											+ '</div>');
+							JoinForm__validLoginId = '';
+						}
+					}
+		});
+	}
+
+	
 </script>
 
 <form class="form1" method="POST" action="doJoin"
@@ -146,8 +189,9 @@
 					<th>ID</th>
 					<td>
 						<div class="form-control-box">
-							<input type="text" name="loginId"
-								placeholder="Please enter your ID" />
+							<input type="text" onkeyup="JoinForm__checkLoginIdDup(this);"
+								name="loginId" placeholder="Please enter your ID" />
+							<div class="message-msg"></div>
 						</div>
 					</td>
 				</tr>

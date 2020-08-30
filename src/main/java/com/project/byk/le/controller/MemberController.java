@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
@@ -102,7 +103,7 @@ public class MemberController {
 		if (member.getLoginPw().equals(loginPw)) {
 			session.setAttribute("loginedMemberId", member.getId());
 		}
-		
+
 		if (!member.getLoginId().equals("admin")) {
 			Attr attr = attrService.get(String.format("member__%d__extra__checkPw", member.getId()));
 
@@ -294,4 +295,21 @@ public class MemberController {
 		return "common/redirect";
 	}
 
+	@RequestMapping("usr/member/getLoginIdDup")
+	@ResponseBody
+	public String showGetLoginIdDup(@RequestParam Map<String, Object> param) {
+		String loginId = (String) param.get("loginId");
+		String onlyAlphabetAndNumInId =  (String) param.get("onlyAlphabetAndNumInId");
+
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+		isJoinableLoginId = !isJoinableLoginId;
+		
+		
+		if (isJoinableLoginId && onlyAlphabetAndNumInId.equals("true")) {
+			return "{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"isJoinableLoginId\":\"true\", \"loginId\":\"" + loginId + "\"}";
+		} else if  (!isJoinableLoginId || onlyAlphabetAndNumInId.equals("false")){
+			return "{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"isJoinableLoginId\": \"false\", \"loginId\":\"" + loginId + "\"}";
+		}
+		return "";
+	}
 }

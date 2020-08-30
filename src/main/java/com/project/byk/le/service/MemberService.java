@@ -125,4 +125,8 @@ public class MemberService {
 		return memberDao.expireDate();
 	}
 
+	public boolean isJoinableLoginId(String loginId) {
+		return memberDao.isJoinableLoginId(loginId);
+	}
+
 }

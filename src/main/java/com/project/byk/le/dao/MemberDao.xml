@@ -87,6 +87,13 @@
 	</update>
 
 	<select id="expireDate" resultType="String">
-		SELECT DATE_ADD(NOW(), INTERVAL 3 MONTH);
+		SELECT DATE_ADD(NOW(),
+		INTERVAL 3 MONTH);
+	</select>
+
+	<select id="isJoinableLoginId" resultType="boolean">
+		SELECT COUNT(*) AS cnt
+		FROM `member`
+		WHERE loginId = #{loginId}
 	</select>
 </mapper>
