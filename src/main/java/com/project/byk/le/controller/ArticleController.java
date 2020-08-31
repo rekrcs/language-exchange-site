@@ -43,10 +43,21 @@ public class ArticleController {
 	}
 
 	@RequestMapping("usr/article/{boardCode}-detail")
-	public String showDetail(Model model, @RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCoade) {
+	public String showDetail(Model model, @RequestParam Map<String, Object> param,
+			@PathVariable("boardCode") String boardCoade) {
 		int id = Integer.parseInt((String) param.get("id"));
 		Article article = articleService.getArticleById(id);
 		model.addAttribute("article", article);
 		return "article/detail";
+	}
+
+	@RequestMapping("usr/article/{boardCode}-deleteArticle")
+	public String doDeleteArticle(Model model, @RequestParam Map<String, Object> param,
+			@PathVariable("boardCode") String boardCoade) {
+		int id = Integer.parseInt((String) param.get("id"));
+		articleService.deleteArticle(id);
+		model.addAttribute("alertMsg", String.format("your article have deleted."));
+		model.addAttribute("redirectUri", String.format("/usr/article/%s-list", boardCoade));
+		return "common/redirect";
 	}
 }

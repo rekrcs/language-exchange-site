@@ -35,6 +35,13 @@
 			</tr>
 		</tbody>
 	</table>
+	<div class="option-btn small-con">
+		<ul class="flex">
+			<li style="margin-right: 20px;"><a onclick="if ( confirm('are you going to delete it?') == false ) return false;"
+				href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
+			<li><a href="modifyarticle">Modify</a></li>
+		</ul>
+	</div>
 </div>
 
 <%@ include file="../part/foot.jspf"%>

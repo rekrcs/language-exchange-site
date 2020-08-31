@@ -9,7 +9,8 @@
 		WHERE boardCode = #{code}
 		AND displayStatus = 1
 		AND delStatus = 0
-		ORDER BY id DESC
+		ORDER
+		BY id DESC
 	</select>
 
 	<insert id="write" useGeneratedKeys="true" keyProperty="id">
@@ -30,4 +31,12 @@
 		FROM article
 		WHERE id = #{id}
 	</select>
+
+	<update id="deleteArticle">
+		UPDATE article
+		SET delDate = NOW(),
+		displayStatus = 0,
+		delStatus = 1
+		WHERE id = #{id}
+	</update>
 </mapper>
