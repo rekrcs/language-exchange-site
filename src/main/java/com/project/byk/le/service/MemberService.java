@@ -56,6 +56,10 @@ public class MemberService {
 
 		param.put("temporaryPwSHA256", temporaryPwSHA256);
 		Member member = memberDao.getLoginIdByEmail(param);
+		
+		if(member == null) {
+			return member;
+		}
 		int id = member.getId();
 		param.put("id", id);
 

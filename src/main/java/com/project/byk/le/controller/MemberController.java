@@ -104,7 +104,7 @@ public class MemberController {
 			session.setAttribute("loginedMemberId", member.getId());
 		}
 
-		if (!member.getLoginId().equals("admin")) {
+		if (member.getLevel() < 10) {
 			Attr attr = attrService.get(String.format("member__%d__extra__checkPw", member.getId()));
 
 			if (attr == null) {
@@ -234,7 +234,9 @@ public class MemberController {
 		int updateMember = memberService.update(param);
 
 		String expireDate = memberService.expireDate();
-		attrService.setValue(String.format("member__%d__extra__checkPw", member.getId()), "0", expireDate);
+		if (member.getLevel() < 10) {
+			attrService.setValue(String.format("member__%d__extra__checkPw", member.getId()), "0", expireDate);
+		}
 
 		String redirectUri = (String) param.get("redirectUri");
 		model.addAttribute("alertMsg", String.format("%s\\'s profile has been modified", member.getNickname()));
@@ -299,15 +301,14 @@ public class MemberController {
 	@ResponseBody
 	public String showGetLoginIdDup(@RequestParam Map<String, Object> param) {
 		String loginId = (String) param.get("loginId");
-		String onlyAlphabetAndNumInId =  (String) param.get("onlyAlphabetAndNumInId");
+		String onlyAlphabetAndNumInId = (String) param.get("onlyAlphabetAndNumInId");
 
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 		isJoinableLoginId = !isJoinableLoginId;
-		
-		
+
 		if (isJoinableLoginId && onlyAlphabetAndNumInId.equals("true")) {
 			return "{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"isJoinableLoginId\":\"true\", \"loginId\":\"" + loginId + "\"}";
-		} else if  (!isJoinableLoginId || onlyAlphabetAndNumInId.equals("false")){
+		} else if (!isJoinableLoginId || onlyAlphabetAndNumInId.equals("false")) {
 			return "{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"isJoinableLoginId\": \"false\", \"loginId\":\"" + loginId + "\"}";
 		}
 		return "";

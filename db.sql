@@ -16,6 +16,7 @@ USE `le`;
     `name` CHAR(20) NOT NULL,
     `nickname` CHAR(20) NOT NULL UNIQUE,
     email CHAR(100) NOT NULL UNIQUE,
+    `level` CHAR(20) NOT NULL DEFAULT 0,
     nativeLang CHAR(20) NOT NULL,
     practiceLang CHAR(20) NOT NULL
  );
@@ -94,6 +95,7 @@ loginPw = SHA2('admin', 256),
 `name` = 'admin',
 nickname = 'admin',
 email = 'admin@admin.admin',
+`level` = '10',
 nativeLang = 'english',
 practiceLang = 'korean';
 
@@ -105,6 +107,9 @@ FROM `member`;
 
 SELECT *
 FROM article;
+
+SELECT *
+FROM attr;
 
 INSERT INTO `le`.`article` 
 (`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
@@ -151,6 +156,7 @@ VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리3
 		BODY = '1',
 		boardCode = 'free',
 		memberId = 1
+<<<<<<< HEAD
 
  # create message table
 CREATE TABLE message (
@@ -164,3 +170,9 @@ CREATE TABLE message (
  );
 
  ALTER TABLE `message` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
+=======
+		
+		
+		SELECT * 
+		FROM `attr`;
+>>>>>>> 5df28c0ecc4e7593e082495d19d46cd039b35992
