@@ -151,3 +151,16 @@ VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리3
 		BODY = '1',
 		boardCode = 'free',
 		memberId = 1
+
+ # create message table
+CREATE TABLE message (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    memberId INT(10) UNSIGNED NOT NULL,
+    regDate DATETIME NOT NULL,
+    delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    message LONGTEXT NOT NULL
+ );
+
+ ALTER TABLE `message` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
