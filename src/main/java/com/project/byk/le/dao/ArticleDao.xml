@@ -10,7 +10,7 @@
 		INNER JOIN `member` AS M
 		ON A.memberId
 		= M.id
-		WHERE boardCode = #{code}
+		WHERE boardId = #{boardId}
 		AND displayStatus = '1'
 		AND
 		A.delStatus =
@@ -26,7 +26,7 @@
 		displayStatus = 1,
 		title = #{title},
 		body = #{body},
-		boardCode = #{code},
+		boardId = #{boardId},
 		memberId =
 		#{memberId}
 	</insert>
@@ -36,7 +36,8 @@
 		extra__writer
 		FROM article AS A
 		INNER JOIN `member` AS M
-		ON A.memberId = M.id
+		ON A.memberId =
+		M.id
 		WHERE A.id = #{id}
 	</select>
 
@@ -47,6 +48,14 @@
 		delStatus = 1
 		WHERE id = #{id}
 	</update>
+
+	<select id="getBoardByCode" resultType="Board">
+		SELECT *
+		FROM
+		board
+		WHERE
+		`code` = #{code}
+	</select>
 
 	<resultMap type="Article" id="article">
 		<id property="id" column="id" />

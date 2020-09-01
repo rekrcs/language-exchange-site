@@ -11,7 +11,7 @@
 		<tbody>
 			<tr>
 				<th>Board</th>
-				<td>${article.boardCode}</td>
+				<td>${board.name}</td>
 			</tr>
 			<tr>
 				<th>No.</th>

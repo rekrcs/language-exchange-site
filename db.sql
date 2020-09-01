@@ -23,21 +23,21 @@ USE `le`;
  
  # create board table
  CREATE TABLE board (
- id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
- regDate DATETIME NOT NULL,
- updateDate DATETIME NOT NULL,
- delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
- displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
- delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
- `code` CHAR(20) NOT NULL UNIQUE,
- `name` CHAR(20) NOT NULL UNIQUE
+     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+     regDate DATETIME NOT NULL,
+     updateDate DATETIME NOT NULL,
+     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
+     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+     `code` CHAR(20) NOT NULL UNIQUE,
+     `name` CHAR(20) NOT NULL UNIQUE
  );
  
  # create article table
  CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     memberId INT(10) UNSIGNED NOT NULL,
-    boardCode CHAR(20) NOT NULL,
+    boardId INT(10) UNSIGNED NOT NULL,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -99,69 +99,23 @@ email = 'admin@admin.admin',
 nativeLang = 'english',
 practiceLang = 'korean';
 
-SELECT *
-FROM `board`;
-
-SELECT *
-FROM `member`;
-
-SELECT *
-FROM article;
-
-SELECT *
-FROM attr;
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티', '노티'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티1', '노티1'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티2', '노티2'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'notice', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '노티3', '노티3'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리', '프리'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리1', '프리1'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리2', '프리2'); 
-
-INSERT INTO `le`.`article` 
-(`memberId`, `boardCode`, `regDate`, `updateDate`, `displayStatus`, `title`, `body`) 
-VALUES ('1', 'free', '2020-08-21 12:03:07', '2020-08-21 12:03:09', '1', '프리3', '프리3'); 
-
-		SELECT *
-		FROM article
-		WHERE boardCode = 'free';
-		
-		INSERT
-		INTO article
-		SET regDate = NOW(),
-		updateDate = NOW(),
-		displayStatus = '1',
-		title = '1',
-		BODY = '1',
-		boardCode = 'free',
-		memberId = 1
-<<<<<<< HEAD
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDAte = NOW(),
+loginId = 'aaaaa',
+loginPw = SHA2('aaaaa', 256),
+`name` = 'aaaaa',
+nickname = 'aaaaa',
+email = 'aaaaa@aaaaa.aaaaa',
+`level` = '10',
+nativeLang = 'english',
+practiceLang = 'korean';
 
  # create message table
 CREATE TABLE message (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    memberId INT(10) UNSIGNED NOT NULL,
+    fromMemberId INT(10) UNSIGNED NOT NULL,
+    toMemberId INT(10) UNSIGNED NOT NULL,
     regDate DATETIME NOT NULL,
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
@@ -170,9 +124,14 @@ CREATE TABLE message (
  );
 
  ALTER TABLE `message` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
-=======
-		
-		
-		SELECT * 
-		FROM `attr`;
->>>>>>> 5df28c0ecc4e7593e082495d19d46cd039b35992
+
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+boardId = IF(RAND() > 0.5, 1, 2),
+memberId = IF(RAND() > 0.5, 1, 2),
+title = CONCAT('제목-', UUID()),
+`body` = CONCAT('내용-', UUID()),
+displayStatus = '1';
+

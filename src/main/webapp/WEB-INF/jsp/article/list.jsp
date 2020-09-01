@@ -11,7 +11,7 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="4"><h1>Board : ${boardCoade}</h1></th>
+				<th colspan="4"><h1>Board : ${boardCode}</h1></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,14 +26,14 @@
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
 					<td>${article.extra.writer}</td>
-					<td><a href="${boardCoade}-detail?id=${article.id}">${article.title}</a></td>
+					<td><a href="${boardCode}-detail?id=${article.id}">${article.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<div class="option-btn">
 		<ul>
-			<li><a href="${boardCoade}-write">write</a></li>
+			<li><a href="${boardCode}-write">write</a></li>
 		</ul>
 	</div>
 </div>

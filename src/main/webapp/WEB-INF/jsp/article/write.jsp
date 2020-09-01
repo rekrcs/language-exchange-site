@@ -62,12 +62,12 @@
 </script>
 <form class="form1" method="POST" action="doWrite"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
-	<input type="hidden" name="code" value="${boardCoade}" />
+	<input type="hidden" name="code" value="${boardCode}" />
 	<div class="table-box small-con">
 		<table>
 			<thead>
 				<tr>
-					<th colspan="3"><h1>Write in ${boardCoade} board</h1></th>
+					<th colspan="3"><h1>Write in ${boardCode} board</h1></th>
 				</tr>
 			</thead>
 			<tbody>
