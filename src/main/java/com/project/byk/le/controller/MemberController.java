@@ -106,7 +106,6 @@ public class MemberController {
 
 		if (member.getLevel() < 10) {
 			Attr attr = attrService.get(String.format("member__%d__extra__checkPw", member.getId()));
-
 			if (attr == null) {
 				model.addAttribute("alertMsg", String.format(
 						"%s has been logged in. \\nyou are using your password longger than 3 months. you should change it",

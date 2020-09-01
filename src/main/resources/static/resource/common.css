@@ -375,7 +375,6 @@ label[for] {
 	text-align: center;
 }
 
-
 .table-box>table {
 	width: 100%;
 	border-collapse: collapse;
@@ -387,18 +386,20 @@ label[for] {
 	text-align: left;
 }
 
-@media ( min-width : 800px) {
+/* @media ( min-width : 800px) {
 	.table-box>table th:nth-child(1) {
 		width: 100px;
 	}
 	.table-box>table th:nth-child(2) {
 		width: 200px;
 	}
-}
-
+} */
 @media ( max-width :799px) {
 	.table-box>table th:nth-child(2) {
 		width: 100px;
+	}
+	.table-box>table th:nth-child(3), td:nth-child(3), tr:nth-child(3) {
+		display: none;
 	}
 }
 /* 테이블 끝 */
@@ -460,7 +461,8 @@ input, button {
 
 .top-bar .menu-box-1>ul>li>a {
 	font-weight: bold;
-	font-size: 1.2rem;
+	/* 	font-size: 1.2rem; */
+	font-size: 1.1rem;
 	/*  padding: 0 20px; */
 	justify-content: center;
 }
@@ -472,7 +474,8 @@ input, button {
 
 .top-bar .menu-box-1>ul>li {
 	position: relative;
-	min-width: 113.69px;
+	/* 	min-width: 113.69px; */
+	min-width: 90px;
 }
 
 .top-bar .menu-box-1>ul ul {
@@ -493,7 +496,8 @@ input, button {
 	font-weight: bold;
 	text-align: center;
 	padding: 30px 0;
-	font-size: 1.2rem;
+	/* 	font-size: 1.2rem; */
+	font-size: 1.1rem;
 }
 
 .top-bar .menu-box-1>ul ul>li:hover>a {

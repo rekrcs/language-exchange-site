@@ -20,5 +20,6 @@ public class Article {
 	private boolean delStatus;
 	private String title;
 	private String body;
+	private String nickname;
 	private Map<String, Object> extra;
 }

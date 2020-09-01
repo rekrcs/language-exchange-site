@@ -3,6 +3,8 @@ package com.project.byk.le.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,9 @@ public class ArticleController {
 
 	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(@RequestParam Map<String, Object> param) {
+	public String doWrite(@RequestParam Map<String, Object> param, HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		param.put("memberId", loginedMemberId);
 		int newArticleWrite = articleService.write(param);
 		String boardCode = (String) param.get("code");
 		return String.format("<script>alert('A new article has been written.'); location.replace('%s-list')</script>",

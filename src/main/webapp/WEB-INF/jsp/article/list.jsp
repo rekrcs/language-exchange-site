@@ -3,21 +3,29 @@
 <%@ include file="../part/head.jspf"%>
 <div class="table-box small-con">
 	<table>
+		<colgroup>
+			<col width="80" />
+			<col width="180" />
+			<col width="180" />
+			<col />
+		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="3"><h1>Board : ${boardCoade}</h1></th>
+				<th colspan="4"><h1>Board : ${boardCoade}</h1></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>No.</th>
 				<th>Date</th>
+				<th>Writer</th>
 				<th>Title</th>
 			</tr>
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
+					<td>${article.extra.writer}</td>
 					<td><a href="${boardCoade}-detail?id=${article.id}">${article.title}</a></td>
 				</tr>
 			</c:forEach>

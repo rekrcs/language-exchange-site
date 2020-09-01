@@ -18,16 +18,20 @@
 				<td>${article.id}</td>
 			</tr>
 			<tr>
-				<th>Title</th>
-				<td>${article.title}</td>
-			</tr>
-			<tr>
 				<th>Date</th>
 				<td>${article.regDate}</td>
 			</tr>
 			<tr>
 				<th>Update Date</th>
 				<td>${article.updateDate}</td>
+			</tr>
+			<tr>
+				<th>Writer</th>
+				<td>${article.extra.writer}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>${article.title}</td>
 			</tr>
 			<tr>
 				<th>Body</th>
@@ -37,7 +41,8 @@
 	</table>
 	<div class="option-btn small-con">
 		<ul class="flex">
-			<li style="margin-right: 20px;"><a onclick="if ( confirm('are you going to delete it?') == false ) return false;"
+			<li style="margin-right: 20px;"><a
+				onclick="if ( confirm('are you going to delete it?') == false ) return false;"
 				href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
 			<li><a href="modifyarticle">Modify</a></li>
 		</ul>
