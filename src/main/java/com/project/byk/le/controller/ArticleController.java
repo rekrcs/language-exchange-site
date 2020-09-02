@@ -1,5 +1,6 @@
 package com.project.byk.le.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,12 @@ public class ArticleController {
 	@RequestMapping("usr/article/{boardCode}-list")
 	public String showList(Model model, @PathVariable("boardCode") String boardCode) {
 		Board board = articleService.getBoardByCode(boardCode);
-		List<Article> articles = articleService.getArticlesByCode(board.getId());
+
+		Map<String, Object> getForPrintArticlesByParm = new HashMap();
+		getForPrintArticlesByParm.put("boardId", board.getId());
+		getForPrintArticlesByParm.put("limitCount", 5);
+//		List<Article> articles = articleService.getArticlesByCode(board.getId());
+		List<Article> articles = articleService.getArticlesByParam(getForPrintArticlesByParm);
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardCode", boardCode);
 		return "article/list";
@@ -57,7 +63,7 @@ public class ArticleController {
 		int id = Integer.parseInt((String) param.get("id"));
 		Article article = articleService.getArticleById(id);
 		model.addAttribute("article", article);
-		
+
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 		return "article/detail";

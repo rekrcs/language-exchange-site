@@ -13,9 +13,31 @@
 		WHERE boardId = #{boardId}
 		AND displayStatus = '1'
 		AND
-		A.delStatus =
+		A.delStatus
+		=
 		'0'
 		ORDER BY id DESC;
+	</select>
+
+	<select id="getArticlesByParam" resultMap="article">
+		SELECT A.*, M.nickname
+		AS extra__writer
+		FROM article AS A
+		INNER JOIN
+		`member` AS M
+		ON A.memberId
+		= M.id
+		WHERE boardId = #{boardId}
+		AND
+		displayStatus = '1'
+		AND
+		A.delStatus
+		=
+		'0'
+		ORDER BY id DESC
+		<if test="limitCount != null">
+			LIMIT 0, #{limitCount}
+		</if>
 	</select>
 
 	<insert id="write" useGeneratedKeys="true" keyProperty="id">

@@ -37,4 +37,8 @@ public class ArticleService {
 		return articleDao.getBoardByCode(code);
 	}
 
+	public List<Article> getArticlesByParam(Map<String, Object> param) {
+		return articleDao.getArticlesByParam(param);
+	}
+
 }

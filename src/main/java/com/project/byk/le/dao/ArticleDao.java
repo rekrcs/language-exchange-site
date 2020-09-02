@@ -22,4 +22,6 @@ public interface ArticleDao {
 
 	Board getBoardByCode(@Param("code") String code);
 
+	List<Article> getArticlesByParam(Map<String, Object> param);
+
 }
