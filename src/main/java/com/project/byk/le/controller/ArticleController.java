@@ -24,16 +24,27 @@ public class ArticleController {
 	ArticleService articleService;
 
 	@RequestMapping("usr/article/{boardCode}-list")
-	public String showList(Model model, @PathVariable("boardCode") String boardCode) {
+	public String showList(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+			@PathVariable("boardCode") String boardCode) {
 		Board board = articleService.getBoardByCode(boardCode);
 
 		Map<String, Object> getForPrintArticlesByParm = new HashMap();
 		getForPrintArticlesByParm.put("boardId", board.getId());
-		getForPrintArticlesByParm.put("limitCount", 5);
-//		List<Article> articles = articleService.getArticlesByCode(board.getId());
+
+		int limitCount = 20;
+		int limitFrom = (page - 1) * limitCount;
+		getForPrintArticlesByParm.put("limitCount", limitCount);
+		getForPrintArticlesByParm.put("limitFrom", limitFrom);
+
+		int totalCount = articleService.getArticlesCount(getForPrintArticlesByParm);
+		int totalPage = (int) Math.ceil((double) totalCount / limitCount);
 		List<Article> articles = articleService.getArticlesByParam(getForPrintArticlesByParm);
+
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardCode", boardCode);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalCount", totalCount);
+		
 		return "article/list";
 	}
 

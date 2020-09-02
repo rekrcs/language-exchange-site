@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 <div class="table-box small-con">
+	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
+		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
+	</span>
 	<table>
 		<colgroup>
 			<col width="80" />
@@ -36,6 +39,18 @@
 			<li><a href="${boardCode}-write">write</a></li>
 		</ul>
 	</div>
+</div>
+
+<div class="page-menu text-align-center" style="margin-bottom: 50px;">
+	<c:forEach begin="1" end="${totalPage}" var="currentPage">
+		<c:if test="${currentPage == param.page }">
+			<a style="color: red; font-weight: bold;" ${queryString}?page=${currentPage}">${currentPage}</a>
+		</c:if>
+		<c:if test="${currentPage != param.page }">
+			<a href="${queryString}?page=${currentPage}">${currentPage}</a>
+		</c:if>
+	</c:forEach>
+
 </div>
 
 

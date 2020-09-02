@@ -32,6 +32,9 @@
 <script src="/resource/common.js"></script>
 
 <title>Insert title here</title>
+<%="<script>"%>
+var param = ${paramJson};
+<%="</script>"%>
 </head>
 <body>
 	<!-- 탑바 -->
@@ -42,7 +45,8 @@
 			<nav class="menu-box-1">
 				<ul class="flex height-100p">
 					<li><a href="../home/main" class="height-100p flex flex-ai-c">Home</a></li>
-					<li><a href="../message/message" class="height-100p flex flex-ai-c">Msg</a></li>
+					<li><a href="../message/message"
+						class="height-100p flex flex-ai-c">Msg</a></li>
 					<li><a href="#" class="height-100p flex flex-ai-c">Board</a>
 						<ul>
 							<c:forEach items="${boards}" var="board">
@@ -56,7 +60,8 @@
 							class="height-100p flex flex-ai-c">Sign up</a></li>
 					</c:if>
 					<c:if test="${isLogined}">
-						<li><a href="#" class="height-100p flex flex-ai-c">My page</a>
+						<li><a href="#" class="height-100p flex flex-ai-c">My
+								page</a>
 							<ul>
 								<li><a href="../member/profile" class="block">Profile</a></li>
 								<li><a

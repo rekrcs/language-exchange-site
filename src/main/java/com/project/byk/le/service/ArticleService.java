@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.project.byk.le.dao.ArticleDao;
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.dto.Board;
@@ -16,10 +15,6 @@ public class ArticleService {
 
 	@Autowired
 	ArticleDao articleDao;
-
-	public List<Article> getArticlesByCode(int boardId) {
-		return articleDao.getArticlesByCode(boardId);
-	}
 
 	public int write(Map<String, Object> param) {
 		return articleDao.write(param);
@@ -39,6 +34,10 @@ public class ArticleService {
 
 	public List<Article> getArticlesByParam(Map<String, Object> param) {
 		return articleDao.getArticlesByParam(param);
+	}
+
+	public int getArticlesCount(Map<String, Object> param) {
+		return articleDao.getArticlesCount(param);
 	}
 
 }

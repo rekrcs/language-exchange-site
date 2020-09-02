@@ -12,8 +12,6 @@ import com.project.byk.le.dto.Board;
 @Mapper
 public interface ArticleDao {
 
-	List<Article> getArticlesByCode(@Param("boardId") int boardId);
-
 	int write(Map<String, Object> param);
 
 	Article getArticleById(@Param("id") int id);
@@ -23,5 +21,7 @@ public interface ArticleDao {
 	Board getBoardByCode(@Param("code") String code);
 
 	List<Article> getArticlesByParam(Map<String, Object> param);
+
+	int getArticlesCount(Map<String, Object> param);
 
 }
