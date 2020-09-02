@@ -42,15 +42,28 @@
 </div>
 
 <div class="page-menu text-align-center" style="margin-bottom: 50px;">
-	<c:forEach begin="1" end="${totalPage}" var="currentPage">
+	<c:if test="${moveToFirstPage}">
+		<a title="Move to list page"href="${queryString}?page=1"><i class="fas fa-angle-double-left"></i></i></a>
+	</c:if>
+	<c:if test="${beforeMorePages}">
+		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i class="fas fa-angle-left"></i></a>
+	</c:if>
+	<c:forEach begin="${pageStartsWith}" end="${pageEndsWith}"
+		var="currentPage">
 		<c:if test="${currentPage == param.page }">
-			<a style="color: red; font-weight: bold;" ${queryString}?page=${currentPage}">${currentPage}</a>
+			<a style="color: red; font-weight: bold;"
+				href="${queryString}?page=${currentPage}">${currentPage}</a>
 		</c:if>
 		<c:if test="${currentPage != param.page }">
-			<a href="${queryString}?page=${currentPage}">${currentPage}</a>
+			<a style="color: blue" href="${queryString}?page=${currentPage}">${currentPage}</a>
 		</c:if>
 	</c:forEach>
-
+	<c:if test="${afterMorePages}">
+		<a href="${queryString}?page=${param.page + pageBoundSize + 1}"><i class="fas fa-angle-right"></i></a>
+	</c:if>
+	<c:if test="${moveToLastPage}">
+		<a title="Move to list page" href="${queryString}?page=${totalPage}"><i class="fas fa-angle-double-right"></i></a>
+	</c:if>
 </div>
 
 

@@ -42,8 +42,32 @@ public class ArticleController {
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardCode", boardCode);
+
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount", totalCount);
+
+		int pageBoundSize = 5;
+		int pageStartsWith = page - pageBoundSize;
+		if (pageStartsWith < 1) {
+			pageStartsWith = 1;
+		}
+
+		int pageEndsWith = page + pageBoundSize;
+		if (pageEndsWith > totalPage) {
+			pageEndsWith = totalPage;
+		}
+		model.addAttribute("pageStartsWith", pageStartsWith);
+		model.addAttribute("pageEndsWith", pageEndsWith);
+		model.addAttribute("pageBoundSize", pageBoundSize);
+
+		boolean beforeMorePages = pageStartsWith > 1;
+		boolean afterMorePages = pageEndsWith < totalPage;
+
+		model.addAttribute("beforeMorePages", beforeMorePages);
+		model.addAttribute("afterMorePages", afterMorePages);
+		
+		model.addAttribute("moveToFirstPage", page != 1);
+		model.addAttribute("moveToLastPage", page != totalPage);
 		
 		return "article/list";
 	}
