@@ -5,6 +5,40 @@
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
 		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
 	</span>
+
+	<div>
+
+		<script>
+			function searchKeywordForm__submit(form) {
+				form.searchType.value = form.searchType.value.trim();
+
+				if (form.searchType.value.length == 0) {
+					form.searchType.focus();
+					alert('Please choose search Type.');
+
+					return;
+				}
+				form.submit();
+			}
+		</script>
+		<form action="" name="searchForm"
+			onsubmit="searchKeywordForm__submit(this); return false;">
+			<input type="hidden" name="boardCode" value="${boardCode}" /> <input
+				type="hidden" name="page" value="1" /> <select name="searchType">
+				<option value="">::Search Type::</option>
+				<option value="title">Title</option>
+				<option value="body">Body</option>
+				<option value="titleAndBody">Title + Body</option>
+			</select>
+			<script>
+				$('form[name="searchForm"] select[name="searchType"]').val(
+						param.searchType);
+			</script>
+			<input type="text" name="searchKeyword" placeholder="For Search"
+				value="${param.searchKeyword }" /> <input type="submit"
+				value="search" />
+		</form>
+	</div>
 	<table>
 		<colgroup>
 			<col width="80" />
@@ -43,10 +77,12 @@
 
 <div class="page-menu text-align-center" style="margin-bottom: 50px;">
 	<c:if test="${moveToFirstPage}">
-		<a title="Move to list page"href="${queryString}?page=1"><i class="fas fa-angle-double-left"></i></i></a>
+		<a title="Move to list page" href="${queryString}?page=1"><i
+			class="fas fa-angle-double-left"></i></i></a>
 	</c:if>
 	<c:if test="${beforeMorePages}">
-		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i class="fas fa-angle-left"></i></a>
+		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i
+			class="fas fa-angle-left"></i></a>
 	</c:if>
 	<c:forEach begin="${pageStartsWith}" end="${pageEndsWith}"
 		var="currentPage">
@@ -59,10 +95,12 @@
 		</c:if>
 	</c:forEach>
 	<c:if test="${afterMorePages}">
-		<a href="${queryString}?page=${param.page + pageBoundSize + 1}"><i class="fas fa-angle-right"></i></a>
+		<a href="${queryString}?page=${param.page + pageBoundSize + 1}"><i
+			class="fas fa-angle-right"></i></a>
 	</c:if>
 	<c:if test="${moveToLastPage}">
-		<a title="Move to list page" href="${queryString}?page=${totalPage}"><i class="fas fa-angle-double-right"></i></a>
+		<a title="Move to list page" href="${queryString}?page=${totalPage}"><i
+			class="fas fa-angle-double-right"></i></a>
 	</c:if>
 </div>
 

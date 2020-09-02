@@ -6,11 +6,24 @@
 	<select id="getArticlesCount" resultType="int">
 		SELECT COUNT(*)
 		FROM
-		article
+		article AS A
 		WHERE boardId = #{boardId}
-		AND displayStatus = '1'
+		AND displayStatus
+		= '1'
 		AND delStatus
 		= '0'
+			<choose>
+				<when test="searchType == 'title'">
+					AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchType == 'body'">
+					AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchType == 'titleAndBody'">
+					AND (A.title LIKE CONCAT('%',#{searchKeyword},'%') OR
+					A.body LIKE CONCAT('%',#{searchKeyword},'%'))
+				</when>
+			</choose>
 	</select>
 
 	<select id="getArticlesByParam" resultMap="article">
@@ -28,6 +41,18 @@
 		A.delStatus
 		=
 		'0'
+		<choose>
+			<when test="searchType == 'title'">
+				AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+			</when>
+			<when test="searchType == 'body'">
+				AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
+			</when>
+			<when test="searchType == 'titleAndBody'">
+				AND (A.title LIKE CONCAT('%',#{searchKeyword},'%') OR
+				A.body LIKE CONCAT('%',#{searchKeyword},'%'))
+			</when>
+		</choose>
 		ORDER BY id DESC
 		<if test="limitCount != null">
 			LIMIT #{limitFrom}, #{limitCount}

@@ -24,17 +24,19 @@ public class ArticleController {
 	ArticleService articleService;
 
 	@RequestMapping("usr/article/{boardCode}-list")
-	public String showList(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+	public String showList(Model model, String searchKeyword, String searchType, @RequestParam(value = "page", defaultValue = "1") int page,
 			@PathVariable("boardCode") String boardCode) {
 		Board board = articleService.getBoardByCode(boardCode);
 
 		Map<String, Object> getForPrintArticlesByParm = new HashMap();
 		getForPrintArticlesByParm.put("boardId", board.getId());
-
-		int limitCount = 20;
+		
+		int limitCount = 10;
 		int limitFrom = (page - 1) * limitCount;
 		getForPrintArticlesByParm.put("limitCount", limitCount);
 		getForPrintArticlesByParm.put("limitFrom", limitFrom);
+		getForPrintArticlesByParm.put("searchKeyword", searchKeyword);
+		getForPrintArticlesByParm.put("searchType", searchType);
 
 		int totalCount = articleService.getArticlesCount(getForPrintArticlesByParm);
 		int totalPage = (int) Math.ceil((double) totalCount / limitCount);
