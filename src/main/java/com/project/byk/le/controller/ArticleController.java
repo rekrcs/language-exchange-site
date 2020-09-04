@@ -24,13 +24,13 @@ public class ArticleController {
 	ArticleService articleService;
 
 	@RequestMapping("usr/article/{boardCode}-list")
-	public String showList(Model model, String searchKeyword, String searchType, @RequestParam(value = "page", defaultValue = "1") int page,
-			@PathVariable("boardCode") String boardCode) {
+	public String showList(Model model, String searchKeyword, String searchType,
+			@RequestParam(value = "page", defaultValue = "1") int page, @PathVariable("boardCode") String boardCode) {
 		Board board = articleService.getBoardByCode(boardCode);
 
 		Map<String, Object> getForPrintArticlesByParm = new HashMap();
 		getForPrintArticlesByParm.put("boardId", board.getId());
-		
+
 		int limitCount = 10;
 		int limitFrom = (page - 1) * limitCount;
 		getForPrintArticlesByParm.put("limitCount", limitCount);
@@ -67,10 +67,10 @@ public class ArticleController {
 
 		model.addAttribute("beforeMorePages", beforeMorePages);
 		model.addAttribute("afterMorePages", afterMorePages);
-		
+
 		model.addAttribute("moveToFirstPage", page != 1);
 		model.addAttribute("moveToLastPage", page != totalPage);
-		
+
 		return "article/list";
 	}
 
@@ -114,5 +114,15 @@ public class ArticleController {
 		model.addAttribute("alertMsg", String.format("your article have deleted."));
 		model.addAttribute("redirectUri", String.format("/usr/article/%s-list", boardCode));
 		return "common/redirect";
+	}
+
+	@RequestMapping("/usr/article/live")
+	public String showLive() {
+		return "article/live";
+	}
+
+	@RequestMapping("usr/article/liveWrite")
+	public String showLiveWrite() {
+		return "article/liveWrite";
 	}
 }

@@ -86,6 +86,14 @@
 			return;
 		}
 
+		form.gender.value = form.gender.value.trim();
+		if (form.gender.value.length == 0) {
+			form.gender.focus();
+			alert('Please choose your Gender');
+
+			return;
+		}
+
 		form.nickname.value = form.nickname.value.trim();
 
 		if (form.nickname.value.length == 0) {
@@ -143,15 +151,16 @@
 			return;
 		}
 
-		$.ajax({
-			url : 'getLoginIdDup',
-			data : {
-				loginId : form.loginId.value,
-				onlyAlphabetAndNumInId : onlyAlphabetAndNumInId
-			},
-			dataType : "json",
-			type : 'POST',
-			success : function(data) {
+		$
+				.ajax({
+					url : 'getLoginIdDup',
+					data : {
+						loginId : form.loginId.value,
+						onlyAlphabetAndNumInId : onlyAlphabetAndNumInId
+					},
+					dataType : "json",
+					type : 'POST',
+					success : function(data) {
 						var $message = $('.message-msg');
 
 						if (data.isJoinableLoginId == 'true') {
@@ -167,10 +176,8 @@
 							JoinForm__validLoginId = '';
 						}
 					}
-		});
+				});
 	}
-
-	
 </script>
 
 <form class="form1" method="POST" action="doJoin"
@@ -221,6 +228,16 @@
 								placeholder="Please enter your name" />
 						</div>
 					</td>
+				</tr>
+				<tr>
+					<th>Gender</th>
+					<td><div class="form-control-box">
+							<select name="gender" style="font-size: 15px;">
+								<option value="">::choose::</option>
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</div></td>
 				</tr>
 				<tr>
 					<th>Nickname</th>

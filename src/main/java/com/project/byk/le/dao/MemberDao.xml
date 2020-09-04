@@ -12,6 +12,7 @@
 		#{loginId},
 		loginPw = #{loginPwReal},
 		`name` = #{name},
+		gender = #{gender},
 		nickname =
 		#{nickname},
 		email = #{email},

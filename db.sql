@@ -20,6 +20,8 @@ USE `le`;
     nativeLang CHAR(20) NOT NULL,
     practiceLang CHAR(20) NOT NULL
  );
+
+ ALTER TABLE `member` ADD COLUMN `gender` CHAR(10) NOT NULL AFTER `name`; 
  
  # create board table
  CREATE TABLE board (
@@ -87,6 +89,13 @@ displayStatus = '1',
 `code` = 'free',
 `name` = 'free';
 
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDAte = NOW(),
+displayStatus = '1',
+`code` = 'live',
+`name` = 'Live';
+
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDAte = NOW(),
@@ -135,3 +144,8 @@ title = CONCAT('제목-', UUID()),
 `body` = CONCAT('내용-', UUID()),
 displayStatus = '1';
 
+SELECT COUNT(*)
+FROM article 
+WHERE boardId = '2'
+AND displayStatus = '1'
+AND delStatus = '0';
