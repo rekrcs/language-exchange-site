@@ -40,4 +40,8 @@ public class ArticleService {
 		return articleDao.getArticlesCount(param);
 	}
 
+	public List<Article> getArticleByBoradId(int boardId) {
+		return articleDao.getArticleByBoradId(boardId);
+	}
+
 }

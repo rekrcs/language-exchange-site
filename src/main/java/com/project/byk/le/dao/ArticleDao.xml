@@ -81,6 +81,17 @@
 		M.id
 		WHERE A.id = #{id}
 	</select>
+	
+	<select id="getArticleByBoradId" resultMap="article">
+		SELECT A.*, M.nickname AS
+		extra__writer
+		FROM article AS A
+		INNER JOIN `member` AS M
+		ON A.memberId =
+		M.id
+		WHERE A.boardId = #{boardId}
+		ORDER BY id DESC
+	</select>
 
 	<update id="deleteArticle">
 		UPDATE article

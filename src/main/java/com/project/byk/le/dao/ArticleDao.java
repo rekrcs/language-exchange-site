@@ -24,4 +24,6 @@ public interface ArticleDao {
 
 	int getArticlesCount(Map<String, Object> param);
 
+	List<Article> getArticleByBoradId(@Param("boardId") int boardId);
+
 }

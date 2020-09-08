@@ -30,6 +30,7 @@
 			alert("It's being done right now.");
 			return;
 		}
+		
 		form.title.value = form.title.value.trim();
 
 		if (form.title.value.length == 0) {
@@ -51,16 +52,18 @@
 			return;
 		}
 
+ 		form.body.value = body;
+
 		removeOnBeforeUnload();
 		form.submit();
 		ArticleLiveWriteForm__submitDone = true;
 	}
 
-
 	function ArticleLiveWriteForm__init() {
-		$('form.form1 input, form.form1 .toast-editor.input-body').keyup(function() {
-			applyOnBeforeUnload();
-		});
+		$('form.form1 input, form.form1 .toast-editor.input-body').keyup(
+				function() {
+					applyOnBeforeUnload();
+				});
 	}
 
 	$(function() {
@@ -70,6 +73,7 @@
 <form class="form1" method="POST" action="doWrite"
 	onsubmit="ArticleLiveWriteForm__submit(this); return false;">
 	<input type="hidden" name="code" value="${boardCode}" />
+	<input type="hidden" name="body" />
 	<div class="table-box small-con">
 		<table>
 			<thead>
@@ -87,7 +91,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>내용</th>
+					<th>Body</th>
 					<td>
 						<div class="form-control-box">
 							<script type="text/x-template">

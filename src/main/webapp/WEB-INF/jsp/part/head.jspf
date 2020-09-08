@@ -47,7 +47,7 @@ var param = ${paramJson};
 					<li><a href="../home/main" class="height-100p flex flex-ai-c">Home</a></li>
 					<c:forEach items="${boards}" var="board" varStatus="status">
 						<c:if test="${status.count == 3}">
-							<li><a href="../article/live"
+							<li><a href="../article/${board.code}-liveList?page=1"
 								class="height-100p flex flex-ai-c">${board.name}</a></li>
 						</c:if>
 					</c:forEach>

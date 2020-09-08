@@ -81,8 +81,7 @@ public class ArticleController {
 	}
 
 	@RequestMapping("usr/article/doWrite")
-	@ResponseBody
-	public String doWrite(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doWrite(Model model, @RequestParam Map<String, Object> param, HttpSession session) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		String boardCode = (String) param.get("code");
 		Board board = articleService.getBoardByCode(boardCode);
@@ -90,8 +89,14 @@ public class ArticleController {
 		param.put("memberId", loginedMemberId);
 		int newArticleWrite = articleService.write(param);
 
-		return String.format("<script>alert('A new article has been written.'); location.replace('%s-list')</script>",
-				boardCode);
+		if (boardCode.equals("live")) {
+			List<Article> articles = articleService.getArticleByBoradId(board.getId());
+			model.addAttribute("articles", articles);
+			return "article/live";
+		}
+		model.addAttribute("redirectUri", boardCode + "-list");
+		model.addAttribute("alertMsg", String.format("A new article has been written."));
+		return "common/redirect";
 	}
 
 	@RequestMapping("usr/article/{boardCode}-detail")
@@ -116,13 +121,17 @@ public class ArticleController {
 		return "common/redirect";
 	}
 
-	@RequestMapping("/usr/article/live")
-	public String showLive() {
+	@RequestMapping("usr/article/{boardCode}-liveList")
+	public String showLive(Model model, @PathVariable("boardCode") String boardCode) {
+		model.addAttribute("boardCode", boardCode);
+		Board board = articleService.getBoardByCode(boardCode);
+		List<Article> articles = articleService.getArticleByBoradId(board.getId());
+		model.addAttribute("articles", articles);
 		return "article/live";
 	}
 
-	@RequestMapping("usr/article/liveWrite")
-	public String showLiveWrite() {
+	@RequestMapping("usr/article/{boardCode}-liveWrite")
+	public String showLiveWrite(Model model, @PathVariable("boardCode") String boardCode) {
 		return "article/liveWrite";
 	}
 }
