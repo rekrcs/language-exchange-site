@@ -4,27 +4,29 @@
 <%@ include file="../part/toastuiEditor.jspf"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
 <script>
-// 	var onBeforeUnloadSetted = false;
-// 	var onBeforeUnload = function(e) {
-// 		return 'Are you sure you want to leave your writing?';
-// 	};
+	var onBeforeUnloadSetted = false;
+	var onBeforeUnload = function(e) {
+		return 'Are you sure you want to leave your writing?';
+	};
 
-// 	function applyOnBeforeUnload() {
-// 		if (onBeforeUnloadSetted)
-// 			return;
-// 		$(window).bind('beforeunload', onBeforeUnload);
-// 		onBeforeUnloadSetted = true;
-// 	}
-// 	function removeOnBeforeUnload() {
-// 		$(window).unbind('beforeunload', onBeforeUnload);
-// 		onBeforeUnloadSetted = false;
-// 	}
+	function applyOnBeforeUnload() {
+		if (onBeforeUnloadSetted)
+			return;
+		$(window).bind('beforeunload', onBeforeUnload);
+		onBeforeUnloadSetted = true;
+	}
+	function removeOnBeforeUnload() {
+		$(window).unbind('beforeunload', onBeforeUnload);
+		onBeforeUnloadSetted = false;
+	}
 
-	var ArticleWriteForm__submitDone = false;
+	var ArticleLiveWriteForm__submitDone = false;
 
-	function ArticleWriteForm__submit(form) {
-		if (ArticleWriteForm__submitDone) {
+	function ArticleLiveWriteForm__submit(form) {
+		if (ArticleLiveWriteForm__submitDone) {
 			alert("It's being done right now.");
 			return;
 		}
@@ -49,25 +51,24 @@
 			return;
 		}
 
-		form.body.value = body;
-
-// 		removeOnBeforeUnload();
+		removeOnBeforeUnload();
 		form.submit();
-		ArticleWriteForm__submitDone = true;
+		ArticleLiveWriteForm__submitDone = true;
 	}
 
-// 	function ArticleWriteForm__init() {
-// 		$('form.form1 input').keyup(function() {
-// 			applyOnBeforeUnload();
-// 		});
-// 	}
 
-// 	$(function() {
-// 		ArticleWriteForm__init();
-// 	});
+	function ArticleLiveWriteForm__init() {
+		$('form.form1 input, form.form1 .toast-editor.input-body').keyup(function() {
+			applyOnBeforeUnload();
+		});
+	}
+
+	$(function() {
+		ArticleLiveWriteForm__init();
+	});
 </script>
 <form class="form1" method="POST" action="doWrite"
-	onsubmit="ArticleWriteForm__submit(this); return false;">
+	onsubmit="ArticleLiveWriteForm__submit(this); return false;">
 	<input type="hidden" name="code" value="${boardCode}" />
 	<div class="table-box small-con">
 		<table>
