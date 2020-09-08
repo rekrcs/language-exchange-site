@@ -8,22 +8,23 @@
 		FROM
 		article AS A
 		WHERE boardId = #{boardId}
-		AND displayStatus
+		AND
+		displayStatus
 		= '1'
 		AND delStatus
 		= '0'
-			<choose>
-				<when test="searchType == 'title'">
-					AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
-				</when>
-				<when test="searchType == 'body'">
-					AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
-				</when>
-				<when test="searchType == 'titleAndBody'">
-					AND (A.title LIKE CONCAT('%',#{searchKeyword},'%') OR
-					A.body LIKE CONCAT('%',#{searchKeyword},'%'))
-				</when>
-			</choose>
+		<choose>
+			<when test="searchType == 'title'">
+				AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+			</when>
+			<when test="searchType == 'body'">
+				AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
+			</when>
+			<when test="searchType == 'titleAndBody'">
+				AND (A.title LIKE CONCAT('%',#{searchKeyword},'%') OR
+				A.body LIKE CONCAT('%',#{searchKeyword},'%'))
+			</when>
+		</choose>
 	</select>
 
 	<select id="getArticlesByParam" resultMap="article">
@@ -81,15 +82,23 @@
 		M.id
 		WHERE A.id = #{id}
 	</select>
-	
+
 	<select id="getArticleByBoradId" resultMap="article">
-		SELECT A.*, M.nickname AS
+		SELECT A.*,
+		M.nickname AS
 		extra__writer
 		FROM article AS A
 		INNER JOIN `member` AS M
-		ON A.memberId =
+		ON
+		A.memberId =
 		M.id
 		WHERE A.boardId = #{boardId}
+		AND
+		displayStatus = '1'
+		AND
+		A.delStatus
+		=
+		'0'
 		ORDER BY id DESC
 	</select>
 

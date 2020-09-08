@@ -115,9 +115,15 @@ public class ArticleController {
 	public String doDeleteArticle(Model model, @RequestParam Map<String, Object> param,
 			@PathVariable("boardCode") String boardCode) {
 		int id = Integer.parseInt((String) param.get("id"));
+
 		articleService.deleteArticle(id);
+
 		model.addAttribute("alertMsg", String.format("your article have deleted."));
-		model.addAttribute("redirectUri", String.format("/usr/article/%s-list", boardCode));
+		if (boardCode.equals("live")) {
+			model.addAttribute("redirectUri", String.format("/usr/article/%s-liveList", boardCode));
+		} else {
+			model.addAttribute("redirectUri", String.format("/usr/article/%s-list", boardCode));
+		}
 		return "common/redirect";
 	}
 
