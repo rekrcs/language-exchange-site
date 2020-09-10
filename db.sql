@@ -1,7 +1,7 @@
 # create DB
-DROP DATABASE IF EXISTS `le`;
-CREATE DATABASE `le`;
-USE `le`;
+DROP DATABASE IF EXISTS `st_n33_www`;
+CREATE DATABASE `st_n33_www`;
+USE `st_n33_www`;
 
 # create member table
  CREATE TABLE `member` (
@@ -20,26 +20,24 @@ USE `le`;
     nativeLang CHAR(20) NOT NULL,
     practiceLang CHAR(20) NOT NULL
  );
-
- ALTER TABLE `member` ADD COLUMN `gender` CHAR(10) NOT NULL AFTER `name`; 
  
  # create board table
  CREATE TABLE board (
-     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-     regDate DATETIME NOT NULL,
-     updateDate DATETIME NOT NULL,
-     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
-     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-     `code` CHAR(20) NOT NULL UNIQUE,
-     `name` CHAR(20) NOT NULL UNIQUE
+ id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ regDate DATETIME NOT NULL,
+ updateDate DATETIME NOT NULL,
+ delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
+ displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+ delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+ `code` CHAR(20) NOT NULL UNIQUE,
+ `name` CHAR(20) NOT NULL UNIQUE
  );
  
  # create article table
  CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     memberId INT(10) UNSIGNED NOT NULL,
-    boardId INT(10) UNSIGNED NOT NULL,
+    boardCode CHAR(20) NOT NULL,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -89,13 +87,6 @@ displayStatus = '1',
 `code` = 'free',
 `name` = 'free';
 
-INSERT INTO `board`
-SET regDate = NOW(),
-updateDAte = NOW(),
-displayStatus = '1',
-`code` = 'live',
-`name` = 'Live';
-
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDAte = NOW(),
@@ -108,23 +99,10 @@ email = 'admin@admin.admin',
 nativeLang = 'english',
 practiceLang = 'korean';
 
-INSERT INTO `member`
-SET regDate = NOW(),
-updateDAte = NOW(),
-loginId = 'aaaaa',
-loginPw = SHA2('aaaaa', 256),
-`name` = 'aaaaa',
-nickname = 'aaaaa',
-email = 'aaaaa@aaaaa.aaaaa',
-`level` = '10',
-nativeLang = 'english',
-practiceLang = 'korean';
-
  # create message table
 CREATE TABLE message (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fromMemberId INT(10) UNSIGNED NOT NULL,
-    toMemberId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
     regDate DATETIME NOT NULL,
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
@@ -133,19 +111,3 @@ CREATE TABLE message (
  );
 
  ALTER TABLE `message` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
-
-
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-boardId = IF(RAND() > 0.5, 1, 2),
-memberId = IF(RAND() > 0.5, 1, 2),
-title = CONCAT('제목-', UUID()),
-`body` = CONCAT('내용-', UUID()),
-displayStatus = '1';
-
-SELECT COUNT(*)
-FROM article 
-WHERE boardId = '2'
-AND displayStatus = '1'
-AND delStatus = '0';

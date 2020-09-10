@@ -1,26 +1,41 @@
-server:
-  port: 8085
 spring:
+  profiles:
+    active: local # 기본적으로 local이 선택된다는 뜻
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    timeout: 600
+    store-type: redis
+    redis:
+      flush-mode: on-save
+      namespace: spring:session
   mail:
     host: smtp.gmail.com
     port: 587
-    username: 
-    password: 
+    username: forblogyong@gmail.com
+    password: 비번입력
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: C:\temp
+      max-file-size: 100MB
+      max-request-size: 100MB          
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/le?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
-    username: sbsst
-    password: sbs123414
+    url: jdbc:mysql://127.0.0.1:3306/st_n33_www?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+    username: root
+    password: 
 mybatis:
   type-aliases-package: com.project.byk.le.dto
 custom:
@@ -30,3 +45,22 @@ custom:
   logoText: Learn-KR
   emailFrom: no-reply@languageExchange.com
   emailFromName: Learn-KR-admin
+
+---
+ 
+spring:
+  profiles: local
+server:
+  port: 8085
+  
+---
+
+spring:
+  profiles: production
+  servlet:
+    multipart:
+      location: /tmp
+  datasource:
+    username: brg
+    password: 비번입력
+    url: jdbc:mysql://127.0.0.1:3306/st_n33_www?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull

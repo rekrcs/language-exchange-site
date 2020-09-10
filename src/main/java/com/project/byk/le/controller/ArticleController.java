@@ -82,6 +82,11 @@ public class ArticleController {
 
 	@RequestMapping("usr/article/doWrite")
 	public String doWrite(Model model, @RequestParam Map<String, Object> param, HttpSession session) {
+		if(session.getAttribute("loginedMemberId") == null) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", String.format("you can write after login"));
+			return "common/redirect";
+		}
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		String boardCode = (String) param.get("code");
 		Board board = articleService.getBoardByCode(boardCode);
