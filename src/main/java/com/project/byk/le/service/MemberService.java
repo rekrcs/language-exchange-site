@@ -40,7 +40,6 @@ public class MemberService {
 		mailBodySb.append("<h1>Your membership has been completed.</h1>");
 		mailBodySb
 				.append(String.format("<p>Move to <a href=\"%s\" target=\"_blank\">%s</a></p>", siteMainUri, siteName));
-
 		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
