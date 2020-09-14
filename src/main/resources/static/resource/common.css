@@ -399,14 +399,6 @@ label[for] {
 		width: 200px;
 	}
 } */
-@media ( max-width :799px) {
-	.table-box>table th:nth-child(2) {
-		width: 100px;
-	}
-	.table-box>table th:nth-child(3), td:nth-child(3), tr:nth-child(3) {
-		display: none;
-	}
-}
 /* 테이블 끝 */
 
 /* 폼관련 라이브러리 */
@@ -580,7 +572,7 @@ input, button {
 }
 /* 모바일 탑바 끝 */
 
-/* 모바일 탑바 시자 */
+/* 모바일 사이드바 시작 */
 .mobile-side-bar {
 	position: fixed;
 	background-color: #11582e;
@@ -619,7 +611,7 @@ input, button {
 	color: black;
 }
 
-.mobile-side-bar>.menu-box-1>ul ul {
+.mobile-side-bar>.menu-box-1 ul ul {
 	display: none;
 	background-color: #43582f;
 }

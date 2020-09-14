@@ -23,12 +23,12 @@ public class MemberController {
 	@Autowired
 	private AttrService attrService;
 
-	@RequestMapping("usr/member/join")
+	@RequestMapping("/usr/member/join")
 	public String showJoin() {
 		return "member/join";
 	}
 
-	@RequestMapping("usr/member/doJoin")
+	@RequestMapping("/usr/member/doJoin")
 	public String doJoin(@RequestParam Map<String, Object> param, Model model) {
 		String newMember = (String) param.get("loginId");
 		String newMemberEmail = (String) param.get("email");

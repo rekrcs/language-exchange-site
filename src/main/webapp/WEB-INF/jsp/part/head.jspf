@@ -96,11 +96,11 @@ var param = ${paramJson};
 	<div class="mobile-side-bar flex flex-ai-c visible-on-sm-down">
 		<nav class="menu-box-1 flex-grow-1">
 			<ul>
-
 				<li><a href="../home/main" class="block">Home</a></li>
 				<c:forEach items="${boards}" var="board" varStatus="status">
 					<c:if test="${status.count == 3}">
-						<li><a href="../article/live" class="block">${board.name}</a></li>
+						<li><a href="../article/${board.code}-liveList?page=1"
+							class="block">${board.name}</a></li>
 					</c:if>
 				</c:forEach>
 				<li><a href="../message/message" class="block">Msg</a></li>
