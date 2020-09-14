@@ -93,8 +93,8 @@ var param = ${paramJson};
 			class="logo flex flex-ai-c absolute-center absolute-middle">Learn-KR햫</a>
 	</div>
 
-	<div class="mobile-side-bar flex flex-ai-c visible-on-sm-down">
-		<nav class="menu-box-1 flex-grow-1">
+	<div class="mobile-side-bar visible-on-sm-down">
+		<nav class="menu-box-1 flex-grow-1" style="margin-top: 10px">
 			<ul>
 				<li><a href="../home/main" class="block">Home</a></li>
 				<c:forEach items="${boards}" var="board" varStatus="status">
@@ -112,6 +112,7 @@ var param = ${paramJson};
 									class="block">${board.code}</a></li>
 							</c:if>
 						</c:forEach>
+
 					</ul></li>
 				<c:if test="${isLogined == false}">
 					<li><a href="../member/login" class="block">Login</a></li>
