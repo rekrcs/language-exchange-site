@@ -1,5 +1,6 @@
 package com.project.byk.le.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,6 @@ public interface MemberDao {
 	String expireDate();
 
 	boolean isJoinableLoginId(@Param("loginId") String loginId);
+
+	List<Member> getMembers();
 }

@@ -40,8 +40,8 @@ mybatis:
   type-aliases-package: com.project.byk.le.dto
 custom:
   siteName: Learn-KR
-  siteMainUri: http://localhost:8085/usr/home/main
-  siteMainUriForIdAndPw: http://localhost:8085/usr/member/login
+  siteMainUri: http://www.enkr.net/usr/home/main
+  siteMainUriForIdAndPw: http://www.enkr.net/usr/member/login
   logoText: Learn-KR
   emailFrom: no-reply@languageExchange.com
   emailFromName: Learn-KR-admin

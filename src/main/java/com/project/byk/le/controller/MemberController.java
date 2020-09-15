@@ -1,5 +1,6 @@
 package com.project.byk.le.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -311,5 +312,13 @@ public class MemberController {
 			return "{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"isJoinableLoginId\": \"false\", \"loginId\":\"" + loginId + "\"}";
 		}
 		return "";
+	}
+
+	@RequestMapping("usr/member/learnKr")
+	public String showLearnKr(Model model) {
+		List<Member> members = memberService.getMembers();
+		System.out.println(members);
+		model.addAttribute("members", members);
+		return "member/learnKr";
 	}
 }

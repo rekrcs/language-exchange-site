@@ -34,6 +34,8 @@ USE `st_n33_www`;
      `code` CHAR(20) NOT NULL UNIQUE,
      `name` CHAR(20) NOT NULL UNIQUE
  );
+
+ ALTER TABLE `member` ADD COLUMN `introduce` LONGTEXT NULL AFTER `practiceLang`; 
  
  # create article table
  CREATE TABLE article (

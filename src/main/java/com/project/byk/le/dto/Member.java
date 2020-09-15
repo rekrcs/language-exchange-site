@@ -23,4 +23,5 @@ public class Member {
 	private int level;
 	private String nativeLang;
 	private String practiceLang;
+	private String introduce;
 }

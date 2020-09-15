@@ -12,11 +12,13 @@
 		#{loginId},
 		loginPw = #{loginPwReal},
 		`name` = #{name},
-		gender = #{gender},
+		gender =
+		#{gender},
 		nickname =
 		#{nickname},
 		email = #{email},
-		nativeLang = #{nativeLang},
+		nativeLang =
+		#{nativeLang},
 		practiceLang =
 		#{practiceLang}
 	</insert>
@@ -96,5 +98,12 @@
 		SELECT COUNT(*) AS cnt
 		FROM `member`
 		WHERE loginId = #{loginId}
+	</select>
+
+	<select id="getMembers" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE introduce IS NOT NULL
+		AND nativeLang = 'Korean'
 	</select>
 </mapper>

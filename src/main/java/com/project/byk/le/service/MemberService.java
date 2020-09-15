@@ -1,6 +1,7 @@
 package com.project.byk.le.service;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +131,10 @@ public class MemberService {
 
 	public boolean isJoinableLoginId(String loginId) {
 		return memberDao.isJoinableLoginId(loginId);
+	}
+
+	public List<Member> getMembers() {
+		return memberDao.getMembers();
 	}
 
 }
