@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+.msg>a {
+	display: none;
+}
+
+td:hover>.msg>a {
+	background-color:black;
+	color: white;
+	display: inline-block;
+}
+</style>
 <div class="table-box small-con">
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
 		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
@@ -64,7 +75,9 @@
 					<td>${member.id}</td>
 					<td>${member.regDate}</td>
 					<td>${member.gender}</td>
-					<td>${member.nickname}</td>
+					<td><a href="" style="color: blue"
+						class="flex relative">${member.nickname}</a><span
+						class="msg absolute"><a href="">message</a></span></td>
 					<td>${member.introduce}</td>
 				</tr>
 			</c:forEach>
@@ -80,7 +93,7 @@
 <div class="page-menu text-align-center" style="margin-bottom: 50px;">
 	<c:if test="${moveToFirstPage}">
 		<a title="Move to list page" href="${queryString}?page=1"><i
-			class="fas fa-angle-double-left"></i></i></a>
+			class="fas fa-angle-double-left"></i></a>
 	</c:if>
 	<c:if test="${beforeMorePages}">
 		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i

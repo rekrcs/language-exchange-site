@@ -317,7 +317,6 @@ public class MemberController {
 	@RequestMapping("usr/member/learnKr")
 	public String showLearnKr(Model model) {
 		List<Member> members = memberService.getMembers();
-		System.out.println(members);
 		model.addAttribute("members", members);
 		return "member/learnKr";
 	}
