@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
-<form class="form1" method="POST" action="doWrite"
+<form class="form1" method="POST" action="doWriteMsg"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
 	<input type="hidden" name="code" value="${boardCode}" />
 	<div class="table-box small-con" style="max-width:600px!important;">
