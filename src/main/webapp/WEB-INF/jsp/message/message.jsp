@@ -3,7 +3,7 @@
 <%@ include file="../part/head.jspf"%>
 <form class="form1" method="POST" action="doWriteMsg"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
-	<input type="hidden" name="code" value="${boardCode}" />
+	<input type="hidden" name="id" value="${param.id}" />
 	<div class="table-box small-con" style="max-width:600px!important;">
 		<table>
 			<thead>

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class Message {
 	private int id;
-	private int memberId;
+	private int fromMemberId;
+	private int toMemberId;
 	private String regDate;
-	private String updateDate;
 	private String delDate;
 	private String displayStatus;
 	private String delStatus;

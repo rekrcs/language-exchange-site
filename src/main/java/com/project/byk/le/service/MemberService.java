@@ -133,8 +133,8 @@ public class MemberService {
 		return memberDao.isJoinableLoginId(loginId);
 	}
 
-	public List<Member> getMembers() {
-		return memberDao.getMembers();
+	public List<Member> getMembersLearningKr() {
+		return memberDao.getMembersLearningKr();
 	}
 
 }

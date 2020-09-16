@@ -85,7 +85,7 @@ td:hover>.msg>a {
 	</table>
 	<div class="option-btn">
 		<ul>
-			<li><a href="${boardCode}-write">write</a></li>
+			<li><a href="upload">upload</a></li>
 		</ul>
 	</div>
 </div>

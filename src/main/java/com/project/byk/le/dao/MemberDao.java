@@ -35,5 +35,5 @@ public interface MemberDao {
 
 	boolean isJoinableLoginId(@Param("loginId") String loginId);
 
-	List<Member> getMembers();
+	List<Member> getMembersLearningKr();
 }

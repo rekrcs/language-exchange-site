@@ -100,10 +100,10 @@
 		WHERE loginId = #{loginId}
 	</select>
 
-	<select id="getMembers" resultType="Member">
+	<select id="getMembersLearningKr" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE introduce IS NOT NULL
-		AND nativeLang = 'Korean'
+		AND practiceLang = 'Korean'
 	</select>
 </mapper>

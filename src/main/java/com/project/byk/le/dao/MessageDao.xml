@@ -3,5 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.byk.le.dao.MessageDao">
-	
+	<insert id="sendMsg" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO message
+		SET regDate = NOW(),
+		displayStatus = 1,
+		message = #{message},
+		fromMemberId = #{fromMemberId},
+		toMemberId = #{toMemberId}
+	</insert>
 </mapper>

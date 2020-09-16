@@ -316,7 +316,7 @@ public class MemberController {
 
 	@RequestMapping("usr/member/learnKr")
 	public String showLearnKr(Model model) {
-		List<Member> members = memberService.getMembers();
+		List<Member> members = memberService.getMembersLearningKr();
 		model.addAttribute("members", members);
 		return "member/learnKr";
 	}
