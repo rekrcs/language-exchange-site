@@ -29,12 +29,11 @@
 			toMemberId : ${toMemberId},
 			from : Chat__lastLoadedMessagId + 1
 			}, function(data) {
+				
 				for (var i = 0; i < data.messages.length; i++) {
-					var message = data.messages[i];
-					console.log(message);
-					Chat__drawMessage(message);
+					Chat__drawMessage(data.messages[i]);
 
-					Chat__lastLoadedMessagId = message.id;
+					Chat__lastLoadedMessagId = data.messages[i].id;
 				}
 			}, 'json'
 
@@ -74,7 +73,8 @@
 					<td colspan="2">
 						<div class="form-control-box"
 							style="overflow: scroll; max-height: 450px !important; height: 450px;">
-							<div class="chat-messages"></div>
+							<div class="chat-messages">
+							</div>
 						</div>
 					</td>
 				</tr>

@@ -17,10 +17,9 @@
 	 <![CDATA[
 		SELECT *
 		FROM message
-		WHERE fromMemberId = #{fromMemberId} or fromMemberId = #{toMemberId}
-		AND toMemberId = #{toMemberId} or toMemberId = #{fromMemberId}
+		WHERE ((fromMemberId = #{fromMemberId} AND toMemberId = #{toMemberId})
+		OR (fromMemberId = #{toMemberId} AND toMemberId = #{fromMemberId}))
 		AND id >= #{from}
-		ORDER BY id DESC
-	]]>
+		  ]]>
 	</select>
 </mapper>
