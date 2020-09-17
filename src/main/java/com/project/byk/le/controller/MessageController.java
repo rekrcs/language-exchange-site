@@ -18,7 +18,12 @@ public class MessageController {
 	MessageService messageService;
 
 	@RequestMapping("usr/message/message")
-	public String showMessage(@RequestParam Map<String, Object> param) {
+	public String showMessage(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
+		int fromMemberId = (int) session.getAttribute("loginedMemberId");
+		int toMemberId = Integer.parseInt((String) param.get("id"));
+		
+		model.addAttribute("fromMemberId", fromMemberId);
+		model.addAttribute("toMemberId", toMemberId);
 		return "message/message";
 	}
 
@@ -29,7 +34,6 @@ public class MessageController {
 		param.put("fromMemberId", fromMemberId);
 		param.put("toMemberId", toMemberId);
 		
-		System.out.println(param);
 		int newMsg = messageService.sendMsg(param);
 		return "message/message";
 	}

@@ -131,11 +131,8 @@ CREATE TABLE message (
     delDate DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00',
     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-    message LONGTEXT NOT NULL
+    `body` LONGTEXT NOT NULL
  );
-
- ALTER TABLE `message` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
-
 
 INSERT INTO article
 SET regDate = NOW(),
@@ -151,3 +148,6 @@ FROM article
 WHERE boardId = '2'
 AND displayStatus = '1'
 AND delStatus = '0';
+
+SELECT *
+FROM message;

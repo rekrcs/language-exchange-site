@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <form class="form1" method="POST" action="doWriteMsg"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
 	<input type="hidden" name="id" value="${param.id}" />
-	<div class="table-box small-con" style="max-width:600px!important;">
+	<div class="table-box small-con" style="max-width: 600px !important;">
 		<table>
 			<thead>
 				<tr>
@@ -20,7 +22,7 @@
 				<tr>
 					<td>
 						<div class="form-control-box">
-							<textarea style="min-height: 100px!important;" name="message"
+							<textarea style="min-height: 100px !important;" name="body"
 								placeholder="Please enter your message" maxlength="2000"></textarea>
 						</div>
 					</td>

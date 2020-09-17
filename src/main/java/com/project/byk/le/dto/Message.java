@@ -15,5 +15,5 @@ public class Message {
 	private String delDate;
 	private String displayStatus;
 	private String delStatus;
-	private String message;
+	private String body;
 }

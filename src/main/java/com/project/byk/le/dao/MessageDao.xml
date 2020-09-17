@@ -8,7 +8,7 @@
 		INTO message
 		SET regDate = NOW(),
 		displayStatus = 1,
-		message = #{message},
+		body = #{body},
 		fromMemberId = #{fromMemberId},
 		toMemberId = #{toMemberId}
 	</insert>

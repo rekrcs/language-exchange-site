@@ -103,7 +103,7 @@
 	<select id="getMembersLearningKr" resultType="Member">
 		SELECT *
 		FROM member
-		WHERE introduce IS NOT NULL
-		AND practiceLang = 'Korean'
+<!-- 		WHERE introduce IS NOT NULL -->
+		WHERE practiceLang = 'Korean'
 	</select>
 </mapper>
