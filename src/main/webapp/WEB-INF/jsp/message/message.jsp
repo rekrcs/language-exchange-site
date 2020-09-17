@@ -11,12 +11,16 @@
 			toMemberId : ${toMemberId},
 			body : body
 		}, function(data) {
-		alert(data.name2);
+			var chatMessage = {
+					fromMemberId: ${fromMemberId},
+					body: body
+					};
+			Chat__drawMessage(chatMessage);
 		}, 'json');
 	}
 
 	function Chat__drawMessage(chatMessage) {
-		var html = chatMessage.writer + ' : ' + chatMessage.body;
+		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
 
 		$('.chat-messages').prepend('<div>' + html + '</div>');
 	}
@@ -50,7 +54,10 @@
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<div class="form-control-box" style="height: 450px"></div>
+						<div class="form-control-box"
+							style="overflow: scroll; max-height: 450px !important; height: 450px;">
+							<div class="chat-messages"></div>
+						</div>
 					</td>
 				</tr>
 				<tr>

@@ -43,7 +43,8 @@ public class MessageController {
 	@ResponseBody
 	public String doAddMessage(@RequestParam Map<String, Object> param, HttpSession session) {
 		messageService.sendMsg(param);
-		return "";
+		return " {\"msg\": \"sent\"}";
+		         
 
 	}
 
