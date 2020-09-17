@@ -12,4 +12,15 @@
 		fromMemberId = #{fromMemberId},
 		toMemberId = #{toMemberId}
 	</insert>
+
+	<select id="getMessagesFrom" resultType="Message">
+	 <![CDATA[
+		SELECT *
+		FROM message
+		WHERE fromMemberId = #{fromMemberId} or fromMemberId = #{toMemberId}
+		AND toMemberId = #{toMemberId} or toMemberId = #{fromMemberId}
+		AND id >= #{from}
+		ORDER BY id DESC
+	]]>
+	</select>
 </mapper>

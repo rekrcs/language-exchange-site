@@ -1,5 +1,7 @@
 package com.project.byk.le.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.byk.le.dto.Message;
 import com.project.byk.le.service.MessageService;
 
 @Controller
@@ -44,8 +47,16 @@ public class MessageController {
 	public String doAddMessage(@RequestParam Map<String, Object> param, HttpSession session) {
 		messageService.sendMsg(param);
 		return " {\"msg\": \"sent\"}";
-		         
-
 	}
 
+	@RequestMapping("/usr/message/getMessagesFrom")
+	@ResponseBody
+	public Map<String, Object> getMessagesFrom(@RequestParam Map<String, Object> param) {
+	
+		List<Message> messages = messageService.getMessagesFrom(param);
+		Map<String, Object> rs = new HashMap<>();
+		rs.put("messages", messages);
+		return rs;
+
+	}
 }

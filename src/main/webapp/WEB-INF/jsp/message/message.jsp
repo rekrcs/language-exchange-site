@@ -11,11 +11,7 @@
 			toMemberId : ${toMemberId},
 			body : body
 		}, function(data) {
-			var chatMessage = {
-					fromMemberId: ${fromMemberId},
-					body: body
-					};
-			Chat__drawMessage(chatMessage);
+
 		}, 'json');
 	}
 
@@ -25,6 +21,28 @@
 		$('.chat-messages').prepend('<div>' + html + '</div>');
 	}
 
+	var Chat__lastLoadedMessagId = 0;
+
+	function Chat__loadNewMessages() {
+		$.get('./getMessagesFrom', {
+			fromMemberId : ${fromMemberId},
+			toMemberId : ${toMemberId},
+			from : Chat__lastLoadedMessagId + 1
+			}, function(data) {
+				for (var i = 0; i < data.messages.length; i++) {
+					var message = data.messages[i];
+					console.log(message);
+					Chat__drawMessage(message);
+
+					Chat__lastLoadedMessagId = message.id;
+				}
+			}, 'json'
+
+			);
+		}
+
+	setInterval(Chat__loadNewMessages, 1000);
+	
 	function submitChatMessageForm(form) {
 		if (form.body.value.length == 0) {
 			alert('Please enter your message');
