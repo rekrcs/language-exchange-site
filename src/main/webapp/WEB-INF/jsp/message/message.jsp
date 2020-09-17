@@ -3,8 +3,42 @@
 <%@ include file="../part/head.jspf"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<form class="form1" method="POST" action="doWriteMsg"
-	onsubmit="ArticleWriteForm__submit(this); return false;">
+
+<script>
+	function Chat__addMessage(body) {
+		$.post('./doAddMessage', {
+			fromMemberId : ${fromMemberId},
+			toMemberId : ${toMemberId},
+			body : body
+		}, function(data) {
+		alert(data.name2);
+		}, 'json');
+	}
+
+	function Chat__drawMessage(chatMessage) {
+		var html = chatMessage.writer + ' : ' + chatMessage.body;
+
+		$('.chat-messages').prepend('<div>' + html + '</div>');
+	}
+
+	function submitChatMessageForm(form) {
+		if (form.body.value.length == 0) {
+			alert('Please enter your message');
+			form.body.focus();
+
+			return false;
+		}
+
+		var body = form.body.value;
+
+		form.body.value = '';
+		form.body.focus();
+
+		Chat__addMessage(body);
+	}
+</script>
+<form class="form1"
+	onsubmit="submitChatMessageForm(this); return false;">
 	<input type="hidden" name="id" value="${param.id}" />
 	<div class="table-box small-con" style="max-width: 600px !important;">
 		<table>
