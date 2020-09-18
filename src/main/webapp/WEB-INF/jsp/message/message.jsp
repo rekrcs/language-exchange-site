@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+.test {
+	float: right;
+}
+</style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
 	function Chat__addMessage(body) {
 		$.post('./doAddMessage', {
@@ -18,7 +22,7 @@
 	function Chat__drawMessage(chatMessage, fromMemberId) {
 		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
 		if(fromMemberId == ${fromMemberId}) {
-			$('.chat-messages').append('<div style="text-align:right;">' + html + '</div>');
+			$('.chat-messages').append('<div class="test" style="text-align:right;">' + html + '</div><div style="height: 24px;"></div>');
 		} else {
 			$('.chat-messages').append('<div>' + html + '</div>');
 			}
