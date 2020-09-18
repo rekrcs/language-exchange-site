@@ -18,18 +18,19 @@
 	function Chat__drawMessage(chatMessage) {
 		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
 
-		$('.chat-messages').prepend('<div>' + html + '</div>');
+		$('.chat-messages').append('<div>' + html + '</div>');
+		$('.downScroll').scrollTop($('.downScroll')[0].scrollHeight);
 	}
 
 	var Chat__lastLoadedMessagId = 0;
+	var Chat__iSent = null;
 
 	function Chat__loadNewMessages() {
 		$.get('./getMessagesFrom', {
 			fromMemberId : ${fromMemberId},
 			toMemberId : ${toMemberId},
 			from : Chat__lastLoadedMessagId + 1
-			}, function(data) {
-				
+			}, function(data) {		
 				for (var i = 0; i < data.messages.length; i++) {
 					Chat__drawMessage(data.messages[i]);
 
@@ -44,9 +45,7 @@
 	
 	function submitChatMessageForm(form) {
 		if (form.body.value.length == 0) {
-			alert('Please enter your message');
 			form.body.focus();
-
 			return false;
 		}
 
@@ -71,10 +70,9 @@
 			<tbody>
 				<tr>
 					<td colspan="2">
-						<div class="form-control-box"
-							style="overflow: scroll; max-height: 450px !important; height: 450px;">
-							<div class="chat-messages">
-							</div>
+						<div class="form-control-box downScroll"
+							style="overflow: auto; max-height: 450px !important; height: 450px; max-width: 599px; word-break: break-all">
+							<div class="chat-messages"></div>
 						</div>
 					</td>
 				</tr>

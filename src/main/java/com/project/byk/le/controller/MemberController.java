@@ -320,4 +320,11 @@ public class MemberController {
 		model.addAttribute("members", members);
 		return "member/learnKr";
 	}
+
+	@RequestMapping("usr/member/learnEn")
+	public String showLearnEn(Model model) {
+		List<Member> members = memberService.getMembersLearningEn();
+		model.addAttribute("members", members);
+		return "member/learn";
+	}
 }

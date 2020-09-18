@@ -54,7 +54,7 @@ var param = ${paramJson};
 					<li><a href="#" class="height-100p flex flex-ai-c">Find</a>
 						<ul>
 							<li><a href="../member/learnKr" class="block">Learn KR</a></li>
-							<li><a href="#" class="block">Learn EN</a></li>
+							<li><a href="../member/learnEn" class="block">Learn EN</a></li>
 						</ul></li>
 					<li><a href="../message/message"
 						class="height-100p flex flex-ai-c">Msg</a></li>

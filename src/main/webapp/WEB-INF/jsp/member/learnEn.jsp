@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+.msg>a {
+	display: none;
+}
+
+td:hover>.msg>a {
+	background-color:black;
+	color: white;
+	display: inline-block;
+}
+</style>
 <div class="table-box small-con">
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
 		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
@@ -26,9 +37,8 @@
 			<input type="hidden" name="boardCode" value="${boardCode}" /> <input
 				type="hidden" name="page" value="1" /> <select name="searchType">
 				<option value="">::Search Type::</option>
-				<option value="title">Title</option>
-				<option value="body">Body</option>
-				<option value="titleAndBody">Title + Body</option>
+				<option value="ID">ID</option>
+				<option value="Introduce">Introduce</option>
 			</select>
 			<script>
 				$('form[name="searchForm"] select[name="searchType"]').val(
@@ -43,34 +53,39 @@
 		<colgroup>
 			<col width="80" />
 			<col width="180" />
+			<col width="80" />
 			<col width="180" />
 			<col />
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="4"><h1>Board : ${boardCode}</h1></th>
+				<th colspan="5"><h1>Learn English</h1></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>No.</th>
 				<th>Date</th>
-				<th>Writer</th>
-				<th>Title</th>
+				<th>Gender</th>
+				<th>Nickname</th>
+				<th>Introduce</th>
 			</tr>
-			<c:forEach items="${articles}" var="article">
+			<c:forEach items="${members}" var="member">
 				<tr>
-					<td>${article.id}</td>
-					<td>${article.regDate}</td>
-					<td>${article.extra.writer}</td>
-					<td><a href="${boardCode}-detail?id=${article.id}">${article.title}</a></td>
+					<td>${member.id}</td>
+					<td>${member.regDate}</td>
+					<td>${member.gender}</td>
+					<td><a href="" style="color: blue"
+						class="flex relative">${member.nickname}</a><span
+						class="msg absolute"><a href="../message/message?id=${member.id}">message</a></span></td>
+					<td>${member.introduce}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<div class="option-btn">
 		<ul>
-			<li><a href="${boardCode}-write">write</a></li>
+			<li><a href="upload">upload</a></li>
 		</ul>
 	</div>
 </div>
@@ -78,7 +93,7 @@
 <div class="page-menu text-align-center" style="margin-bottom: 50px;">
 	<c:if test="${moveToFirstPage}">
 		<a title="Move to list page" href="${queryString}?page=1"><i
-			class="fas fa-angle-double-left"></i></i></a>
+			class="fas fa-angle-double-left"></i></a>
 	</c:if>
 	<c:if test="${beforeMorePages}">
 		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i

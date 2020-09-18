@@ -32,12 +32,16 @@ public class MessageController {
 	}
 
 	@RequestMapping("/usr/message/doWriteMsg")
-	public String doWriteMsg(@RequestParam Map<String, Object> param, HttpSession session) {
+	public String doWriteMsg(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		int fromMemberId = (int) session.getAttribute("loginedMemberId");
 		int toMemberId = Integer.parseInt((String) param.get("id"));
 		param.put("fromMemberId", fromMemberId);
 		param.put("toMemberId", toMemberId);
-
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		
+		model.addAttribute("loginedMemberId", loginedMemberId);
+		
+		
 		int newMsg = messageService.sendMsg(param);
 		return "message/message";
 	}

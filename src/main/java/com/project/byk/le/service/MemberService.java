@@ -137,4 +137,8 @@ public class MemberService {
 		return memberDao.getMembersLearningKr();
 	}
 
+	public List<Member> getMembersLearningEn() {
+		return memberDao.getMembersLearningEn();
+	}
+
 }
