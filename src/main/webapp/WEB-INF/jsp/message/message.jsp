@@ -15,10 +15,14 @@
 		}, 'json');
 	}
 
-	function Chat__drawMessage(chatMessage) {
+	function Chat__drawMessage(chatMessage, fromMemberId) {
 		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
-
-		$('.chat-messages').append('<div>' + html + '</div>');
+		if(fromMemberId == ${fromMemberId}) {
+			$('.chat-messages').append('<div style="text-align:right;">' + html + '</div>');
+		} else {
+			$('.chat-messages').append('<div>' + html + '</div>');
+			}
+		
 		$('.downScroll').scrollTop($('.downScroll')[0].scrollHeight);
 	}
 
@@ -32,7 +36,7 @@
 			from : Chat__lastLoadedMessagId + 1
 			}, function(data) {		
 				for (var i = 0; i < data.messages.length; i++) {
-					Chat__drawMessage(data.messages[i]);
+					Chat__drawMessage(data.messages[i], data.messages[i].fromMemberId);
 
 					Chat__lastLoadedMessagId = data.messages[i].id;
 				}
@@ -64,7 +68,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="2" style="background-color: #2d3540; color: white"><h1>Message</h1></th>
+					<th colspan="2" style="background-color: #2d3540; color: white;"><h1>Message</h1></th>
 				</tr>
 			</thead>
 			<tbody>
