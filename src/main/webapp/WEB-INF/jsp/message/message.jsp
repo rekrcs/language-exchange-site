@@ -2,13 +2,52 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 <style>
-.test {
+.background-msg {
+	background-color: #D6E6F0;
+	padding: 0 !important;
+}
+
+.msg {
+	padding: 10px;
+	max-width: 70%;
+	border-radius: 1rem;
+}
+
+.msg.myMsg {
 	float: right;
+	background-color: #A3CCA3;
+	margin-right: 15px;
+}
+
+.msg.others {
+	float: left;
+	background-color: white;
+	margin-left: 15px;
+}
+
+.msgHelpBox {
+	height: 10px;
+	clear: both;
+}
+
+.msgHelpBox:last-child {
+	display: none;
+}
+
+.downScroll {
+	margin: 10px 0;
+	overflow: auto;
+	max-height: 500px !important;
+	height: 500px;
+	max-width: 599px;
+	word-break: break-all;
+	overflow: auto;
 }
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+	
 	function Chat__addMessage(body) {
 		$.post('./doAddMessage', {
 			fromMemberId : ${fromMemberId},
@@ -20,16 +59,20 @@
 	}
 
 	function Chat__drawMessage(chatMessage, fromMemberId) {
+		
 		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
 		if(fromMemberId == ${fromMemberId}) {
-			$('.chat-messages').append('<div class="test" style="text-align:right;">' + html + '</div><div style="height: 24px;"></div>');
+			$('.chat-messages').append('<div class="msg myMsg">' + html + '</div>');
+			$('.chat-messages').append('<div class="msgHelpBox"></div>');
 		} else {
-			$('.chat-messages').append('<div>' + html + '</div>');
+			$('.chat-messages').append('<div class="msg others">' + html + '</div>');
+			$('.chat-messages').append('<div class="msgHelpBox"></div>');
 			}
 		
 		$('.downScroll').scrollTop($('.downScroll')[0].scrollHeight);
+	
 	}
-
+	
 	var Chat__lastLoadedMessagId = 0;
 	var Chat__iSent = null;
 
@@ -77,9 +120,8 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="2">
-						<div class="form-control-box downScroll"
-							style="overflow: auto; max-height: 450px !important; height: 450px; max-width: 599px; word-break: break-all">
+					<td colspan="2" class="background-msg">
+						<div class="form-control-box downScroll" style="">
 							<div class="chat-messages"></div>
 						</div>
 					</td>
