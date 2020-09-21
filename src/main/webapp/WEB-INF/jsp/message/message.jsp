@@ -60,11 +60,12 @@
 
 	function Chat__drawMessage(chatMessage, fromMemberId) {
 		
-		var html = chatMessage.fromMemberId + ' : ' + chatMessage.body;
 		if(fromMemberId == ${fromMemberId}) {
+			var html = chatMessage.body;
 			$('.chat-messages').append('<div class="msg myMsg">' + html + '</div>');
 			$('.chat-messages').append('<div class="msgHelpBox"></div>');
 		} else {
+			var html = '${toMember}  : ' + chatMessage.body;
 			$('.chat-messages').append('<div class="msg others">' + html + '</div>');
 			$('.chat-messages').append('<div class="msgHelpBox"></div>');
 			}

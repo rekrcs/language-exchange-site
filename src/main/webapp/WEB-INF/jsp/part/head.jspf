@@ -56,8 +56,6 @@ var param = ${paramJson};
 							<li><a href="../member/learnKr" class="block">Learn KR</a></li>
 							<li><a href="../member/learnEn" class="block">Learn EN</a></li>
 						</ul></li>
-					<li><a href="../message/message"
-						class="height-100p flex flex-ai-c">Msg</a></li>
 					<li><a href="#" class="height-100p flex flex-ai-c">Board</a>
 						<ul>
 							<c:forEach items="${boards}" var="board" varStatus="status">
@@ -113,7 +111,6 @@ var param = ${paramJson};
 						<li><a href="#" class="block">Learn KR</a></li>
 						<li><a href="#" class="block">Learn EN</a></li>
 					</ul></li>
-				<li><a href="../message/message" class="block">Msg</a></li>
 				<li><a href="#" class="block">Board</a>
 					<ul>
 						<c:forEach items="${boards}" var="board" varStatus="status">

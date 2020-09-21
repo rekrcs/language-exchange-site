@@ -7,7 +7,7 @@
 }
 
 td:hover>.msg>a {
-	background-color:black;
+	background-color: black;
 	color: white;
 	display: inline-block;
 }
@@ -75,9 +75,11 @@ td:hover>.msg>a {
 					<td>${member.id}</td>
 					<td>${member.regDate}</td>
 					<td>${member.gender}</td>
-					<td><a href="" style="color: blue"
-						class="flex relative">${member.nickname}</a><span
-						class="msg absolute"><a href="../message/message?id=${member.id}">message</a></span></td>
+					<td><a href="" style="color: blue" class="flex relative">${member.nickname}</a><span
+						class="msg absolute"><c:if
+								test="${loginedMemberId != member.id}">
+								<a href="../message/message?id=${member.id}">message</a>
+							</c:if></span></td>
 					<td>${member.introduce}</td>
 				</tr>
 			</c:forEach>

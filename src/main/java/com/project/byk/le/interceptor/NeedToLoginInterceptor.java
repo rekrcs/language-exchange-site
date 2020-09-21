@@ -16,15 +16,15 @@ public class NeedToLoginInterceptor implements HandlerInterceptor {
 		// 그래서 여기서 단순히 request.getAttribute("isLogined"); 이것만으로 로그인 여부 알 수 있음
 		boolean isLogined = (boolean) request.getAttribute("isLogined");
 
-//		if (isLogined == false) {
-//			response.setContentType("text/html; charset=UTF-8");
-//			response.getWriter().append("<script>");
-//			response.getWriter().append("alert('you need to login to use it');");
-//			response.getWriter().append("location.replace('/usr/member/login');");
-//			response.getWriter().append("</script>");
-//			// 리턴 false;를 이후에 실행될 인터셉터와 액션이 실행되지 않음
-//			return false;
-//		}
+		if (isLogined == false) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().append("<script>");
+			response.getWriter().append("alert('you need to login to use it');");
+			response.getWriter().append("location.replace('/usr/member/login');");
+			response.getWriter().append("</script>");
+			// 리턴 false;를 이후에 실행될 인터셉터와 액션이 실행되지 않음
+			return false;
+		}
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

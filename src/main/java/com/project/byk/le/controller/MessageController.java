@@ -13,21 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.byk.le.dto.Member;
 import com.project.byk.le.dto.Message;
+import com.project.byk.le.service.MemberService;
 import com.project.byk.le.service.MessageService;
 
 @Controller
 public class MessageController {
 	@Autowired
 	MessageService messageService;
+	@Autowired
+	MemberService memberService;
 
 	@RequestMapping("/usr/message/message")
 	public String showMessage(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		int fromMemberId = (int) session.getAttribute("loginedMemberId");
 		int toMemberId = Integer.parseInt((String) param.get("id"));
+		Member toMember = memberService.getMemberById(toMemberId);
 
 		model.addAttribute("fromMemberId", fromMemberId);
 		model.addAttribute("toMemberId", toMemberId);
+		model.addAttribute("toMember", toMember.getNickname());
 		return "message/message";
 	}
 
@@ -37,11 +43,10 @@ public class MessageController {
 		int toMemberId = Integer.parseInt((String) param.get("id"));
 		param.put("fromMemberId", fromMemberId);
 		param.put("toMemberId", toMemberId);
+
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		
+
 		model.addAttribute("loginedMemberId", loginedMemberId);
-		
-		
 		int newMsg = messageService.sendMsg(param);
 		return "message/message";
 	}
@@ -56,7 +61,7 @@ public class MessageController {
 	@RequestMapping("/usr/message/getMessagesFrom")
 	@ResponseBody
 	public Map<String, Object> getMessagesFrom(@RequestParam Map<String, Object> param) {
-	
+
 		List<Message> messages = messageService.getMessagesFrom(param);
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("messages", messages);
