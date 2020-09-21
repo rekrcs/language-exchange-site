@@ -125,7 +125,7 @@
 			<tbody>
 				<tr>
 					<th>ID</th>
-					<td>${member.loginId}</td>
+					<td><div>${member.loginId}</div></td>
 				</tr>
 				<tr>
 					<th>Name</th>

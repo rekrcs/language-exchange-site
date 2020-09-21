@@ -56,8 +56,8 @@ public class MemberService {
 
 		param.put("temporaryPwSHA256", temporaryPwSHA256);
 		Member member = memberDao.getLoginIdByEmail(param);
-		
-		if(member == null) {
+
+		if (member == null) {
 			return member;
 		}
 		int id = member.getId();
@@ -139,6 +139,11 @@ public class MemberService {
 
 	public List<Member> getMembersLearningEn() {
 		return memberDao.getMembersLearningEn();
+	}
+
+	public int updateIntroduce(Map<String, Object> param) {
+		return memberDao.updateIntroduce(param);
+
 	}
 
 }

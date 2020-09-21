@@ -38,4 +38,6 @@ public interface MemberDao {
 	List<Member> getMembersLearningKr();
 
 	List<Member> getMembersLearningEn();
+
+	int updateIntroduce(Map<String, Object> param);
 }

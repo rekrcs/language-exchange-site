@@ -87,7 +87,7 @@ td:hover>.msg>a {
 	</table>
 	<div class="option-btn">
 		<ul>
-			<li><a href="upload">upload</a></li>
+			<li><a href="upload?requestUri=${encodedRequestUri}">upload</a></li>
 		</ul>
 	</div>
 </div>

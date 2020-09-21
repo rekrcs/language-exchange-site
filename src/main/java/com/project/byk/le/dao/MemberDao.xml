@@ -55,6 +55,14 @@
 		WHERE id = #{id}
 	</update>
 
+	<update id="updateIntroduce">
+		UPDATE member
+		SET introduce = #{introduce},
+		updateDate
+		= NOW()
+		WHERE id = #{id}
+	</update>
+
 	<select id="getMemberByLoginId" resultType="Member">
 		SELECT *
 		FROM member
@@ -103,8 +111,8 @@
 	<select id="getMembersLearningKr" resultType="Member">
 		SELECT *
 		FROM member
-		<!-- WHERE introduce IS NOT NULL -->
-		WHERE practiceLang = 'korean'
+		WHERE introduce IS NOT NULL
+		AND practiceLang = 'korean'
 	</select>
 
 	<select id="getMembersLearningEn" resultType="Member">

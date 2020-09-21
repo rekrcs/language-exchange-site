@@ -16,6 +16,7 @@ import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
 import com.project.byk.le.service.AttrService;
 import com.project.byk.le.service.MemberService;
+import com.project.byk.le.util.Util;
 
 @Controller
 public class MemberController {
@@ -325,6 +326,18 @@ public class MemberController {
 	public String showLearnEn(Model model) {
 		List<Member> members = memberService.getMembersLearningEn();
 		model.addAttribute("members", members);
-		return "member/learn";
+		return "member/learnEn";
+	}
+
+	@RequestMapping("usr/member/upload")
+	public String showUpload(String requestUri, Model model) {
+		model.addAttribute("beforeRequestUri", requestUri);
+		return "member/upload";
+	}
+
+	@RequestMapping("usr/member/doUploadProfile")
+	public String doUploadProfile(String redirectUri, @RequestParam Map<String, Object> param) {
+		int upload = memberService.updateIntroduce(param);
+		return "redirect:" + redirectUri;
 	}
 }
