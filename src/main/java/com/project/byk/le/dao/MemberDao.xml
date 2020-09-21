@@ -113,12 +113,14 @@
 		FROM member
 		WHERE introduce IS NOT NULL
 		AND practiceLang = 'korean'
+		ORDER BY
+		updateDate DESC
 	</select>
 
 	<select id="getMembersLearningEn" resultType="Member">
 		SELECT *
 		FROM member
-		<!-- WHERE introduce IS NOT NULL -->
-		WHERE practiceLang = 'english'
+		WHERE introduce IS NOT NULL
+		AND practiceLang = 'english'
 	</select>
 </mapper>
