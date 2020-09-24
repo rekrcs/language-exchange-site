@@ -64,30 +64,27 @@ public class MessageController {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Message message = messageService.getLastMessage(param);
 
-		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__%d__%s__%s", loginedMemberId,
-				(String) param.get("fromMemberId"), (String) param.get("toMemberId")));
-		Attr msgRoomCheck2 = attrService
-				.get(String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
-						(String) param.get("toMemberId"), (String) param.get("fromMemberId")));
+		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+				(String) param.get("toMemberId")));
+		Attr msgRoomCheck2 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+				(String) param.get("fromMemberId")));
 
 		System.out.println("msgRoomCheck1 : " + msgRoomCheck1);
 		System.out.println("msgRoomCheck2 : " + msgRoomCheck2);
 
 		if (msgRoomCheck1 == null && msgRoomCheck2 == null) {
-			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
-					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+					(String) param.get("toMemberId")), message.getBody(), null);
 		}
 
 		if (msgRoomCheck1 == null) {
-			attrService.setValue(
-					String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
-							(String) param.get("toMemberId"), (String) param.get("fromMemberId")),
-					message.getBody(), null);
+			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+					(String) param.get("fromMemberId")), message.getBody(), null);
 		}
 
 		if (msgRoomCheck2 == null) {
-			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
-					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+					(String) param.get("toMemberId")), message.getBody(), null);
 		}
 		return " {\"msg\": \"sent\"}";
 	}
@@ -102,21 +99,18 @@ public class MessageController {
 
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		Message message = messageService.getLastMessage(param);
-		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__%d__%s__%s", loginedMemberId,
-				(String) param.get("fromMemberId"), (String) param.get("toMemberId")));
-		Attr msgRoomCheck2 = attrService
-				.get(String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
-						(String) param.get("toMemberId"), (String) param.get("fromMemberId")));
+		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+				(String) param.get("toMemberId")));
+		Attr msgRoomCheck2 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+				(String) param.get("fromMemberId")));
 		if (msgRoomCheck1 == null) {
-			attrService.setValue(
-					String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
-							(String) param.get("toMemberId"), (String) param.get("fromMemberId")),
-					message.getBody(), null);
+			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+					(String) param.get("fromMemberId")), message.getBody(), null);
 		}
 
 		if (msgRoomCheck2 == null) {
-			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
-					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+					(String) param.get("toMemberId")), message.getBody(), null);
 		}
 		return rs;
 
