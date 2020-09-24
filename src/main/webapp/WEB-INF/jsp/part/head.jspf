@@ -73,8 +73,11 @@ var param = ${paramJson};
 					</c:if>
 					<c:if test="${isLogined}">
 						<li><a href="#" class="height-100p flex flex-ai-c">My
-								page</a>
+								page<i class="fas fa-circle"
+								style="font-size: 5px; color: red; margin-left: 5px;"></i>
+						</a>
 							<ul>
+								<li><a href="../message/msgList" class="block">Msg</a></li>
 								<li><a href="../member/profile" class="block">Profile</a></li>
 								<li><a
 									onclick="if ( confirm('Would you like to log out?') == false ) return false;"

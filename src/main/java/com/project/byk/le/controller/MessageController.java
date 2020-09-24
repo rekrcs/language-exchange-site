@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.byk.le.dto.Member;
 import com.project.byk.le.dto.Message;
+import com.project.byk.le.service.AttrService;
 import com.project.byk.le.service.MemberService;
 import com.project.byk.le.service.MessageService;
 
@@ -24,6 +25,8 @@ public class MessageController {
 	MessageService messageService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	AttrService attrService;
 
 	@RequestMapping("/usr/message/message")
 	public String showMessage(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
@@ -66,6 +69,13 @@ public class MessageController {
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("messages", messages);
 		return rs;
+
+	}
+
+	@RequestMapping("/usr/message/msgList")
+	public String showMsgList(HttpSession session) {
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		return "memssage/msgList";
 
 	}
 }
