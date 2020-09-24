@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
 import com.project.byk.le.dto.Message;
 import com.project.byk.le.service.AttrService;
 import com.project.byk.le.service.MemberService;
 import com.project.byk.le.service.MessageService;
+import com.project.byk.le.util.Util;
 
 @Controller
 public class MessageController {
@@ -58,16 +60,64 @@ public class MessageController {
 	@ResponseBody
 	public String doAddMessage(@RequestParam Map<String, Object> param, HttpSession session) {
 		messageService.sendMsg(param);
+
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		Message message = messageService.getLastMessage(param);
+
+		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__%d__%s__%s", loginedMemberId,
+				(String) param.get("fromMemberId"), (String) param.get("toMemberId")));
+		Attr msgRoomCheck2 = attrService
+				.get(String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
+						(String) param.get("toMemberId"), (String) param.get("fromMemberId")));
+
+		System.out.println("msgRoomCheck1 : " + msgRoomCheck1);
+		System.out.println("msgRoomCheck2 : " + msgRoomCheck2);
+
+		if (msgRoomCheck1 == null && msgRoomCheck2 == null) {
+			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
+					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+		}
+
+		if (msgRoomCheck1 == null) {
+			attrService.setValue(
+					String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
+							(String) param.get("toMemberId"), (String) param.get("fromMemberId")),
+					message.getBody(), null);
+		}
+
+		if (msgRoomCheck2 == null) {
+			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
+					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+		}
 		return " {\"msg\": \"sent\"}";
 	}
 
 	@RequestMapping("/usr/message/getMessagesFrom")
 	@ResponseBody
-	public Map<String, Object> getMessagesFrom(@RequestParam Map<String, Object> param) {
+	public Map<String, Object> getMessagesFrom(@RequestParam Map<String, Object> param, HttpSession session) {
 
 		List<Message> messages = messageService.getMessagesFrom(param);
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("messages", messages);
+
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		Message message = messageService.getLastMessage(param);
+		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__%d__%s__%s", loginedMemberId,
+				(String) param.get("fromMemberId"), (String) param.get("toMemberId")));
+		Attr msgRoomCheck2 = attrService
+				.get(String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
+						(String) param.get("toMemberId"), (String) param.get("fromMemberId")));
+		if (msgRoomCheck1 == null) {
+			attrService.setValue(
+					String.format("msgRoom__%d__%s__%s", Util.getAsInt(param.get("toMemberId")),
+							(String) param.get("toMemberId"), (String) param.get("fromMemberId")),
+					message.getBody(), null);
+		}
+
+		if (msgRoomCheck2 == null) {
+			attrService.setValue(String.format("msgRoom__%d__%s__%s", loginedMemberId,
+					(String) param.get("fromMemberId"), (String) param.get("toMemberId")), message.getBody(), null);
+		}
 		return rs;
 
 	}
@@ -75,7 +125,7 @@ public class MessageController {
 	@RequestMapping("/usr/message/msgList")
 	public String showMsgList(HttpSession session) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		return "memssage/msgList";
+		return "message/msgList";
 
 	}
 }

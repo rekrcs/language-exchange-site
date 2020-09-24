@@ -14,4 +14,6 @@ public interface MessageDao {
 
 	List<Message> getMessagesFrom(Map<String, Object> param);
 
+	Message getLastMessage(Map<String, Object> param);
+
 }

@@ -22,4 +22,15 @@
 		AND id >= #{from}
 		  ]]>
 	</select>
+
+	<select id="getLastMessage" resultType="Message">
+	 <![CDATA[
+		SELECT *
+		FROM message
+		WHERE ((fromMemberId = #{fromMemberId} AND toMemberId = #{toMemberId})
+		OR (fromMemberId = #{toMemberId} AND toMemberId = #{fromMemberId}))
+		ORDER BY id DESC
+		LIMIT 1
+		  ]]>
+	</select>
 </mapper>

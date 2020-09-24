@@ -21,4 +21,8 @@ public class MessageService {
 	public List<Message> getMessagesFrom(Map<String, Object> param) {
 		return messageDao.getMessagesFrom(param);
 	}
+
+	public Message getLastMessage(Map<String, Object> param) {
+		return messageDao.getLastMessage(param);
+	}
 }
