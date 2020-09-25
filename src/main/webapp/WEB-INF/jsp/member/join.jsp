@@ -143,14 +143,13 @@
 
 	function JoinForm__checkLoginIdDup(input) {
 		var form = input.form;
-		var idReg = /^[A-za-z0-9]/g;
-		var onlyAlphabetAndNumInId = idReg.test(form.loginId.value)
+		var idReg = /^[A-za-z0-9]/gi;
+		var onlyAlphabetAndNumInId = idReg.test(form.loginId.value);
+		console.log(onlyAlphabetAndNumInId);
 		form.loginId.value = form.loginId.value.trim();
-
 		if (form.loginId.value.length == 0) {
 			return;
 		}
-
 		$
 				.ajax({
 					url : 'getLoginIdDup',
@@ -162,13 +161,11 @@
 					type : 'POST',
 					success : function(data) {
 						var $message = $('.message-msg');
-
 						if (data.isJoinableLoginId == 'true') {
 							$message.empty().append(
 									'<div style="color:green;">' + data.msg
 											+ '</div>');
 							JoinForm__validLoginId = data.loginId;
-
 						} else if (data.isJoinableLoginId == 'false') {
 							$message.empty().append(
 									'<div style="color:red;">' + data.msg

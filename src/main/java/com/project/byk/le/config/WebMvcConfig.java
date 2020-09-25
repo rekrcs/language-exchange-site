@@ -35,7 +35,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/usr/member/login").excludePathPatterns("/usr/member/doLogin")
 				.excludePathPatterns("/usr/member/join").excludePathPatterns("/usr/member/doJoin")
 				.excludePathPatterns("/usr/article/*-list").excludePathPatterns("/usr/article/*-detail")
-				.excludePathPatterns("/usr/member/forgotId").excludePathPatterns("/usr/member/forgotPw");
+				.excludePathPatterns("/usr/member/forgotId").excludePathPatterns("/usr/member/forgotPw")
+				.excludePathPatterns("/usr/member/getLoginIdDup");
 
 		// 로그인 상태에서 접속할 수 없는 URI 전부 기술
 		registry.addInterceptor(needToLogoutInterceptor).addPathPatterns("/usr/member/login")

@@ -306,7 +306,7 @@ public class MemberController {
 
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 		isJoinableLoginId = !isJoinableLoginId;
-
+		
 		if (isJoinableLoginId && onlyAlphabetAndNumInId.equals("true")) {
 			return "{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"isJoinableLoginId\":\"true\", \"loginId\":\"" + loginId + "\"}";
 		} else if (!isJoinableLoginId || onlyAlphabetAndNumInId.equals("false")) {
