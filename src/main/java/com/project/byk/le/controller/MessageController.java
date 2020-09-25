@@ -77,12 +77,12 @@ public class MessageController {
 					(String) param.get("toMemberId")), message.getBody(), null);
 		}
 
-		if (msgRoomCheck1 == null) {
+		if (msgRoomCheck1 == null && msgRoomCheck2 != null) {
 			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
 					(String) param.get("fromMemberId")), message.getBody(), null);
 		}
 
-		if (msgRoomCheck2 == null) {
+		if (msgRoomCheck2 == null && msgRoomCheck1 != null) {
 			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
 					(String) param.get("toMemberId")), message.getBody(), null);
 		}
@@ -97,28 +97,31 @@ public class MessageController {
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("messages", messages);
 
-		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		Message message = messageService.getLastMessage(param);
-		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
-				(String) param.get("toMemberId")));
-		Attr msgRoomCheck2 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
-				(String) param.get("fromMemberId")));
-		if (msgRoomCheck1 == null) {
-			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
-					(String) param.get("fromMemberId")), message.getBody(), null);
-		}
-
-		if (msgRoomCheck2 == null) {
-			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
-					(String) param.get("toMemberId")), message.getBody(), null);
-		}
+//		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+//		Message message = messageService.getLastMessage(param);
+//		Attr msgRoomCheck1 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+//				(String) param.get("toMemberId")));
+//		Attr msgRoomCheck2 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+//				(String) param.get("fromMemberId")));
+//		if (msgRoomCheck1 == null) {
+//			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
+//					(String) param.get("fromMemberId")), message.getBody(), null);
+//		}
+//
+//		if (msgRoomCheck2 == null) {
+//			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
+//					(String) param.get("toMemberId")), message.getBody(), null);
+//		}
 		return rs;
 
 	}
 
 	@RequestMapping("/usr/message/msgList")
-	public String showMsgList(HttpSession session) {
+	public String showMsgList(HttpSession session, Model model) {
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		List<Attr> attrForMsgs = attrService.getAttrListById(loginedMemberId + "");
+
+		model.addAttribute("attrForMsgs", attrForMsgs);
 		return "message/msgList";
 
 	}

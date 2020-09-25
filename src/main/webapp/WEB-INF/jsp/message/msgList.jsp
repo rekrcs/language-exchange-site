@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+@media ( max-width : 799px) {
+	.msg-body {
+		width: 150px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+}
+
+@media ( min-width : 800px) {
+	.msg-body {
+		width: 600px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+}
+</style>
 <div class="table-box small-con">
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
 		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
@@ -56,12 +78,17 @@
 				<th>Message</th>
 				<th>Date</th>
 			</tr>
-			<c:forEach items="${articles}" var="article">
+			<c:forEach items="${attrForMsgs}" var="attrForMsg">
 				<tr>
-					<td>${article.id}</td>
-					<td>${article.regDate}</td>
-					<td>${article.extra.writer}</td>
-					<td><a href="${boardCode}-detail?id=${article.id}">${article.title}</a></td>
+					<td>${attrForMsg.extra.writer}</td>
+					<td><div class="msg-body">
+							<a
+								href="../message/message?id=<c:if test="${loginedMemberId == attrForMsg.typeCode}">
+								${attrForMsg.type2Code} </c:if><c:if test="${loginedMemberId != attrForMsg.typeCode}">
+								${attrForMsg.typeCode} </c:if>">${attrForMsg.value}
+							</a>
+						</div></td>
+					<td>${attrForMsg.regDate}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

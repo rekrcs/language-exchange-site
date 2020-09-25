@@ -1,5 +1,7 @@
 package com.project.byk.le.dto;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,5 @@ public class Attr {
 	private String typeCode;
 	private String type2Code;
 	private String value;
+	private Map<String, Object> extra;
 }

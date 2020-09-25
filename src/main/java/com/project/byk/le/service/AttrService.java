@@ -1,5 +1,7 @@
 package com.project.byk.le.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,5 +88,10 @@ public class AttrService {
 		}
 
 		return -1;
+	}
+
+	// 여기서 부터 추가 코드
+	public List<Attr> getAttrListById(String id) {
+		return attrDao.getAttrListById(id);
 	}
 }

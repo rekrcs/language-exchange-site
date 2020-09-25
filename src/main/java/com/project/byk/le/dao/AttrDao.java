@@ -1,5 +1,7 @@
 package com.project.byk.le.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +21,8 @@ public interface AttrDao {
 
 	String getValue(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId,
 			@Param("typeCode") String typeCode, @Param("type2Code") String type2Code);
+	
+	
+	//여기서 부터 추가한 코드
+	List<Attr> getAttrListById(@Param("id") String  id);
 }
