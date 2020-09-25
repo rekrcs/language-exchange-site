@@ -26,4 +26,6 @@ public interface ArticleDao {
 
 	List<Article> getArticleByBoradId(@Param("boardId") int boardId);
 
+	void doArticleModify(Map<String, Object> param);
+
 }

@@ -110,6 +110,15 @@
 		WHERE id = #{id}
 	</update>
 
+	<update id="doArticleModify">
+		UPDATE article
+		SET updateDate = NOW(),
+		title =
+		#{title},
+		body = #{body}
+		WHERE id = #{id}
+	</update>
+
 	<select id="getBoardByCode" resultType="Board">
 		SELECT *
 		FROM

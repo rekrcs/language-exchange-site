@@ -44,7 +44,8 @@
 			<li style="margin-right: 20px;"><a
 				onclick="if ( confirm('are you going to delete it?') == false ) return false;"
 				href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
-			<li><a href="modifyarticle">Modify</a></li>
+			<li><a
+				href="${boardCode}-modifyArticle?id=${article.id}&redirectUri=${encodedRequestUri}">Modify</a></li>
 		</ul>
 	</div>
 </div>

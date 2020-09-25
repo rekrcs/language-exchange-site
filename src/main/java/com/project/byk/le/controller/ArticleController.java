@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.dto.Board;
 import com.project.byk.le.service.ArticleService;
+import com.project.byk.le.util.Util;
 
 @Controller
 public class ArticleController {
@@ -82,7 +83,7 @@ public class ArticleController {
 
 	@RequestMapping("usr/article/doWrite")
 	public String doWrite(Model model, @RequestParam Map<String, Object> param, HttpSession session) {
-		if(session.getAttribute("loginedMemberId") == null) {
+		if (session.getAttribute("loginedMemberId") == null) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("you can write after login"));
 			return "common/redirect";
@@ -129,6 +130,25 @@ public class ArticleController {
 		} else {
 			model.addAttribute("redirectUri", String.format("/usr/article/%s-list", boardCode));
 		}
+		return "common/redirect";
+	}
+
+	@RequestMapping("usr/article/{boardCode}-modifyArticle")
+	public String showModifyArticle(Model model, @PathVariable("boardCode") String boardCode,
+			@RequestParam Map<String, Object> param) {
+		int id = Util.getAsInt(param.get("id"));
+		Article article = articleService.getArticleById(id);
+		model.addAttribute("article", article);
+		model.addAttribute("boardCode", boardCode);
+		return "article/modify";
+	}
+
+	@RequestMapping("usr/article/doModify")
+	public String doModify(Model model, @RequestParam Map<String, Object> param, HttpSession session) {
+		articleService.doArticleModify(param);
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri", redirectUri);
+		model.addAttribute("alertMsg", String.format("you have modified your article"));
 		return "common/redirect";
 	}
 

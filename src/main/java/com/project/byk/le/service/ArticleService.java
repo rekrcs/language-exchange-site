@@ -44,4 +44,8 @@ public class ArticleService {
 		return articleDao.getArticleByBoradId(boardId);
 	}
 
+	public void doArticleModify(Map<String, Object> param) {
+		articleDao.doArticleModify(param);
+	}
+
 }
