@@ -149,8 +149,7 @@ WHERE boardId = '2'
 AND displayStatus = '1'
 AND delStatus = '0';
 
-# article 테이블 세팅
-CREATE TABLE articleReply (
+CREATE TABLE reply (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME,
     updateDate DATETIME,

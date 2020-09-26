@@ -98,9 +98,11 @@
 		<a href="${queryString}?page=${param.page + pageBoundSize + 1}"><i
 			class="fas fa-angle-right"></i></a>
 	</c:if>
-	<c:if test="${moveToLastPage}">
-		<a title="Move to list page" href="${queryString}?page=${totalPage}"><i
-			class="fas fa-angle-double-right"></i></a>
+	<c:if test="${param.page != 1 }">
+		<c:if test="${moveToLastPage}">
+			<a title="Move to list page" href="${queryString}?page=${totalPage}"><i
+				class="fas fa-angle-double-right"></i></a>
+		</c:if>
 	</c:if>
 </div>
 

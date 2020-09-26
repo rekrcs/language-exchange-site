@@ -34,12 +34,14 @@
 					<th></th>
 
 					<td><div class="option-btn-live">
-							<ul class="flex">
-								<li><a style="margin-right: 20px;"
-									onclick="if ( confirm('are you going to delete it?') == false ) return false;"
-									href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
-								<li><a href="modifyarticle">Modify</a></li>
-							</ul>
+							<c:if test="${loginedMemberId == article.memberId}">
+								<ul class="flex">
+									<li><a style="margin-right: 20px;"
+										onclick="if ( confirm('are you going to delete it?') == false ) return false;"
+										href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
+									<li><a href="modifyarticle">Modify</a></li>
+								</ul>
+							</c:if>
 						</div></td>
 				</tr>
 				<tr>

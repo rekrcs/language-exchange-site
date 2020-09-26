@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 .reply-write>form>table {
 	width: 100%;
@@ -20,7 +22,7 @@
 	resize: none;
 }
 </style>
-	
+
 <script>
 	
 </script>
@@ -62,20 +64,63 @@
 			</tr>
 		</tbody>
 	</table>
+
 	<div class="option-btn small-con">
-		<ul class="flex">
-			<li style="margin-right: 20px;"><a
-				onclick="if ( confirm('are you going to delete it?') == false ) return false;"
-				href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
-			<li><a
-				href="${boardCode}-modifyArticle?id=${article.id}&redirectUri=${encodedRequestUri}">Modify</a></li>
-		</ul>
+		<c:if test="${loginedMemberId == article.memberId}">
+			<ul class="flex">
+				<li style="margin-right: 20px;"><a
+					onclick="if ( confirm('are you going to delete it?') == false ) return false;"
+					href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
+				<li><a
+					href="${boardCode}-modifyArticle?id=${article.id}&redirectUri=${encodedRequestUri}">Modify</a></li>
+			</ul>
+		</c:if>
 	</div>
+
+
+	<script>
+		var ArticleWriteReplyForm__submitDone = false;
+		function ArticleWriteReplyForm__submit(form) {
+			if (ArticleWriteReplyForm__submitDone) {
+				alert('working on it.');
+			}
+			form.body.value = form.body.value.trim();
+			if (form.body.value.length == 0) {
+				alert('Please enter your reply');
+				form.body.focus();
+				return;
+			}
+			ArticleWriteReplyForm__submitDone = true;
+
+
+			var startWriteReply = function() {
+				$.ajax({
+					url : '../reply/doWriteReplyAjax',
+					data : {
+						body : form.body.value,
+						articleId : ${article.id},
+						memberId : ${article.memberId}
+					},
+
+					dataType : "json",
+					type : 'POST',
+					success : function(data) {
+					}
+				});
+				
+				}	
+			form.body.value = '';
+			var ArticleWriteReplyForm__submitDone = false;	
+		}
+
+		
+	</script>
 
 	<h1 class="reply-write-title">Reply</h1>
 
 	<div class="reply-write">
-		<form action="" onsubmit="Article__writeReply(this); return false;">
+		<form action=""
+			onsubmit="ArticleWriteReplyForm__submit(this); return false;">
 			<table>
 				<colgroup>
 					<col width="100">
