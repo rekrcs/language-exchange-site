@@ -4,6 +4,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
+.reply-write {
+	padding-bottom: 60px;
+}
+
 .reply-write>form>table {
 	width: 100%;
 	border-collapse: collapse;
@@ -23,6 +27,28 @@
 }
 </style>
 
+<!-- 리스트 css -->
+<style>
+.table-box2 {
+	padding: 50px330px 0;
+}
+
+/* 타이틀 가운데 정렬 */
+.table-box2>table thead>tr>th {
+	text-align: center;
+}
+
+.table-box2>table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-box2>table th, .table-box2>table td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: left;
+}
+</style>
 <script>
 	
 </script>
@@ -116,7 +142,7 @@
 		
 	</script>
 
-	<h1 class="reply-write-title">Reply</h1>
+	<h1 class="reply-write-title">Write reply</h1>
 
 	<div class="reply-write">
 		<form action=""
@@ -143,6 +169,31 @@
 				</tbody>
 			</table>
 		</form>
+	</div>
+
+	<h1>Reply list</h1>
+	<div class="reply-list-box table-box2">
+		<table>
+			<colgroup>
+				<col width="80">
+				<col width="180">
+				<col width="180">
+				<col>
+				<col width="200">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Date</th>
+					<th>Writer</th>
+					<th>Body</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
 	</div>
 </div>
 
