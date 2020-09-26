@@ -119,27 +119,23 @@
 			ArticleWriteReplyForm__submitDone = true;
 
 
-			var startWriteReply = function() {
-				$.ajax({
-					url : '../reply/doWriteReplyAjax',
-					data : {
-						body : form.body.value,
-						articleId : ${article.id},
-						memberId : ${article.memberId}
-					},
+			$.ajax({
+				url : '../reply/doWriteReplyAjax',
+				data : {
+					body : form.body.value,
+					articleId : ${article.id},
+					memberId : ${article.memberId}
+				},
 
-					dataType : "json",
-					type : 'POST',
-					success : function(data) {
-					}
-				});
-				
-				}	
+				dataType : "json",
+				type : 'POST',
+				success : function(data) {
+				}
+			});
+			
 			form.body.value = '';
 			var ArticleWriteReplyForm__submitDone = false;	
 		}
-
-		
 	</script>
 
 	<h1 class="reply-write-title">Write reply</h1>
