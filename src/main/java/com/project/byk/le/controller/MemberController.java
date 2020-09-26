@@ -306,11 +306,19 @@ public class MemberController {
 
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 		isJoinableLoginId = !isJoinableLoginId;
-		
-		if (isJoinableLoginId && onlyAlphabetAndNumInId.equals("true")) {
-			return "{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"isJoinableLoginId\":\"true\", \"loginId\":\"" + loginId + "\"}";
+
+		if (loginId.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+			return "{\"msg\":\"only alphabets and numbers.\", \"isJoinableLoginId\":\"false\", \"loginId\":\"" + loginId
+					+ "\"}";
+		} else if (loginId.length() < 4) {
+			return "{\"msg\":\"longer than 4 characters.\", \"isJoinableLoginId\":\"false\", \"loginId\":\"" + loginId
+					+ "\"}";
+		} else if (isJoinableLoginId && onlyAlphabetAndNumInId.equals("true")) {
+			return "{\"msg\":\"You can use this ID.\", \"isJoinableLoginId\":\"true\", \"loginId\":\"" + loginId
+					+ "\"}";
 		} else if (!isJoinableLoginId || onlyAlphabetAndNumInId.equals("false")) {
-			return "{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"isJoinableLoginId\": \"false\", \"loginId\":\"" + loginId + "\"}";
+			return "{\"msg\":\"You cannot use this ID.\", \"isJoinableLoginId\": \"false\", \"loginId\":\"" + loginId
+					+ "\"}";
 		}
 		return "";
 	}
