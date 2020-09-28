@@ -60,7 +60,8 @@
 		ArticleWriteForm__init();
 	});
 </script>
-<form class="form1" method="POST" action="doWrite"
+<form class="form1" method="POST"
+	action="doWrite?redirectUri=${redirectUri}"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
 	<input type="hidden" name="code" value="${boardCode}" />
 	<div class="table-box small-con">

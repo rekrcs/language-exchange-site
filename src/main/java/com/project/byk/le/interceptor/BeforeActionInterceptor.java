@@ -44,6 +44,11 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 		request.setAttribute("requestUri", requestUri);
 		request.setAttribute("encodedRequestUri", encodedRequestUri);
+		request.setAttribute("queryString", queryString);
+
+		String requestUriNoQuery = request.getRequestURI();
+		String encodedRequestUriNoQuery = Util.getUriEncoded(requestUriNoQuery);
+		request.setAttribute("encodedRequestUriNoQuery", encodedRequestUriNoQuery);
 
 		String afterLoginUri = requestUri;
 

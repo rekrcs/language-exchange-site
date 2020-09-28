@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../part/head.jspf"%>
 <div class="table-box small-con">
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
@@ -70,7 +71,8 @@
 	</table>
 	<div class="option-btn">
 		<ul>
-			<li><a href="${boardCode}-write">write</a></li>
+			<li><a
+				href="${boardCode}-write?redirectUri=${encodedRequestUriNoQuery}">write</a></li>
 		</ul>
 	</div>
 </div>
@@ -78,7 +80,7 @@
 <div class="page-menu text-align-center" style="margin-bottom: 50px;">
 	<c:if test="${moveToFirstPage}">
 		<a title="Move to list page" href="${queryString}?page=1"><i
-			class="fas fa-angle-double-left"></i></i></a>
+			class="fas fa-angle-double-left"></i></a>
 	</c:if>
 	<c:if test="${beforeMorePages}">
 		<a href="${queryString}?page=${param.page - pageBoundSize - 1}"><i
@@ -98,7 +100,7 @@
 		<a href="${queryString}?page=${param.page + pageBoundSize + 1}"><i
 			class="fas fa-angle-right"></i></a>
 	</c:if>
-	<c:if test="${param.page != 1 }">
+	<c:if test="${totalCount > limitCount}">
 		<c:if test="${moveToLastPage}">
 			<a title="Move to list page" href="${queryString}?page=${totalPage}"><i
 				class="fas fa-angle-double-right"></i></a>

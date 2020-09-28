@@ -46,6 +46,7 @@ public class ArticleController {
 		model.addAttribute("boardCode", boardCode);
 
 		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("limitCount", limitCount);
 		model.addAttribute("totalCount", totalCount);
 
 		int pageBoundSize = 5;
@@ -75,8 +76,11 @@ public class ArticleController {
 	}
 
 	@RequestMapping("usr/article/{boardCode}-write")
-	public String showWrite(Model model, @PathVariable("boardCode") String boardCode) {
+	public String showWrite(Model model, @PathVariable("boardCode") String boardCode,
+			@RequestParam Map<String, Object> param) {
+		String redirectUri = (String) param.get("redirectUri");
 		model.addAttribute("boardCode", boardCode);
+		model.addAttribute("redirectUri", redirectUri);
 		return "article/write";
 	}
 
@@ -99,7 +103,9 @@ public class ArticleController {
 			model.addAttribute("articles", articles);
 			return "article/live";
 		}
-		model.addAttribute("redirectUri", boardCode + "-list");
+		String redirectUri = (String) param.get("redirectUri");
+		System.out.println(redirectUri);
+		model.addAttribute("redirectUri", redirectUri + "?page=1");
 		model.addAttribute("alertMsg", String.format("A new article has been written."));
 		return "common/redirect";
 	}
