@@ -30,7 +30,7 @@
 <!-- 리스트 css -->
 <style>
 .table-box2 {
-	padding: 50px330px 0;
+	padding-bottom: 50px;
 }
 
 /* 타이틀 가운데 정렬 */
@@ -168,6 +168,50 @@
 	</div>
 
 	<h1>Reply list</h1>
+
+	<script>
+	var ArticleReply__lastLoadedArticleReplyId = 0;
+	function ArticleReply__loadList() {
+		$.get('../reply/getForPrintArticleRepliesRs', {
+			articleId : param.id,
+			from : ArticleReply__lastLoadedArticleReplyId + 1
+		}, function(data) {
+			data.articleReplies = data.articleReplies.reverse();
+			
+			for (var i = 0; i < data.articleReplies.length; i++) {
+				var articleReply = data.articleReplies[i];
+				ArticleReply__drawReply(articleReply);
+
+				ArticleReply__lastLoadedArticleReplyId = articleReply.id;
+			}
+		}, 'json');
+	}
+
+	var ArticleReply__$listTbody;
+
+	function ArticleReply__drawReply(articleReply) {
+		var html = '';
+
+		html = '<tr data-article-reply-id="' + articleReply.id + '">';
+		html += '<td>' + articleReply.id + '</td>';
+		html += '<td>' + articleReply.regDate + '</td>';
+		html += '<td>' + articleReply.extra.writer + '</td>';
+		html += '<td>' + articleReply.body + '</td>';
+		html += '<td>';
+		html += '<a href="#">삭제</a>';
+		html += '<a href="#">수정</a>';
+		html += '</td>';
+		html += '</tr>';
+
+		ArticleReply__$listTbody.prepend(html);
+	}
+
+	$(function() {
+		ArticleReply__$listTbody = $('.reply-list-box > table tbody');
+
+		setInterval(ArticleReply__loadList, 1000);
+	});
+</script>
 	<div class="reply-list-box table-box2">
 		<table>
 			<colgroup>

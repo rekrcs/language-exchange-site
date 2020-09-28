@@ -1,11 +1,13 @@
 package com.project.byk.le.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.byk.le.dao.ReplyDao;
+import com.project.byk.le.dto.Reply;
 import com.project.byk.le.util.Util;
 
 @Service
@@ -17,5 +19,9 @@ public class ReplyService {
 		replyDao.writeReply(param);
 		int id = Util.getAsInt(param.get("id"));
 		return id;
+	}
+
+	public List<Reply> getForPrintArticleReplies(int articleId, int from) {
+		return replyDao.getForPrintArticleReplies(articleId, from);
 	}
 }

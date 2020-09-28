@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.byk.le.dao.ArticleDao;
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.dto.Board;
+import com.project.byk.le.dto.Reply;
 
 @Service
 public class ArticleService {
@@ -47,5 +48,4 @@ public class ArticleService {
 	public void doArticleModify(Map<String, Object> param) {
 		articleDao.doArticleModify(param);
 	}
-
 }

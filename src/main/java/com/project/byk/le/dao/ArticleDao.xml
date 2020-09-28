@@ -127,6 +127,8 @@
 		`code` = #{code}
 	</select>
 
+
+
 	<resultMap type="Article" id="article">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />

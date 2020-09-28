@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.dto.Board;
+import com.project.byk.le.dto.Reply;
 
 @Mapper
 public interface ArticleDao {
