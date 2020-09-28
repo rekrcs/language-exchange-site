@@ -98,13 +98,14 @@ public class ArticleController {
 		param.put("memberId", loginedMemberId);
 		int newArticleWrite = articleService.write(param);
 
+		String redirectUri = (String) param.get("redirectUri");
 		if (boardCode.equals("live")) {
 			List<Article> articles = articleService.getArticleByBoradId(board.getId());
 			model.addAttribute("articles", articles);
-			return "article/live";
+
+			return "redirect:" + redirectUri;
 		}
-		String redirectUri = (String) param.get("redirectUri");
-		System.out.println(redirectUri);
+
 		model.addAttribute("redirectUri", redirectUri + "?page=1");
 		model.addAttribute("alertMsg", String.format("A new article has been written."));
 		return "common/redirect";
@@ -167,7 +168,10 @@ public class ArticleController {
 	}
 
 	@RequestMapping("usr/article/{boardCode}-liveWrite")
-	public String showLiveWrite(Model model, @PathVariable("boardCode") String boardCode) {
+	public String showLiveWrite(Model model, @PathVariable("boardCode") String boardCode,
+			@RequestParam Map<String, Object> param) {
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri", redirectUri);
 		return "article/liveWrite";
 	}
 }

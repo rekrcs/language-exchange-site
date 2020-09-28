@@ -6,7 +6,8 @@
 	<div class="option-btn">
 
 		<ul>
-			<li><a href="${boardCode}-liveWrite">write</a></li>
+			<li><a
+				href="${boardCode}-liveWrite?redirectUri=${encodedRequestUri}">write</a></li>
 		</ul>
 	</div>
 	<table>
@@ -24,6 +25,10 @@
 				<tr>
 					<th>Writer</th>
 					<td>${article.extra.writer}</td>
+				</tr>
+				<tr>
+					<th>Title</th>
+					<td>${article.title}</td>
 				</tr>
 				<tr>
 					<th>Body</th>

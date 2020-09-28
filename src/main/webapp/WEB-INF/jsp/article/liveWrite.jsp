@@ -30,7 +30,7 @@
 			alert("It's being done right now.");
 			return;
 		}
-		
+
 		form.title.value = form.title.value.trim();
 
 		if (form.title.value.length == 0) {
@@ -52,7 +52,7 @@
 			return;
 		}
 
- 		form.body.value = body;
+		form.body.value = body;
 
 		removeOnBeforeUnload();
 		form.submit();
@@ -72,8 +72,9 @@
 </script>
 <form class="form1" method="POST" action="doWrite"
 	onsubmit="ArticleLiveWriteForm__submit(this); return false;">
-	<input type="hidden" name="code" value="${boardCode}" />
-	<input type="hidden" name="body" />
+	<input type="hidden" name="code" value="${boardCode}" /> <input
+		type="hidden" name="body" /> <input type="hidden" name="redirectUri"
+		value="${redirectUri}" />
 	<div class="table-box small-con">
 		<table>
 			<thead>
