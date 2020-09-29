@@ -42,9 +42,14 @@
 		delStatus = 1
 		WHERE id = #{id}
 	</update>
-
-	<!-- <delete id="deleteArticleReply"> DELETE FROM reply WHERE id = #{id} 
-		</delete> -->
+	
+	<update id="modifyArticleReply">
+	UPDATE reply
+		<set>
+			<if test="body != null">body = #{body},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
 
 	<resultMap type="Reply" id="reply">
 		<id property="id" column="id" />

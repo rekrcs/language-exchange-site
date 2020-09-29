@@ -304,13 +304,30 @@
 	function ArticleReply__submitModifyReplyForm(form) {
 		var $tr = $(form).closest('tr');
 		form.body.value = form.body.value.trim();
+		
 		if (form.body.value.length == 0) {
 			alert('Please enter your reply');
 			form.body.focus();
 
 			return false;
 		}
+		
+		var replyId = parseInt($tr.attr('data-article-reply-id'));
+		var body = form.body.value;
 
+		$.post('../reply/doModifyReplyAjax', {
+			id : replyId,
+			body : body
+		}, function(data) {
+			
+			ArticleReply__disableModifyMode(form);
+
+			var $replyBodyText = $tr.find('.reply-body-text');
+			var $textarea = $tr.find('form textarea');
+
+			$replyBodyText.text($textarea.val());
+			
+			});
 		}
 	
 </script>
