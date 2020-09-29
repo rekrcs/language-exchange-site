@@ -50,16 +50,9 @@ public class ReplyController {
 	@ResponseBody
 	public String doModifyReplyAjax(@RequestParam Map<String, Object> param, HttpServletRequest request) {
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-		System.out.println(param);
 		int id = Integer.parseInt((String) param.get("id"));
 
 		Map<String, Object> rs = replyService.modifyReply(param);
-		System.out.println(rs);
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 
 		return "";
 	}

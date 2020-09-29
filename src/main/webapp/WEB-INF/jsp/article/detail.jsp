@@ -90,6 +90,12 @@
 .reply-list-box tr[data-modify-mode="Y"] .modify-mode-inline {
 	display: inline;
 }
+
+.modify-mode-block>form>textarea {
+	width: 100%;
+	height: 50px;
+	resize: none;
+}
 </style>
 <script>
 	
@@ -171,7 +177,7 @@
 				data : {
 					body : form.body.value,
 					articleId : ${article.id},
-					memberId : ${article.memberId}
+					memberId : ${loginedMemberId}
 				},
 
 				dataType : "json",
@@ -250,10 +256,12 @@
 		+ articleReply.body + '</textarea><br /> <input class="loading-none" type="submit" value="modify" />' 
 		+'</form></div></td>';
 		html += '<td class="note-box">';
+		if(${loginedMemberId} == articleReply.memberId) {
 		html += '<a href="#" onclick="if ( confirm(\'are you going to delete this reply?\') ) { ArticleReply__delete(this); } return false;">delete</a>';		
 		html += '<span></span>';
 		html += '<a href="#" class="modify-mode-none" onclick="ArticleReply__enableModifyMode(this); return false;">modify</a>';
 		html += '<a href="#" class="modify-mode-inline" onclick="ArticleReply__disableModifyMode(this); return false;">cencle</a>';
+		}
 		html += '</td>';
 		html += '</tr>';
 
