@@ -15,4 +15,6 @@ public interface ReplyDao {
 
 	List<Reply> getForPrintArticleReplies(@Param("articleId") int articleId, @Param("from") int from);
 
+	int deleteArticleReply(@Param("id") int id);
+
 }

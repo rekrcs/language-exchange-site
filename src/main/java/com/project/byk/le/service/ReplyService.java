@@ -24,4 +24,10 @@ public class ReplyService {
 	public List<Reply> getForPrintArticleReplies(int articleId, int from) {
 		return replyDao.getForPrintArticleReplies(articleId, from);
 	}
+
+	public int deleteArticleReply(int id) {
+		return replyDao.deleteArticleReply(id);
+
+	}
+
 }

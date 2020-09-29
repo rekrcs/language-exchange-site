@@ -27,10 +27,24 @@
 	WHERE AR.articleId =
 	#{articleId}
 	AND AR.id >= #{from}
+	AND AR.displayStatus = 1
+	AND AR.delStatus = 0
 	ORDER BY AR.id
 	DESC
 	]]>
 	</select>
+
+	<update id="deleteArticleReply">
+		UPDATE reply
+		SET
+		delDate = NOW(),
+		displayStatus = 0,
+		delStatus = 1
+		WHERE id = #{id}
+	</update>
+
+	<!-- <delete id="deleteArticleReply"> DELETE FROM reply WHERE id = #{id} 
+		</delete> -->
 
 	<resultMap type="Reply" id="reply">
 		<id property="id" column="id" />

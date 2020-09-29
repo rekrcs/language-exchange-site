@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +27,22 @@ public class ReplyController {
 		return "{\"msg\" : \"you wrote a reply\"}";
 	}
 
-	@RequestMapping("usr/reply/getForPrintArticleRepliesRs")
+	@RequestMapping("/usr/reply/getForPrintArticleRepliesRs")
 	@ResponseBody
 	public Map<String, Object> getForPrintArticleRepliesRs(int articleId, int from) {
 		List<Reply> articleReplies = replyService.getForPrintArticleReplies(articleId, from);
 		Map<String, Object> rs = new HashMap<>();
-//		rs.put("resultCode", "S-1");
 		rs.put("articleReplies", articleReplies);
 		return rs;
+	}
+
+	@RequestMapping("/usr/reply/doDeleteReplyAjax")
+	@ResponseBody
+	public String doDeleteReply(int id, String redirectUrl, HttpServletRequest request) {
+
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		int deletedReply = replyService.deleteArticleReply(id);
+
+		return "{\"msg\" : \"You have deleted your reply\"}";
 	}
 }

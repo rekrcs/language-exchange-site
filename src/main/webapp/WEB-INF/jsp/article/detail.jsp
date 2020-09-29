@@ -240,6 +240,22 @@
 
 		setInterval(ArticleReply__loadList, 1000);
 	});
+
+
+	function ArticleReply__delete(obj) {
+		var $clickedBtn = $(obj);
+		var $tr = $clickedBtn.closest('tr');
+
+		var replyId = parseInt($tr.attr('data-article-reply-id'));
+		$.post(
+		'../reply/doDeleteReplyAjax',
+		{
+			id: replyId
+		},
+		function(data) {
+			$tr.remove();
+		}, 'json');
+		}
 </script>
 	<div class="reply-list-box table-box2">
 		<table>
