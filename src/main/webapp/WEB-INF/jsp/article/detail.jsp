@@ -48,6 +48,28 @@
 	padding: 10px;
 	text-align: left;
 }
+
+.note-box {
+	text-decoration: underline;
+	color: #0275d8;
+}
+
+.note-box>a:hover {
+	color: #ed6942;
+}
+
+.note-box>span {
+	padding-left: 10px;
+}
+
+@media ( max-width : 799px) {
+	.note-box>a {
+		display: block;
+	}
+	.note-box>span {
+		display: none;
+	}
+}
 </style>
 <script>
 	
@@ -203,8 +225,9 @@
 		html += '<td>' + articleReply.regDate + '</td>';
 		html += '<td>' + articleReply.extra.writer + '</td>';
 		html += '<td>' + articleReply.body + '</td>';
-		html += '<td>';
-		html += '<a href="#">삭제</a>';
+		html += '<td class="note-box">';
+		html += '<a href="#" onclick="if ( confirm(\'are you going to delete this reply?\') ) { ArticleReply__delete(this); } return false;">삭제</a>';		
+		html += '<span></span>';
 		html += '<a href="#">수정</a>';
 		html += '</td>';
 		html += '</tr>';
