@@ -107,6 +107,11 @@
 	<script>
 		var ArticleWriteReplyForm__submitDone = false;
 		function ArticleWriteReplyForm__submit(form) {
+			if(${!isLogined}) {
+				alert('you can write reply after login');
+				form.body.focus();
+				return;
+				}
 			if (ArticleWriteReplyForm__submitDone) {
 				alert('working on it.');
 			}
@@ -174,7 +179,8 @@
 	function ArticleReply__loadList() {
 		$.get('../reply/getForPrintArticleRepliesRs', {
 			articleId : param.id,
-			from : ArticleReply__lastLoadedArticleReplyId + 1
+			from : ArticleReply__lastLoadedArticleReplyId + 1,
+			ajax : 'Y'
 		}, function(data) {
 			data.articleReplies = data.articleReplies.reverse();
 			

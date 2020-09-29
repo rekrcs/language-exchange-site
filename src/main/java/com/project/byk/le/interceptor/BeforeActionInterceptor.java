@@ -66,6 +66,16 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("paramMap", param);
 		request.setAttribute("paramJson", paramJson);
 
+		boolean isAjax = requestUri.endsWith("Ajax");
+
+		if (isAjax == false) {
+			if (param.containsKey("ajax") && param.get("ajax").equals("Y")) {
+				isAjax = true;
+			}
+		}
+
+		request.setAttribute("isAjax", isAjax);
+
 		// put board INF. into request
 		List<Board> boards = boardService.getBoardsForPrint();
 		request.setAttribute("boards", boards);
