@@ -127,7 +127,6 @@ public class MemberController {
 		}
 
 		String writeBeforeLogin = (String) param.get("writeBeforeLogin");
-		System.out.println(writeBeforeLogin);
 		if (writeBeforeLogin != null) {
 			model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
 			model.addAttribute("redirectUri", writeBeforeLogin + redirectUri);
