@@ -56,7 +56,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		// 한다.
 		if (requestUri.contains("/usr/member/login") || requestUri.contains("/usr/member/join")
 				|| requestUri.contains("/usr/member/forgotId") || requestUri.contains("/usr/member/forgotPw")) {
-			afterLoginUri = Util.getString(request, "redirectUri", "");
+			afterLoginUri = Util.getString(request, "redirectUri", "/usr/home/main");
 		}
 
 		String encodedAfterLoginUri = Util.getUriEncoded(afterLoginUri);

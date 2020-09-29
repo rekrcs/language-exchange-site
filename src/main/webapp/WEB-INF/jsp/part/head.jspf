@@ -66,7 +66,8 @@ var param = ${paramJson};
 							</c:forEach>
 						</ul></li>
 					<c:if test="${isLogined == false}">
-						<li><a href="../member/login"
+						<li><a
+							href="../member/login?redirectUri=${encodedAfterLoginUri}"
 							class="height-100p flex flex-ai-c">Login</a></li>
 						<li><a href="../member/join"
 							class="height-100p flex flex-ai-c">Sign up</a></li>

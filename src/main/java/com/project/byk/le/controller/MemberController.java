@@ -73,7 +73,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("usr/member/login")
-	public String showLogin() {
+	public String showLogin(@RequestParam Map<String, Object> param, Model model) {
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri", redirectUri);
 		return "member/login";
 	}
 
