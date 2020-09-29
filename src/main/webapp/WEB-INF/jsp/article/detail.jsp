@@ -70,6 +70,26 @@
 		display: none;
 	}
 }
+
+.reply-list-box tr[data-modify-mode="Y"] .modify-mode-none {
+	display: none;
+}
+
+.reply-list-box tr .modify-mode-inline {
+	display: none;
+}
+
+.reply-list-box tr .modify-mode-block {
+	display: none;
+}
+
+.reply-list-box tr[data-modify-mode="Y"] .modify-mode-block {
+	display: block;
+}
+
+.reply-list-box tr[data-modify-mode="Y"] .modify-mode-inline {
+	display: inline;
+}
 </style>
 <script>
 	
@@ -224,11 +244,16 @@
 		html += '<td>' + articleReply.id + '</td>';
 		html += '<td>' + articleReply.regDate + '</td>';
 		html += '<td>' + articleReply.extra.writer + '</td>';
-		html += '<td>' + articleReply.body + '</td>';
+		html += '<td><div class="reply-body-text modify-mode-none">' + articleReply.body 
+		+ '</div><div class="modify-mode-block">'+ '<form onsubmit="ArticleReply__submitModifyReplyForm(this); return false;">' 
+		+ '<textarea name="body">' 
+		+ articleReply.body + '</textarea><br /> <input class="loading-none" type="submit" value="modify" />' 
+		+'</form></div></td>';
 		html += '<td class="note-box">';
-		html += '<a href="#" onclick="if ( confirm(\'are you going to delete this reply?\') ) { ArticleReply__delete(this); } return false;">삭제</a>';		
+		html += '<a href="#" onclick="if ( confirm(\'are you going to delete this reply?\') ) { ArticleReply__delete(this); } return false;">delete</a>';		
 		html += '<span></span>';
-		html += '<a href="#">수정</a>';
+		html += '<a href="#" class="modify-mode-none" onclick="ArticleReply__enableModifyMode(this); return false;">modify</a>';
+		html += '<a href="#" class="modify-mode-inline" onclick="ArticleReply__disableModifyMode(this); return false;">cencle</a>';
 		html += '</td>';
 		html += '</tr>';
 
@@ -256,6 +281,38 @@
 			$tr.remove();
 		}, 'json');
 		}
+
+	function ArticleReply__enableModifyMode(obj) {
+		var $clickedBtn = $(obj);
+		var $tr = $clickedBtn.closest('tr');
+
+		var $replyBodyText = $tr.find('.reply-body-text');
+		var $textarea = $tr.find('form textarea');
+
+		$textarea.val($replyBodyText.text().trim());
+
+		$tr.attr('data-modify-mode', 'Y');
+	}
+
+	function ArticleReply__disableModifyMode(obj) {
+		var $clickedBtn = $(obj);
+		var $tr = $clickedBtn.closest('tr');
+
+		$tr.attr('data-modify-mode', 'N');
+	}
+
+	function ArticleReply__submitModifyReplyForm(form) {
+		var $tr = $(form).closest('tr');
+		form.body.value = form.body.value.trim();
+		if (form.body.value.length == 0) {
+			alert('Please enter your reply');
+			form.body.focus();
+
+			return false;
+		}
+
+		}
+	
 </script>
 	<div class="reply-list-box table-box2">
 		<table>
