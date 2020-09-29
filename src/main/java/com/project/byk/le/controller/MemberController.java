@@ -92,7 +92,6 @@ public class MemberController {
 		if (member.isDelStatus()) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("This ID has been withdrawn."));
-
 			return "common/redirect";
 		}
 		String loginPw = (String) param.get("loginPwReal");
@@ -100,7 +99,6 @@ public class MemberController {
 		if (member.getLoginPw().equals(loginPw) == false) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("Please check your ID or Password"));
-
 			return "common/redirect";
 		}
 
@@ -115,7 +113,6 @@ public class MemberController {
 						"%s has been logged in. \\nyou are using your password longger than 3 months. you should change it",
 						member.getLoginId()));
 				model.addAttribute("redirectUri", redirectUri);
-
 				return "common/redirect";
 			}
 			int temporaryPw = Integer.parseInt(attr.getValue());
@@ -125,13 +122,20 @@ public class MemberController {
 								"%s has been logged in. \\nyou are using temporary password. you should change it",
 								member.getLoginId()));
 				model.addAttribute("redirectUri", redirectUri);
-
 				return "common/redirect";
 			}
 		}
+
+		String writeBeforeLogin = (String) param.get("writeBeforeLogin");
+		System.out.println(writeBeforeLogin);
+		if (writeBeforeLogin != null) {
+			model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
+			model.addAttribute("redirectUri", writeBeforeLogin + redirectUri);
+			return "common/redirect";
+		}
+
 		model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
 		model.addAttribute("redirectUri", redirectUri);
-
 		return "common/redirect";
 	}
 

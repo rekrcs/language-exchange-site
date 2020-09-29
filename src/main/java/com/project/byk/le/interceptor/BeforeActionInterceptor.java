@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.project.byk.le.dto.Board;
@@ -35,6 +36,11 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 		String requestUri = request.getRequestURI();
 		String queryString = request.getQueryString();
+
+		boolean writeBeforeLogin = requestUri.endsWith("write");
+		boolean learnKrBeforeLogin = requestUri.endsWith("learnKr");
+		boolean learnEnBeforeLogin = requestUri.endsWith("learnEn");
+		boolean liveBeforeLogin = requestUri.endsWith("liveList");
 
 		if (queryString != null && queryString.length() > 0) {
 			requestUri += "?" + queryString;
@@ -75,6 +81,15 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		}
 
 		request.setAttribute("isAjax", isAjax);
+
+		if (learnKrBeforeLogin == true || learnEnBeforeLogin == true || liveBeforeLogin == true) {
+			request.setAttribute("writeBeforeLogin", Util.getUriEncoded(requestUri));
+		}
+
+		if (writeBeforeLogin == true) {
+			request.setAttribute("writeBeforeLogin", Util.getUriEncoded(requestUri) + "?redirectUri="
+					+ Util.getUriEncoded((String) param.get("redirectUri")));
+		}
 
 		// put board INF. into request
 		List<Board> boards = boardService.getBoardsForPrint();

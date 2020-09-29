@@ -61,7 +61,9 @@
 <form class="form1" method="POST" action="doLogin"
 	onsubmit="MemberLoginForm__submit(this); return false;">
 	<input type="hidden" name="redirectUri" value="${redirectUri}">
-	<input type="hidden" name="loginPwReal">
+	<input type="hidden" name="writeBeforeLogin"
+		value="${param.writeBeforeLogin}"> <input type="hidden"
+		name="loginPwReal">
 
 	<div class="table-box small-con">
 		<table>

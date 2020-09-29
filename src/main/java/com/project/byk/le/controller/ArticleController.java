@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.project.byk.le.dto.Article;
 import com.project.byk.le.dto.Board;
 import com.project.byk.le.dto.Reply;
@@ -82,18 +81,20 @@ public class ArticleController {
 	public String showWrite(Model model, @PathVariable("boardCode") String boardCode,
 			@RequestParam Map<String, Object> param) {
 		String redirectUri = (String) param.get("redirectUri");
+
 		model.addAttribute("boardCode", boardCode);
 		model.addAttribute("redirectUri", redirectUri);
+
 		return "article/write";
 	}
 
 	@RequestMapping("usr/article/doWrite")
 	public String doWrite(Model model, @RequestParam Map<String, Object> param, HttpSession session) {
-		if (session.getAttribute("loginedMemberId") == null) {
-			model.addAttribute("historyBack", true);
-			model.addAttribute("alertMsg", String.format("you can write after login"));
-			return "common/redirect";
-		}
+//		if (session.getAttribute("loginedMemberId") == null) {
+//			model.addAttribute("historyBack", true);
+//			model.addAttribute("alertMsg", String.format("you can write after login"));
+//			return "common/redirect";
+//		}
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		String boardCode = (String) param.get("code");
 		Board board = articleService.getBoardByCode(boardCode);

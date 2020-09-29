@@ -69,8 +69,7 @@ public class MessageController {
 		Attr msgRoomCheck2 = attrService.get(String.format("msgRoom__0__%s__%s", (String) param.get("toMemberId"),
 				(String) param.get("fromMemberId")));
 
-		System.out.println("msgRoomCheck1 : " + msgRoomCheck1);
-		System.out.println("msgRoomCheck2 : " + msgRoomCheck2);
+
 
 		if (msgRoomCheck1 == null && msgRoomCheck2 == null) {
 			attrService.setValue(String.format("msgRoom__0__%s__%s", (String) param.get("fromMemberId"),
