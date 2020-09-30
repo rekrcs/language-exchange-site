@@ -23,10 +23,10 @@
 		onBeforeUnloadSetted = false;
 	}
 
-	var ArticleLiveWriteForm__submitDone = false;
+	var ArticleLiveModifyForm__submitDone = false;
 
-	function ArticleLiveWriteForm__submit(form) {
-		if (ArticleLiveWriteForm__submitDone) {
+	function ArticleLiveModifyForm__submit(form) {
+		if (ArticleLiveModifyForm__submitDone) {
 			alert("It's being done right now.");
 			return;
 		}
@@ -56,10 +56,10 @@
 
 		removeOnBeforeUnload();
 		form.submit();
-		ArticleLiveWriteForm__submitDone = true;
+		ArticleLiveModifyForm__submitDone = true;
 	}
 
-	function ArticleLiveWriteForm__init() {
+	function ArticleLiveModifyForm__init() {
 		$('form.form1 input, form.form1 .toast-editor.input-body').keyup(
 				function() {
 					applyOnBeforeUnload();
@@ -67,20 +67,19 @@
 	}
 
 	$(function() {
-		ArticleLiveWriteForm__init();
+		ArticleLiveModifyForm__init();
 	});
 </script>
-<form class="form1" method="POST" action="doWrite"
-	onsubmit="ArticleLiveWriteForm__submit(this); return false;">
-	<input type="hidden" name="code" value="${boardCode}" /> <input
-		type="hidden" name="body" /> <input type="hidden" name="redirectUri"
-		value="${redirectUri}" /><input type="hidden" name="title"
+<form class="form1" method="POST" action="doModifyLive"
+	onsubmit="ArticleLiveModifyForm__submit(this); return false;">
+	<input type="hidden" name="body" /> <input type="hidden" name="id"
+		value="${param.id}" /><input type="hidden" name="title"
 		value="N/AinLiveBoard" />
 	<div class="table-box small-con">
 		<table>
 			<thead>
 				<tr>
-					<th colspan="3"><h1>Write in Live</h1></th>
+					<th colspan="3"><h1>Modify Live</h1></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -89,14 +88,7 @@
 					<td>
 						<div class="form-control-box">
 							<script type="text/x-template">
-# Picture
-you can upload pictures with picture's Link
-
-# YouTube upload
-you can upload YouTube in the way below.
-
-```youtube
-https://youtu.be/pzgNzT-9WPU
+${article.body}
 ```</script>
 							<div data-relTypeCode="article" data-relId="0"
 								class="toast-editor input-body"></div>
@@ -106,7 +98,7 @@ https://youtu.be/pzgNzT-9WPU
 				<tr>
 					<th></th>
 					<td>
-						<button class="btn btn-primar" type="submit">write</button>
+						<button class="btn btn-primar" type="submit">modify</button>
 					</td>
 				</tr>
 			</tbody>

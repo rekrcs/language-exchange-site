@@ -178,4 +178,20 @@ public class ArticleController {
 		model.addAttribute("redirectUri", redirectUri);
 		return "article/liveWrite";
 	}
+
+	@RequestMapping("usr/article/modifyLive")
+	public String showModifyLive(Model model, @RequestParam Map<String, Object> param) {
+		int id = Util.getAsInt(param.get("id"));
+		Article article = articleService.getArticleById(id);
+		model.addAttribute("article", article);
+		return "article/modifyLive";
+	}
+
+	@RequestMapping("usr/article/doModifyLive")
+	public String doModifyLive(@RequestParam Map<String, Object> param, Model model) {
+		articleService.doArticleModify(param);
+		model.addAttribute("redirectUri", "/usr/article/live-liveList?page=1");
+		model.addAttribute("alertMsg", String.format("you have modified your article"));
+		return "common/redirect";
+	}
 }

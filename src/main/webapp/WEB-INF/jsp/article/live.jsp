@@ -55,10 +55,6 @@ td:hover>.msg>a {
 							</c:if></span></td>
 				</tr>
 				<tr>
-					<th>Title</th>
-					<td>${article.title}</td>
-				</tr>
-				<tr>
 					<th>Body</th>
 					<td><script type="text/x-template">${article.body}</script>
 						<div class="toast-editor toast-editor-viewer"></div></td>
@@ -72,7 +68,8 @@ td:hover>.msg>a {
 									<li><a style="margin-right: 20px;"
 										onclick="if ( confirm('are you going to delete it?') == false ) return false;"
 										href="${boardCode}-deleteArticle?id=${article.id}">Delete</a></li>
-									<li><a href="modifyarticle">Modify</a></li>
+									<li><a
+										href="modifyLive?id=${article.id}&boardId=${article.boardId}">Modify</a></li>
 								</ul>
 							</c:if>
 						</div></td>
