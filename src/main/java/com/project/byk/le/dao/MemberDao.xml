@@ -112,7 +112,7 @@
 		SELECT *
 		FROM member
 		WHERE introduce IS NOT NULL
-		AND practiceLang = 'korean'
+		AND practiceLang = 'Korean'
 		ORDER BY
 		updateDate DESC
 	</select>
@@ -121,6 +121,14 @@
 		SELECT *
 		FROM member
 		WHERE introduce IS NOT NULL
-		AND practiceLang = 'english'
+		AND practiceLang = 'English'
+	</select>
+
+	<select id="getNewMembers" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE nativeLang =
+		#{nativeLang}
+		ORDER BY regDate DESC LIMIT #{limit}
 	</select>
 </mapper>

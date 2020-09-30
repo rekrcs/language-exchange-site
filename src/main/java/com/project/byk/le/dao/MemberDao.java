@@ -40,4 +40,6 @@ public interface MemberDao {
 	List<Member> getMembersLearningEn();
 
 	int updateIntroduce(Map<String, Object> param);
+
+	List<Member> getNewMembers(Map<String, Object> param);
 }

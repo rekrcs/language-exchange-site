@@ -41,6 +41,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		boolean learnKrBeforeLogin = requestUri.endsWith("learnKr");
 		boolean learnEnBeforeLogin = requestUri.endsWith("learnEn");
 		boolean liveBeforeLogin = requestUri.endsWith("liveList");
+		boolean messageforeLogin = requestUri.endsWith("message");
+		boolean liveWriteBeforeLogin = requestUri.endsWith("liveWrite");
 
 		if (queryString != null && queryString.length() > 0) {
 			requestUri += "?" + queryString;
@@ -83,14 +85,15 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 		request.setAttribute("isAjax", isAjax);
 
-		if (learnKrBeforeLogin == true || learnEnBeforeLogin == true || liveBeforeLogin == true) {
+		if (learnKrBeforeLogin == true || learnEnBeforeLogin == true || liveBeforeLogin == true
+				|| messageforeLogin == true || liveWriteBeforeLogin == true || writeBeforeLogin == true) {
 			request.setAttribute("writeBeforeLogin", Util.getUriEncoded(requestUri));
 		}
 
-		if (writeBeforeLogin == true) {
-			request.setAttribute("writeBeforeLogin", Util.getUriEncoded(requestUri) + "?redirectUri="
-					+ Util.getUriEncoded((String) param.get("redirectUri")));
-		}
+//		if (writeBeforeLogin == true) {
+//			request.setAttribute("writeBeforeLogin", Util.getUriEncoded(requestUri) + "?redirectUri="
+//					+ Util.getUriEncoded((String) param.get("redirectUri")));
+//		}
 
 		// put board INF. into request
 		List<Board> boards = boardService.getBoardsForPrint();

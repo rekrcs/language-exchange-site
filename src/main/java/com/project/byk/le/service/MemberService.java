@@ -146,4 +146,8 @@ public class MemberService {
 
 	}
 
+	public List<Member> getNewMembers(Map<String, Object> param) {
+		return memberDao.getNewMembers(param);
+	}
+
 }
