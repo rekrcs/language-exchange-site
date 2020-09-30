@@ -107,8 +107,8 @@ loginPw = SHA2('admin', 256),
 nickname = 'admin',
 email = 'admin@admin.admin',
 `level` = '10',
-nativeLang = 'english',
-practiceLang = 'korean';
+nativeLang = 'English',
+practiceLang = 'Korean';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -119,8 +119,8 @@ loginPw = SHA2('aaaaa', 256),
 nickname = 'aaaaa',
 email = 'aaaaa@aaaaa.aaaaa',
 `level` = '10',
-nativeLang = 'english',
-practiceLang = 'korean';
+nativeLang = 'English',
+practiceLang = 'Korean';
 
  # create message table
 CREATE TABLE message (

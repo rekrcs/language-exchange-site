@@ -133,6 +133,13 @@
 			return;
 		}
 
+		if (form.nativeLang.value == form.practiceLang.value) {
+			form.practiceLang.focus();
+			alert("Native and Practice Languages cannot be same.");
+
+			return;
+		}
+
 		form.loginPwReal.value = sha256(form.loginPw.value);
 		form.loginPw.value = '';
 		form.loginPwConfirm.value = '';
