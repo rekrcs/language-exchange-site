@@ -22,6 +22,11 @@
 		overflow: hidden;
 	}
 }
+
+.msg-body>a {
+	text-decoration: underline;
+	color: #0275d8;
+}
 </style>
 <div class="table-box small-con">
 

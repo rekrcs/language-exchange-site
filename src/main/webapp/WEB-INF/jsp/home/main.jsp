@@ -45,10 +45,10 @@ td:hover>.msg>a {
 					<td>${memberSpeakKr.regDate}</td>
 					<td>${memberSpeakKr.gender}</td>
 					<td><c:if test="${loginedMemberId != memberSpeakKr.id}">
-							<a href="" class="flex relative memberForMsg">
+							<a href="#" class="flex relative memberForMsg">
 								${memberSpeakKr.nickname}</a>
 						</c:if> <c:if test="${loginedMemberId == memberSpeakKr.id}">
-							<a href="" class="flex relative">
+							<a href="#" class="flex relative">
 								${memberSpeakKr.nickname}(You)</a>
 						</c:if><span class="msg absolute"><c:if
 								test="${loginedMemberId != memberSpeakKr.id}">
@@ -59,7 +59,7 @@ td:hover>.msg>a {
 		</tbody>
 	</table>
 
-	<table>
+	<table style="margin-bottom: 50px">
 		<colgroup>
 			<col width="80" />
 			<col width="80" />
@@ -84,10 +84,10 @@ td:hover>.msg>a {
 					<td>${memberSpeakEn.regDate}</td>
 					<td>${memberSpeakEn.gender}</td>
 					<td><c:if test="${loginedMemberId != memberSpeakEn.id}">
-							<a href="" class="flex relative memberForMsg">
+							<a href="#" class="flex relative memberForMsg">
 								${memberSpeakEn.nickname}</a>
 						</c:if> <c:if test="${loginedMemberId == memberSpeakEn.id}">
-							<a href="" class="flex relative">
+							<a href="#" class="flex relative">
 								${memberSpeakEn.nickname}(You)</a>
 						</c:if><span class="msg absolute"><c:if
 								test="${loginedMemberId != memberSpeakEn.id}">

@@ -44,10 +44,10 @@ td:hover>.msg>a {
 					<th>Writer</th>
 					<%-- 					<td>${article.extra.writer}</td> --%>
 					<td><c:if test="${loginedMemberId != article.memberId}">
-							<a href="" class="flex relative memberForMsg">
+							<a href="#" class="flex relative memberForMsg">
 								${article.extra.writer}</a>
 						</c:if> <c:if test="${loginedMemberId == article.memberId}">
-							<a href="" class="flex relative">
+							<a href="#" class="flex relative">
 								${article.extra.writer}(You)</a>
 						</c:if><span class="msg absolute"><c:if
 								test="${loginedMemberId != article.memberId}">

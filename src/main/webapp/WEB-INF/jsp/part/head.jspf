@@ -74,11 +74,10 @@ var param = ${paramJson};
 					</c:if>
 					<c:if test="${isLogined}">
 						<li><a href="#" class="height-100p flex flex-ai-c">My
-								page<i class="fas fa-circle"
-								style="font-size: 5px; color: red; margin-left: 5px;"></i>
+								page<i class="fas fa-caret-down" style="margin-left: 5px;"></i>
 						</a>
 							<ul>
-								<li><a href="../message/msgList" class="block">Msg</a></li>
+								<li><a href="../message/msgList" class="block">Message</a></li>
 								<li><a href="../member/profile" class="block">Profile</a></li>
 								<li><a
 									onclick="if ( confirm('Would you like to log out?') == false ) return false;"
@@ -100,7 +99,7 @@ var param = ${paramJson};
 			class="logo flex flex-ai-c absolute-center absolute-middle">Learn-KR햫</a>
 	</div>
 
-	<div class="mobile-side-bar visible-on-sm-down">
+	<div class="mobile-side-bar visible-on-sm-down" style="z-index: 10;">
 		<nav class="menu-box-1 flex-grow-1" style="margin-top: 10px">
 			<ul>
 				<li><a href="../home/main" class="block">Home</a></li>
@@ -112,8 +111,8 @@ var param = ${paramJson};
 				</c:forEach>
 				<li><a href="#" class="block">Find</a>
 					<ul>
-						<li><a href="#" class="block">Learn KR</a></li>
-						<li><a href="#" class="block">Learn EN</a></li>
+						<li><a href="../member/learnKr" class="block">Learn KR</a></li>
+						<li><a href="../member/learnEn" class="block">Learn EN</a></li>
 					</ul></li>
 				<li><a href="#" class="block">Board</a>
 					<ul>
@@ -132,6 +131,7 @@ var param = ${paramJson};
 				<c:if test="${isLogined}">
 					<li><a href="#" class="block">My page</a>
 						<ul>
+							<li><a href="../message/msgList" class="block">Message</a></li>
 							<li><a href="../member/profile" class="block">Profile</a></li>
 							<li><a
 								onclick="if ( confirm('Would you like to log out?') == false ) return false;"

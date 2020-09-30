@@ -20,6 +20,17 @@ td:hover>.msg>a {
 	color: #0275d8;
 }
 </style>
+
+<style>
+@media ( max-width : 799px) {
+	.table-box>table th:nth-child(1), th:nth-child(2), th:nth-child(3) {
+		display: none;
+	}
+	.table-box>table td:nth-child(1), td:nth-child(2), td:nth-child(3) {
+		display: none;
+	}
+}
+</style>
 <div class="table-box small-con">
 	<table>
 		<colgroup>
@@ -48,10 +59,10 @@ td:hover>.msg>a {
 					<td>${member.regDate}</td>
 					<td>${member.gender}</td>
 					<td><c:if test="${loginedMemberId != member.id}">
-							<a href="" class="flex relative memberForMsg">
+							<a href="#" class="flex relative memberForMsg">
 								${member.nickname}</a>
 						</c:if> <c:if test="${loginedMemberId == member.id}">
-							<a href="" class="flex relative"> ${member.nickname}(You)</a>
+							<a href="#" class="flex relative"> ${member.nickname}(You)</a>
 						</c:if><span class="msg absolute"><c:if
 								test="${loginedMemberId != member.id}">
 								<a href="../message/message?id=${member.id}">message</a>
