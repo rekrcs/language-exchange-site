@@ -2,6 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
+<style>
+.msg>a {
+	display: none;
+}
+
+td:hover>.msg>a {
+	background-color: #aa88dd;
+	color: white;
+	padding: 2px 5px;
+	border-radius: 0.2rem;
+	display: inline-block;
+}
+
+.memberForMsg {
+	text-decoration: underline;
+	color: #0275d8;
+}
+</style>
 <div class="table-box small-con">
 	<div class="option-btn">
 
@@ -24,7 +42,17 @@
 				</tr>
 				<tr>
 					<th>Writer</th>
-					<td>${article.extra.writer}</td>
+					<%-- 					<td>${article.extra.writer}</td> --%>
+					<td><c:if test="${loginedMemberId != article.memberId}">
+							<a href="" class="flex relative memberForMsg">
+								${article.extra.writer}</a>
+						</c:if> <c:if test="${loginedMemberId == article.memberId}">
+							<a href="" class="flex relative">
+								${article.extra.writer}(You)</a>
+						</c:if><span class="msg absolute"><c:if
+								test="${loginedMemberId != article.memberId}">
+								<a href="../message/message?id=${article.memberId}">message</a>
+							</c:if></span></td>
 				</tr>
 				<tr>
 					<th>Title</th>
@@ -38,7 +66,7 @@
 				<tr style="margin-bottom: 100px;">
 					<th></th>
 
-					<td><div class="option-btn-live">
+					<td><div class="option-btn-live" style="min-height: 29px">
 							<c:if test="${loginedMemberId == article.memberId}">
 								<ul class="flex">
 									<li><a style="margin-right: 20px;"

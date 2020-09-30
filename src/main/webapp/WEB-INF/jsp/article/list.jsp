@@ -2,6 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../part/head.jspf"%>
+<style>
+.titleBtn {
+	text-decoration: underline;
+	color: #0275d8;
+}
+
+.titleBtn:hover {
+	color: #aa88dd;
+}
+</style>
 <div class="table-box small-con">
 	<span> <span>Total article in ${boardCode} : </span> <span>${totalCount}</span>
 		<span> / </span> <span>Current page in ${boardCode} : </span> <span>${param.page}</span>
@@ -64,7 +74,8 @@
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
 					<td>${article.extra.writer}</td>
-					<td><a href="${boardCode}-detail?id=${article.id}">${article.title}</a></td>
+					<td><a href="${boardCode}-detail?id=${article.id}"
+						class="titleBtn">${article.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

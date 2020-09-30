@@ -16,7 +16,6 @@ import com.project.byk.le.dto.Attr;
 import com.project.byk.le.dto.Member;
 import com.project.byk.le.service.AttrService;
 import com.project.byk.le.service.MemberService;
-import com.project.byk.le.util.Util;
 
 @Controller
 public class MemberController {
@@ -127,14 +126,18 @@ public class MemberController {
 		}
 
 		String writeBeforeLogin = (String) param.get("writeBeforeLogin");
-		if (writeBeforeLogin != null) {
+		if (!writeBeforeLogin.equals("")) {
 			model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
 			model.addAttribute("redirectUri", writeBeforeLogin + redirectUri);
 			return "common/redirect";
 		}
 
 		model.addAttribute("alertMsg", String.format("%s has been logged in.", member.getLoginId()));
-		model.addAttribute("redirectUri", redirectUri);
+		if (!redirectUri.equals("")) {
+			model.addAttribute("redirectUri", redirectUri);
+		} else {
+			model.addAttribute("redirectUri", "/usr/home/main");
+		}
 		return "common/redirect";
 	}
 

@@ -4,6 +4,17 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script>
+	if (param.rightLearnLang != 'Y') {
+		if (param.requestUri.endsWith('learnKr')) {
+			alert('Your paractice language is English. You are moving to "Learn En" board');
+			location.replace('/usr/member/learnEn');
+		} else {
+			alert('Your paractice language is Korean. You are moving to "Learn Kr" board');
+			location.replace('/usr/member/learnKr');
+		}
+	}
+</script>
+<script>
 	var UploadMyProfileForm__submitDone = false;
 	function UploadMyProfileForm__submit(form) {
 		if (UploadMyProfileForm__submitDone) {

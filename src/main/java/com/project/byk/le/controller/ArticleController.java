@@ -30,7 +30,7 @@ public class ArticleController {
 			@RequestParam(value = "page", defaultValue = "1") int page, @PathVariable("boardCode") String boardCode) {
 		Board board = articleService.getBoardByCode(boardCode);
 
-		Map<String, Object> getForPrintArticlesByParm = new HashMap();
+		Map<String, Object> getForPrintArticlesByParm = new HashMap<String, Object>();
 		getForPrintArticlesByParm.put("boardId", board.getId());
 
 		int limitCount = 10;
