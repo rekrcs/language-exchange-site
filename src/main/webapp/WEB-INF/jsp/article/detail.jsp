@@ -97,9 +97,6 @@
 	resize: none;
 }
 </style>
-<script>
-	
-</script>
 <div class="table-box small-con">
 	<table>
 		<thead>
@@ -134,7 +131,7 @@
 			</tr>
 			<tr>
 				<th>Body</th>
-				<td>${article.body}</td>
+				<td style="white-space: pre;">${article.body}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -250,7 +247,7 @@
 		html += '<td>' + articleReply.id + '</td>';
 		html += '<td>' + articleReply.regDate + '</td>';
 		html += '<td>' + articleReply.extra.writer + '</td>';
-		html += '<td><div class="reply-body-text modify-mode-none">' + articleReply.body 
+		html += '<td><div class="reply-body-text modify-mode-none" style="white-space: pre;">' + articleReply.body 
 		+ '</div><div class="modify-mode-block">'+ '<form onsubmit="ArticleReply__submitModifyReplyForm(this); return false;">' 
 		+ '<textarea name="body">' 
 		+ articleReply.body + '</textarea><br /> <input class="loading-none" type="submit" value="modify" />' 

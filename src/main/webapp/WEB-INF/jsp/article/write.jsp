@@ -60,6 +60,7 @@
 		ArticleWriteForm__init();
 	});
 </script>
+
 <form class="form1" method="POST"
 	action="doWrite?redirectUri=${redirectUri}"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
@@ -84,8 +85,8 @@
 					<th>Body</th>
 					<td>
 						<div class="form-control-box">
-							<textarea name="body" placeholder="Please enter body"
-								maxlength="2000"></textarea>
+							<textarea id="textarea" name="body"
+								placeholder="Please enter body" maxlength="2000"></textarea>
 						</div>
 					</td>
 				</tr>
